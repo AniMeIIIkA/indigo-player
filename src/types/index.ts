@@ -1,5 +1,6 @@
 // Enums
 
+
 export enum FormatTypes {
   MP4 = 'mp4',
   WEBM = 'webm',
@@ -317,7 +318,7 @@ export interface IAdEventData extends IEventData {
   ad: IAd;
 }
 
-export interface IEventData {}
+export interface IEventData { }
 
 // Errors
 
@@ -421,21 +422,21 @@ export interface IInstance {
   log(namespace: string): LogFunction;
 
   // Methods
-  play();
-  pause();
-  seekTo(time: number);
-  setVolume(volume: number);
-  selectTrack(track: ITrack);
-  selectAudioLanguage(language: string);
-  setPlaybackRate(playbackRate: number);
-  destroy();
+  play(): any;
+  pause(): any;
+  seekTo(time: number): any;
+  setVolume(volume: number): any;
+  selectTrack(track: ITrack): any;
+  selectAudioLanguage(language: string): any;
+  setPlaybackRate(playbackRate: number): any;
+  destroy: any;
 
-  on(name: string, callback: EventCallback);
-  once(name: string, callback: EventCallback);
-  removeListener(name: string, callback: EventCallback);
-  emit(name: string, eventData?: IEventData);
+  on(name: string, callback: EventCallback): any;
+  once(name: string, callback: EventCallback): any;
+  removeListener(name: string, callback: EventCallback): any;
+  emit(name: string, eventData?: IEventData): any;
 
-  setError(error: IPlayerError);
+  setError(error: IPlayerError): any;
   canAutoplay(): boolean;
 
   getModule(name: string): IModule;

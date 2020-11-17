@@ -10,12 +10,13 @@ import { setConsoleLogs } from '@src/utils/log';
 import { resolveScriptPath } from '@src/utils/webpack';
 
 declare var __webpack_public_path__: string;
-declare var VERSION: string;
+//declare var VERSION: string;
+
 
 __webpack_public_path__ = resolveScriptPath('indigo-player.js');
 
 export default {
-  VERSION,
+  //VERSION,
   setChunksPath(chunksPath: string) {
     __webpack_public_path__ = chunksPath;
   },

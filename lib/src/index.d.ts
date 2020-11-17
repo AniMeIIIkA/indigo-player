@@ -1,0 +1,21 @@
+import { Controller } from '@src/controller/Controller';
+import { Media } from '@src/media/Media';
+import { Module } from '@src/Module';
+import { addModuleLoader } from '@src/ModuleLoader';
+import { Player } from '@src/player/Player';
+import { Config, ErrorCodes, Events, ModuleLoaderTypes } from '@src/types';
+import { setConsoleLogs } from '@src/utils/log';
+declare const _default: {
+    setChunksPath(chunksPath: string): void;
+    setConsoleLogs: typeof setConsoleLogs;
+    init(element: HTMLElement | string, config: Config): any;
+    addModuleLoader: typeof addModuleLoader;
+    Events: typeof Events;
+    ErrorCodes: typeof ErrorCodes;
+    ModuleLoaderTypes: typeof ModuleLoaderTypes;
+    Module: typeof Module;
+    Controller: typeof Controller;
+    Media: typeof Media;
+    Player: typeof Player;
+};
+export default _default;

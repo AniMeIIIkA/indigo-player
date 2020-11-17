@@ -4,7 +4,7 @@ const { TsConfigPathsPlugin } = require('awesome-typescript-loader');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const WebpackShellPlugin = require('webpack-shell-plugin');
+//const WebpackShellPlugin = require('webpack-shell-plugin');
 const pkg = require('./package.json');
 
 function createWebpackConfig(build, argv) {
@@ -23,16 +23,17 @@ function createWebpackConfig(build, argv) {
           libraryExport: 'default',
           library: 'IndigoPlayer',
           libraryTarget: 'umd',
+          publicPath: '/',
         },
         module: {
           rules: [
             {
-              test: /\.tsx?$/,
-              use: 'awesome-typescript-loader',
+              test: /\.ts|tsx?$/,
+              use: 'ts-loader',
             },
             {
               test: /\.scss$/,
-              use: ['style-loader', 'css-loader', 'sass-loader'],
+              use: ['style-loader', 'css-loader', 'sass-loader']
             },
             {
               test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
@@ -96,7 +97,12 @@ function createWebpackConfig(build, argv) {
           rules: [
             {
               test: /\.scss$/,
-              use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+              use: [{
+                loader: MiniCssExtractPlugin.loader,
+                options: {
+                  publicPath: 'src'
+                }
+              }, 'css-loader', 'sass-loader'],
             },
             {
               test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
@@ -117,14 +123,14 @@ function createWebpackConfig(build, argv) {
         ],
       };
 
-      if (isProduction) {
-        config.plugins.push(new WebpackShellPlugin({
-          onBuildEnd: [
-            'rm ./lib/theme.js',
-            'perfectionist ./lib/indigo-theme.css ./lib/indigo-theme.css --indentSize=2',
-          ],
-        }));
-      }
+      // if (isProduction) {
+      //   config.plugins.push(new WebpackShellPlugin({
+      //     onBuildEnd: [
+      //       'rimraf ./lib/theme.js',
+      //       'perfectionist ./lib/indigo-theme.css ./lib/indigo-theme.css --indentSize=2',
+      //     ],
+      //   }));
+      // }
 
       return config;
 

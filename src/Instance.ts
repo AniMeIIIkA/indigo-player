@@ -182,7 +182,7 @@ export class Instance implements IInstance {
 
   private createContainers(element: HTMLElement | string, aspectRatio: number) {
     if (isString(element)) {
-      element = document.getElementById(element);
+      element = document.getElementById(element as string);
     }
 
     if (!isElement(element)) {
@@ -207,7 +207,7 @@ export class Instance implements IInstance {
     this.uiContainer.classList.add('ig-ui');
     this.container.appendChild(this.uiContainer);
 
-    element.appendChild(this.container);
+    (element as HTMLElement).appendChild(this.container);
   }
 
   private async init(config: Config) {

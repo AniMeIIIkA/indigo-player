@@ -1,0 +1,11 @@
+import { Module } from '@src/Module';
+import { IInstance } from '@src/types';
+import './context-menu.scss';
+export declare class ContextMenuExtension extends Module {
+    name: string;
+    private contextMenu;
+    constructor(instance: IInstance);
+    addItem(html: string, onClick: any): void;
+    private onContextMenu;
+    private onClick;
+}

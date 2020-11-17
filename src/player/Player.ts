@@ -2,19 +2,19 @@ import { Module } from '@src/Module';
 import { IPlayer } from '@src/types';
 
 export class Player extends Module implements IPlayer {
-  public load() {}
+  public load() { }
 
-  public unload() {}
+  public unload() { }
 
-  public play() {}
+  public play() { }
 
-  public pause() {}
+  public pause() { }
 
-  public seekTo(time: number) {}
+  public seekTo(time: number) { }
 
-  public setVolume(volume: number) {}
+  public setVolume(volume: number) { }
 
-  public setSource(src: string) {}
+  public setSource(src: string) { }
 
-  public setPlaybackRate(playbackRate: number) {}
+  public setPlaybackRate(playbackRate: number) { }
 }

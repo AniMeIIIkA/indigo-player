@@ -1,16 +1,18 @@
 import {
   IController,
-  IInstance,
   IMedia,
   IModule,
+  IInstance,
   IModuleLoader,
   IPlayer,
-} from './types';
+} from './types/types';
+
 
 /**
  * Export all the internal types to module developers.
  */
-export * from './types';
+export * from './types/types';
+
 
 type ModuleConstructor<T> = new (instance: IInstance) => T;
 

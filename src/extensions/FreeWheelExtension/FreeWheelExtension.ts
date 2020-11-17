@@ -229,16 +229,16 @@ export class FreeWheelExtension extends Module {
       const slots = this.adContext.getTemporalSlots();
       this.adBreaks = slots.map(
         (slot, index) =>
-          ({
-            sequenceIndex: index,
-            id: slot.getCustomId(),
-            type: slot.getAdUnit(),
-            startsAt: slot.getTimePosition(),
-            duration: slot.getTotalDuration(),
-            hasBeenWatched: false,
-            maxAds: slot.getAdCount(),
-            freewheelSlot: slot,
-          } as IFWAdBreak),
+        ({
+          sequenceIndex: index,
+          id: slot.getCustomId(),
+          type: slot.getAdUnit(),
+          startsAt: slot.getTimePosition(),
+          duration: slot.getTotalDuration(),
+          hasBeenWatched: false,
+          maxAds: slot.getAdCount(),
+          freewheelSlot: slot,
+        } as IFWAdBreak),
       );
     }
 

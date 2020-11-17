@@ -40,8 +40,7 @@ class Hooks implements IHooks {
   private hookFunction(name: string) {
     if (typeof this.module[name] !== 'function') {
       throw new Error(
-        `The method "${name}" does not exist in ${
-          this.module.constructor.name
+        `The method "${name}" does not exist in ${this.module.constructor.name
         }`,
       );
     }

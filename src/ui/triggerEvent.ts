@@ -18,7 +18,7 @@ export function triggerEvent(
     return;
   }
 
-  const eventQueue:{ eventName: string, data: any }[] = [];
+  const eventQueue: { eventName: string, data: any }[] = [];
   const queueEvent = (eventName: string, data?: any) => {
     eventQueue.push({ eventName, data });
   };

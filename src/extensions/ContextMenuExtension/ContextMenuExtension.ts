@@ -2,8 +2,8 @@ import { Module } from '@src/Module';
 import { Events, IInstance } from '@src/types';
 import pkgInfo from '../../../package.json';
 import './context-menu.scss';
+import logo from './indigo-logo-small.png';
 
-const logo = require('./indigo-logo-small.png');
 
 export class ContextMenuExtension extends Module {
   public name: string = 'ContextMenuExtension';
@@ -21,8 +21,7 @@ export class ContextMenuExtension extends Module {
     instance.container.appendChild(this.contextMenu);
 
     this.addItem(
-      `<img src='${logo}' /> Powered by <b>indigo-player v${
-        pkgInfo.version
+      `<img src='${logo}' /> Powered by <b>indigo-player v${pkgInfo.version
       }</b>`,
       () => {
         (window as any).open(

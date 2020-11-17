@@ -3,19 +3,29 @@
     "target": "es6",
     "removeComments": false,
     "moduleResolution": "node",
-    "noEmit": true,
+    "noEmit": false,
+    "declaration": true,
     "strict": false,
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "jsx": "react",
     "baseUrl": ".",
     "module": "esnext",
+    "outDir": "lib",
     "paths": {
-      "@src/*": ["src/*"]
+      "@src/*": [
+        "src/*"
+      ]
     },
-    "lib": ["dom", "es2018"],
+    "lib": [
+      "dom",
+      "es2018"
+    ],
     "sourceMap": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "typeRoots": [
+      "./src/custom_types"
+    ]
   },
   "include": [
     "./src/**/*"

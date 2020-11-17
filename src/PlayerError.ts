@@ -10,7 +10,7 @@ export class PlayerError extends Error implements IPlayerError {
     super();
 
     if (isString(input)) {
-      this.message = input;
+      this.message = input as string;
     } else {
       this.code = input as ErrorCodes;
     }
