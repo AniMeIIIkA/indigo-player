@@ -13,8 +13,7 @@ export class HlsMedia extends Media {
     await super.load();
 
     this.player = new HlsJs({
-      autoStartLoad: false,
-      debug: true
+      autoStartLoad: false
     });
 
     const mediaElement: HTMLMediaElement = (this.instance.getModule(
