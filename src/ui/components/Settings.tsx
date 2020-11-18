@@ -1,44 +1,54 @@
-import { Button } from '@src/ui/components/Button';
-import { IActions, IData, SettingsTabs } from '@src/ui/types';
-import { withState } from '@src/ui/withState';
+
 import * as React from 'react';
+import { SettingsTabs, IData, IActions } from '../types';
+import { withState } from '../withState';
+import { Button } from './Button';
 
 const tabs = {};
 
-tabs[SettingsTabs.OPTIONS] = (props: SettingsProps) => (
-  <>
+tabs[SettingsTabs.OPTIONS] = (props: SettingsProps) => {
+  const items: {
+    item: any;
+    label: string;
+    info?: string | undefined;
+  }[] = [];
+
+  if (props.data.visibleSettingsTabs.includes(SettingsTabs.TRACKS)) {
+    items.push({
+      item: SettingsTabs.TRACKS,
+      label: props.data.getTranslation('Quality'),
+      info: `${props.data.activeTrack ? props.data.activeTrack.height : ''}`,
+    });
+  }
+
+  if (props.data.visibleSettingsTabs.includes(SettingsTabs.SUBTITLES)) {
+    items.push({
+      item: SettingsTabs.SUBTITLES,
+      label: props.data.getTranslation('Subtitles'),
+      info: `${props.data.activeSubtitle ? props.data.activeSubtitle.label : ''}`,
+    });
+  }
+
+  if (props.data.visibleSettingsTabs.includes(SettingsTabs.PLAYBACKRATES)) {
+    items.push({
+      item: SettingsTabs.PLAYBACKRATES,
+      label: props.data.getTranslation('Speed'),
+      info: `${props.data.playbackRate ? props.data.playbackRate : ''}`,
+    });
+
+  }
+
+  return <>
     {!!props.data.visibleSettingsTabs.length ? (
       <SettingsSelect
         onClick={props.actions.setSettingsTab}
-        items={[
-          props.data.visibleSettingsTabs.includes(SettingsTabs.TRACKS) && {
-            item: SettingsTabs.TRACKS,
-            label: props.data.getTranslation('Quality'),
-            info: `${
-              props.data.activeTrack ? props.data.activeTrack.height : ''
-            }`,
-          },
-          props.data.visibleSettingsTabs.includes(SettingsTabs.SUBTITLES) && {
-            item: SettingsTabs.SUBTITLES,
-            label: props.data.getTranslation('Subtitles'),
-            info: `${
-              props.data.activeSubtitle ? props.data.activeSubtitle.label : ''
-            }`,
-          },
-          props.data.visibleSettingsTabs.includes(
-            SettingsTabs.PLAYBACKRATES,
-          ) && {
-            item: SettingsTabs.PLAYBACKRATES,
-            label: props.data.getTranslation('Speed'),
-            info: `${props.data.playbackRate ? props.data.playbackRate : ''}`,
-          },
-        ].filter(item => !!item)}
+        items={items}
       />
     ) : (
-      <div className="igui_settings_nooptions">No settings available</div>
-    )}
+        <div className="igui_settings_nooptions">No settings available</div>
+      )}
   </>
-);
+}
 
 tabs[SettingsTabs.TRACKS] = (props: SettingsProps) => (
   <>

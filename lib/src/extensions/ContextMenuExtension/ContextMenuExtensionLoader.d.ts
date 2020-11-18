@@ -1,3 +1,3 @@
-import { ContextMenuExtension } from '@src/extensions/ContextMenuExtension/ContextMenuExtension';
-import { IModuleLoader } from '@src/types';
+import { IModuleLoader } from "../../types";
+import { ContextMenuExtension } from "./ContextMenuExtension";
 export declare const ContextMenuExtensionLoader: IModuleLoader<ContextMenuExtension>;

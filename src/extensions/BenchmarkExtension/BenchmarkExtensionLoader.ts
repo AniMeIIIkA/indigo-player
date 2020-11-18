@@ -1,10 +1,6 @@
-import { BenchmarkExtension } from '@src/extensions/BenchmarkExtension/BenchmarkExtension';
-import {
-  Config,
-  IInstance,
-  IModuleLoader,
-  ModuleLoaderTypes,
-} from '@src/types';
+import { ModuleLoaderTypes, IInstance, Config, IModuleLoader } from "../../types";
+import { BenchmarkExtension } from "./BenchmarkExtension";
+
 
 export const BenchmarkExtensionLoader = {
   type: ModuleLoaderTypes.EXTENSION,

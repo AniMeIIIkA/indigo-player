@@ -1,8 +1,8 @@
-import { Module } from '@src/Module';
-import { HTML5Player } from '@src/player/HTML5Player/HTML5Player';
-import { Events, IEventData, IInstance, Subtitle } from '@src/types';
-import { applyStyle, insertAfter } from '@src/utils/dom';
+
 import * as SubtitleParser from 'subtitle';
+import { Module } from '../../Module';
+import { IInstance, Events } from '../../types';
+import { insertAfter, applyStyle } from '../../utils/dom';
 import './subtitles.scss';
 
 interface ITrackTiming {
@@ -20,9 +20,9 @@ export class SubtitlesExtension extends Module {
 
   private timingsCache: ITrackTimingCache = {};
 
-  private timings: ITrackTiming[] = null;
+  private timings: ITrackTiming[] | null = null;
 
-  private activeTiming: ITrackTiming = null;
+  private activeTiming: ITrackTiming | null = null;
 
   private currentTimeMs: number = 0;
 
@@ -100,7 +100,7 @@ export class SubtitlesExtension extends Module {
   };
 
   private selectActiveTiming() {
-    let activeTiming: ITrackTiming = null;
+    let activeTiming: ITrackTiming | null = null;
 
     if (this.timings) {
       const timing = this.timings.find(
@@ -127,7 +127,7 @@ export class SubtitlesExtension extends Module {
     }
   }
 
-  private setActiveTimings(timings: ITrackTiming[]) {
+  private setActiveTimings(timings: ITrackTiming[] | null) {
     this.timings = timings;
     this.selectActiveTiming();
   }

@@ -1,3 +1,3 @@
-import { BenchmarkExtension } from '@src/extensions/BenchmarkExtension/BenchmarkExtension';
-import { IModuleLoader } from '@src/types';
+import { IModuleLoader } from "../../types";
+import { BenchmarkExtension } from "./BenchmarkExtension";
 export declare const BenchmarkExtensionLoader: IModuleLoader<BenchmarkExtension>;

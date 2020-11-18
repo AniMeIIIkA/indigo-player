@@ -1,8 +1,9 @@
-import { Module } from '@src/Module';
-import { Events, IInstance, IDimensionsChangeEventData } from '@src/types';
+
 import debounce from 'lodash/debounce';
 
 import observeResize from 'simple-element-resize-detector';
+import { Module } from '../../Module';
+import { IInstance, Events, IDimensionsChangeEventData } from '../../types';
 
 export class DimensionsExtension extends Module {
   public name: string = 'DimensionsExtension';

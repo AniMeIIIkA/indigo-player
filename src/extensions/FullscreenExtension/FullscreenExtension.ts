@@ -1,7 +1,8 @@
-import { Module } from '@src/Module';
-import { Events, IEventData, IInstance } from '@src/types';
+
 
 import * as sfDefault from 'screenfull';
+import { Module } from '../../Module';
+import { IEventData, IInstance, Events } from '../../types';
 const screenfull = sfDefault as sfDefault.Screenfull;
 
 interface IFullscreenEventData extends IEventData {
@@ -14,7 +15,7 @@ export class FullscreenExtension extends Module {
   private documentPos: {
     x: number;
     y: number;
-  };
+  } | null;
 
   constructor(instance: IInstance) {
     super(instance);

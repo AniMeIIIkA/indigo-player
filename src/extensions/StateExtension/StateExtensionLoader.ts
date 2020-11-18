@@ -1,6 +1,7 @@
-import { StateExtension } from '@src/extensions/StateExtension/StateExtension';
-import { Instance } from '@src/Instance';
-import { Config, IModuleLoader, ModuleLoaderTypes } from '@src/types';
+import { Instance } from "../../Instance";
+import { ModuleLoaderTypes, Config, IModuleLoader } from "../../types";
+import { StateExtension } from "./StateExtension";
+
 
 export const StateExtensionLoader = {
   type: ModuleLoaderTypes.EXTENSION,

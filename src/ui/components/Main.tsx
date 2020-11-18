@@ -1,13 +1,12 @@
-import { Button } from '@src/ui/components/Button';
-import { ControlsView } from '@src/ui/components/ControlsView';
-import { ErrorView } from '@src/ui/components/ErrorView';
-import { LoadingView } from '@src/ui/components/LoadingView';
-import { StartView } from '@src/ui/components/StartView';
-import { IInfo, ViewTypes } from '@src/ui/types';
-import { attachEvents, EventUnsubscribeFn } from '@src/ui/utils/attachEvents';
-import { withState } from '@src/ui/withState';
+
 import cx from 'classnames';
 import * as React from 'react';
+import { ViewTypes, IInfo } from '../types';
+import { withState } from '../withState';
+import { ControlsView } from './ControlsView';
+import { ErrorView } from './ErrorView';
+import { LoadingView } from './LoadingView';
+import { StartView } from './StartView';
 
 interface MainProps {
   view: ViewTypes;

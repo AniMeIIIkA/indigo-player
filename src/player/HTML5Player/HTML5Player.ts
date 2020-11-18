@@ -1,13 +1,7 @@
-import { Player } from '@src/player/Player';
-import {
-  Events,
-  IBufferedChangeEventData,
-  IDurationChangeEventData,
-  IPlaybackRateChangeEventData,
-  ITimeUpdateEventData,
-  IVolumeChangeEventData,
-} from '@src/types';
+
 import requestFrame from 'request-frame';
+import { Events, IDurationChangeEventData, IVolumeChangeEventData, IPlaybackRateChangeEventData, ITimeUpdateEventData, IBufferedChangeEventData } from '../../types';
+import { Player } from '../Player';
 
 export class HTML5Player extends Player {
   public name: string = 'HTML5Player';
@@ -123,7 +117,7 @@ export class HTML5Player extends Player {
   private monitorProgress() {
     const buffered: any = this.mediaElement.buffered;
     const time: number = this.mediaElement.currentTime;
-    let percentage: number;
+    let percentage: number | undefined;
 
     for (let range = 0; range < buffered.length; range += 1) {
       if (buffered.start(range) <= time && buffered.end(range) > time) {

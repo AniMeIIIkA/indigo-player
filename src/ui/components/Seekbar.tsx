@@ -1,15 +1,12 @@
-import { IThumbnail } from '@src/types';
-import { Sprite } from '@src/ui/components/Sprite';
-import {
-  seekbarRef,
-  seekbarThumbnailRef,
-  seekbarTooltipRef,
-} from '@src/ui/State';
-import { IInfo } from '@src/ui/types';
-import { useSlider } from '@src/ui/utils/useSlider';
-import { withState } from '@src/ui/withState';
+
 import cx from 'classnames';
 import React, { useEffect } from 'react';
+import { IThumbnail } from '../../types';
+import { seekbarRef, seekbarThumbnailRef, seekbarTooltipRef } from '../State';
+import { IInfo } from '../types';
+import { useSlider } from '../utils/useSlider';
+import { withState } from '../withState';
+import { Sprite } from './Sprite';
 
 interface SeekbarProps {
   isActive: boolean;

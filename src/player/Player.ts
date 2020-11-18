@@ -1,5 +1,6 @@
-import { Module } from '@src/Module';
-import { IPlayer } from '@src/types';
+import { Module } from "../Module";
+import { IPlayer } from "../types";
+
 
 export class Player extends Module implements IPlayer {
   public load() { }

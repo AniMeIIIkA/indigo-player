@@ -1,5 +1,5 @@
-import { Module } from '@src/Module';
-import { IMedia, ITrack } from '@src/types';
+import { Module } from "../Module";
+import { IMedia, ITrack } from "../types";
 export declare class Media extends Module implements IMedia {
     load(): Promise<void>;
     unload(): void;

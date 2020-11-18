@@ -1,6 +1,6 @@
-import { Instance } from '@src/Instance';
-import { Config, IModuleLoader, ModuleLoaderTypes } from '@src/types';
-import { UiExtension } from '@src/ui/UiExtension';
+import { Instance } from "../Instance";
+import { ModuleLoaderTypes, Config, IModuleLoader } from "../types";
+import { UiExtension } from "./UiExtension";
 
 export const UiExtensionLoader = {
   type: ModuleLoaderTypes.EXTENSION,

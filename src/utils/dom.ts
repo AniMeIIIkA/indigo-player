@@ -28,5 +28,5 @@ export function applyAttributes(element: HTMLElement, attributes?: any) {
 }
 
 export function insertAfter(node: Node, ref: Node) {
-  ref.parentNode.insertBefore(node, ref.nextSibling);
+  ref.parentNode?.insertBefore(node, ref.nextSibling);
 }

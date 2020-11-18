@@ -1,3 +1,3 @@
-import { BaseMedia } from '@src/media/BaseMedia/BaseMedia';
-import { IModuleLoader } from '@src/types';
+import { IModuleLoader } from "../../types";
+import { BaseMedia } from "./BaseMedia";
 export declare const BaseMediaLoader: IModuleLoader<BaseMedia>;

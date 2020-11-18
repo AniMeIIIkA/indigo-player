@@ -1,14 +1,15 @@
-import { Button } from '@src/ui/components/Button';
-import { Center } from '@src/ui/components/Center';
-import { Nod } from '@src/ui/components/Nod';
-import { Rebuffer } from '@src/ui/components/Rebuffer';
-import { Seekbar } from '@src/ui/components/Seekbar';
-import { Settings } from '@src/ui/components/Settings';
-import { TimeStat } from '@src/ui/components/TimeStat';
-import { VolumeButton } from '@src/ui/components/VolumeButton';
-import { IInfo, SettingsTabs } from '@src/ui/types';
-import { withState } from '@src/ui/withState';
+
 import * as React from 'react';
+import { IInfo, SettingsTabs } from '../types';
+import { withState } from '../withState';
+import { Button } from './Button';
+import { Center } from './Center';
+import { Nod } from './Nod';
+import { Rebuffer } from './Rebuffer';
+import { Seekbar } from './Seekbar';
+import { Settings } from './Settings';
+import { TimeStat } from './TimeStat';
+import { VolumeButton } from './VolumeButton';
 
 interface ControlsViewProps {
   isCenterClickAllowed: boolean;
@@ -89,9 +90,8 @@ export const ControlsView = withState((props: ControlsViewProps) => {
 
 function mapProps(info: IInfo): ControlsViewProps {
   const createTooltipText = (text: string, shortcut?: string) => {
-    return `${info.data.getTranslation(text)} ${
-      shortcut ? `(${shortcut})` : ''
-    }`.trim();
+    return `${info.data.getTranslation(text)} ${shortcut ? `(${shortcut})` : ''
+      }`.trim();
   };
 
   return {

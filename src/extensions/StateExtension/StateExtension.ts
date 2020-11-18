@@ -1,15 +1,9 @@
-import { Module } from '@src/Module';
-import { PlayerError } from '@src/PlayerError';
-import {
-  AdBreakType,
-  Events,
-  IEventData,
-  IInstance,
-  ITrack,
-  Subtitle,
-} from '@src/types';
+
 import produce from 'immer';
 import find from 'lodash/find';
+import { Module } from '../../Module';
+import { PlayerError } from '../../PlayerError';
+import { ITrack, Subtitle, IEventData, IInstance, Events, AdBreakType } from '../../types';
 
 export interface IState {
   ready: boolean;
@@ -25,15 +19,15 @@ export interface IState {
   contentEnded: boolean;
   ended: boolean;
 
-  currentTime: number;
-  duration: number;
+  currentTime: number | null;
+  duration: number | null;
 
   adBreaks: any;
   adBreak: any;
-  adBreakCurrentTime: number;
+  adBreakCurrentTime: number | null;
   ad: any;
 
-  error: PlayerError;
+  error: PlayerError | null;
 
   bufferedPercentage: number;
   volume: number;
@@ -44,18 +38,18 @@ export interface IState {
   pip: boolean;
 
   tracks: ITrack[];
-  track: ITrack;
+  track: ITrack | null;
   trackAutoSwitch: boolean;
 
-  subtitle: Subtitle;
-  subtitleText: string;
+  subtitle: Subtitle | null;
+  subtitleText: string | null;
 
   playbackRate: number;
 
   audioLanguages: string[];
 
-  width: number;
-  height: number;
+  width: number | null;
+  height: number | null;
 }
 
 interface IStateChangeEventData extends IEventData {
@@ -387,7 +381,7 @@ export class StateExtension extends Module {
     this.emit(Events.STATE_CHANGE, {
       state: this.state,
       prevState: null,
-    } as IStateChangeEventData);
+    });
   }
 
   public getState(): IState {
@@ -408,7 +402,7 @@ export class StateExtension extends Module {
       const prevState = this.state;
       this.state = newState;
 
-      const eventQueue = [];
+      const eventQueue: any = [];
       const push = eventName => eventQueue.push(eventName);
 
       // Define state events

@@ -1,2 +1,2 @@
-import { Config } from '@src/types';
+import { Config } from './types';
 export declare function createConfig(input: Config): Config;

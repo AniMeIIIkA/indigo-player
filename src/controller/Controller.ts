@@ -1,23 +1,22 @@
-import { Module } from '@src/Module';
-import { PlayerError } from '@src/PlayerError';
-import { ErrorCodes, IController, ITrack } from '@src/types';
+import { Module } from "../Module";
+import { IController, ITrack } from "../types";
 
 export class Controller extends Module implements IController {
-  public async load() {}
+  public async load() { }
 
-  public unload() {}
+  public unload() { }
 
-  public play() {}
+  public play() { }
 
-  public pause() {}
+  public pause() { }
 
-  public seekTo(time: number) {}
+  public seekTo(time: number) { }
 
-  public setVolume(volume: number) {}
+  public setVolume(volume: number) { }
 
-  public selectTrack(track: ITrack) {}
+  public selectTrack(track: ITrack) { }
 
-  public selectAudioLanguage(language: string) {}
+  public selectAudioLanguage(language: string) { }
 
-  public setPlaybackRate(playbackRate: number) {}
+  public setPlaybackRate(playbackRate: number) { }
 }

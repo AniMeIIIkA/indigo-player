@@ -1,12 +1,7 @@
-import { FullscreenExtension } from '@src/extensions/FullscreenExtension/FullscreenExtension';
-import { StateExtension } from '@src/extensions/StateExtension/StateExtension';
-import { Module } from '@src/Module';
-import {
-  Events,
-  IInstance,
-  IKeyboardNavigationKeyDownEventData,
-  KeyboardNavigationPurpose,
-} from '@src/types';
+import { Module } from "../../Module";
+import { IInstance, KeyboardNavigationPurpose, Events, IKeyboardNavigationKeyDownEventData } from "../../types";
+import { FullscreenExtension } from "../FullscreenExtension/FullscreenExtension";
+import { StateExtension } from "../StateExtension/StateExtension";
 
 enum KeyCodes {
   SPACEBAR = 32,
@@ -46,6 +41,9 @@ export class KeyboardNavigationExtension extends Module {
       return;
     }
 
+    const currentTime = this.getState().currentTime || 0;
+    const duration = this.getState().duration || 0;
+
     switch (event.which || event.keyCode) {
       // Toggles play and pause.
       case KeyCodes.SPACEBAR:
@@ -62,7 +60,7 @@ export class KeyboardNavigationExtension extends Module {
 
       // Seeks back x seconds.
       case KeyCodes.LEFT_ARROW:
-        let prevTime = this.getState().currentTime - SKIP_CURRENTTIME_OFFSET;
+        let prevTime = currentTime - SKIP_CURRENTTIME_OFFSET;
         if (prevTime < 0) {
           prevTime = 0;
         }
@@ -73,9 +71,9 @@ export class KeyboardNavigationExtension extends Module {
 
       // Seeks forward x seconds.
       case KeyCodes.RIGHT_ARROW:
-        let nextTime = this.getState().currentTime + SKIP_CURRENTTIME_OFFSET;
-        if (nextTime > this.getState().duration) {
-          nextTime = this.getState().duration;
+        let nextTime = currentTime + SKIP_CURRENTTIME_OFFSET;
+        if (nextTime > duration) {
+          nextTime = duration;
         }
         this.instance.seekTo(nextTime);
         this.emitPurpose(KeyboardNavigationPurpose.NEXT_SEEK);

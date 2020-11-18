@@ -1,5 +1,5 @@
-import { IEnv, Config } from '@src/types';
 import canAutoplayLib from 'can-autoplay';
+import { Config, IEnv } from '../types';
 
 export async function getEnv(config: Config): Promise<IEnv> {
   const userAgent: string = navigator.userAgent;

@@ -1,8 +1,7 @@
-import { Icon } from '@src/ui/components/Icon';
-import { Spinner } from '@src/ui/components/Spinner';
-import { IInfo } from '@src/ui/types';
-import { withState } from '@src/ui/withState';
-import * as React from 'react';
+import React from "react";
+import { IInfo } from "../types";
+import { withState } from "../withState";
+import { Spinner } from "./Spinner";
 
 interface LoadingViewProps {
   image: string;

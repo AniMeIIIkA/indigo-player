@@ -1,3 +1,3 @@
-import { IModuleLoader } from '@src/types';
-import { UiExtension } from '@src/ui/UiExtension';
+import { IModuleLoader } from "../types";
+import { UiExtension } from "./UiExtension";
 export declare const UiExtensionLoader: IModuleLoader<UiExtension>;

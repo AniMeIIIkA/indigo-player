@@ -1,15 +1,17 @@
-import { Module } from '@src/Module';
-import { IInstance, IThumbnail } from '@src/types';
+
 import BIFParser from './BIFParser';
+
 import parse from 'url-parse';
 import vttToJson from 'vtt-to-json';
+import { Module } from '../../Module';
+import { IThumbnail, IInstance } from '../../types';
 
 export class ThumbnailsExtension extends Module {
   public name: string = 'ThumbnailsExtension';
 
   private thumbnails: IThumbnail[] = [];
 
-  private extension: string = '';
+  private extension: string | undefined = '';
 
   private bifParser: BIFParser;
 
@@ -57,6 +59,8 @@ export class ThumbnailsExtension extends Module {
   }
 
   public async load() {
+    if (!this.instance.config.thumbnails?.src) return;
+
     const file = this.instance.config.thumbnails.src;
 
     // Get the file extension for conditional processing
@@ -74,11 +78,11 @@ export class ThumbnailsExtension extends Module {
     }
   }
 
-  public getThumbnail(seconds: number): IThumbnail {
-    if (this.extension === 'vtt') {
-      return this.thumbnails.find(thumbnail => thumbnail.start <= seconds);
+  public getThumbnail(seconds: number): IThumbnail | null {
+    if (this.extension === 'vtt' && this.thumbnails.length > 0) {
+      return this.thumbnails.find(thumbnail => thumbnail.start <= seconds) || null;
     } else if (this.extension === 'bif') {
-      return this.bifParser.getImageDataAtSecond(seconds);
+      return this.bifParser.getImageDataAtSecond(seconds) as IThumbnail;
     } else {
       return null;
     }

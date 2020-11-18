@@ -1,15 +1,8 @@
-import { Media } from '@src/media/Media';
-import { HTML5Player } from '@src/player/HTML5Player/HTML5Player';
-import { PlayerError } from '@src/PlayerError';
-import {
-  ErrorCodes,
-  Events,
-  Format,
-  ITrack,
-  ITrackChangeEventData,
-  ITracksEventData,
-} from '@src/types';
+
 import HlsJs from 'hls.js';
+import { PlayerError } from '../../PlayerError';
+import { Events, ITracksEventData, ITrackChangeEventData, ErrorCodes, ITrack } from '../../types';
+import { Media } from '../Media';
 
 export class HlsMedia extends Media {
   public name: string = 'HlsMedia';
@@ -21,6 +14,7 @@ export class HlsMedia extends Media {
 
     this.player = new HlsJs({
       autoStartLoad: false,
+      debug: true
     });
 
     const mediaElement: HTMLMediaElement = (this.instance.getModule(
@@ -58,20 +52,21 @@ export class HlsMedia extends Media {
       } else if (data.type === HlsJs.ErrorTypes.MEDIA_ERROR) {
         this.player.recoverMediaError();
       } else {
+        debugger
         this.instance.setError(
           new PlayerError(ErrorCodes.HLSJS_CRITICAL_ERROR, data),
         );
       }
     });
 
-    this.player.loadSource(this.instance.format.src);
+    this.player.loadSource(this.instance.format?.src);
 
     this.player.startLoad();
   }
 
   public seekTo(time: number) {
     if (time === Infinity) {
-      this.instance.player.seekTo(this.player.liveSyncPosition);
+      this.instance.player?.seekTo(this.player.liveSyncPosition);
       return;
     }
     super.seekTo(time);

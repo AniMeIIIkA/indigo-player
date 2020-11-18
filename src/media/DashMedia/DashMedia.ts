@@ -1,18 +1,8 @@
-import { Media } from '@src/media/Media';
-import { HTML5Player } from '@src/player/HTML5Player/HTML5Player';
-import { PlayerError } from '@src/PlayerError';
-import {
-  ErrorCodes,
-  Events,
-  Format,
-  IAudioLanguagesEventData,
-  IEventData,
-  IInstance,
-  ITrack,
-  ITrackChangeEventData,
-  ITracksEventData,
-} from '@src/types';
+
 import * as shaka from 'shaka-player';
+import { PlayerError } from '../../PlayerError';
+import { IEventData, ITrack, IInstance, Events, ITracksEventData, IAudioLanguagesEventData, ITrackChangeEventData, ErrorCodes } from '../../types';
+import { Media } from '../Media';
 
 interface IShakaInstEventData extends IEventData {
   shaka: any;
@@ -68,12 +58,11 @@ export class DashMedia extends Media {
       },
     };
 
-    if (this.instance.format.drm) {
+    if (this.instance.format?.drm) {
       configuration.drm = {
         servers: {
-          'com.widevine.alpha': this.instance.format.drm.widevine.licenseUrl,
-          'com.microsoft.playready': this.instance.format.drm.playready
-            .licenseUrl,
+          'com.widevine.alpha': this.instance.format?.drm.widevine?.licenseUrl,
+          'com.microsoft.playready': this.instance.format?.drm.playready?.licenseUrl,
         },
         advanced: {
           'com.widevine.alpha': {
@@ -89,7 +78,7 @@ export class DashMedia extends Media {
     this.player.configure(configuration);
 
     try {
-      await this.player.load(this.instance.format.src);
+      await this.player.load(this.instance.format?.src);
 
       const tracks = this.player
         .getVariantTracks()

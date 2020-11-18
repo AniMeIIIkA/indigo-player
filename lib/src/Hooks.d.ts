@@ -1,4 +1,4 @@
-import { IHooks, IModule, NextHook } from '@src/types';
+import { NextHook, IModule, IHooks } from './types';
 /**
  * @Hookable
  * Decorator to let a class know that methods inside can

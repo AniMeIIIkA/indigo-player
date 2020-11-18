@@ -1,4 +1,4 @@
-import { ErrorCodes, IPlayerError } from '@src/types';
+import { ErrorCodes, IPlayerError } from './types';
 import isString from 'lodash/isString';
 
 export class PlayerError extends Error implements IPlayerError {

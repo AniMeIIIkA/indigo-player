@@ -1,10 +1,6 @@
-import { HTML5Player } from '@src/player/HTML5Player/HTML5Player';
-import {
-  Config,
-  IInstance,
-  IModuleLoader,
-  ModuleLoaderTypes,
-} from '@src/types';
+import { ModuleLoaderTypes, IInstance, Config, IModuleLoader } from "../../types";
+import { HTML5Player } from "./HTML5Player";
+
 
 export const HTML5PlayerLoader = {
   type: ModuleLoaderTypes.PLAYER,

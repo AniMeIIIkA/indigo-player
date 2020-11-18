@@ -1,26 +1,26 @@
-import { BaseControllerLoader } from '@src/controller/BaseController/BaseControllerLoader';
-import { BenchmarkExtensionLoader } from '@src/extensions/BenchmarkExtension/BenchmarkExtensionLoader';
-import { ContextMenuExtensionLoader } from '@src/extensions/ContextMenuExtension/ContextMenuExtensionLoader';
-import { FreeWheelExtensionLoader } from '@src/extensions/FreeWheelExtension/FreeWheelExtensionLoader';
-import { FullscreenExtensionLoader } from '@src/extensions/FullscreenExtension/FullscreenExtensionLoader';
-import { GoogleIMAExtensionLoader } from '@src/extensions/GoogleIMAExtension/GoogleIMAExtensionLoader';
-import { KeyboardNavigationExtensionLoader } from '@src/extensions/KeyboardNavigationExtension/KeyboardNavigationExtensionLoader';
-import { PipExtensionLoader } from '@src/extensions/PipExtension/PipExtensionLoader';
-import { StateExtensionLoader } from '@src/extensions/StateExtension/StateExtensionLoader';
-import { SubtitlesExtensionLoader } from '@src/extensions/SubtitlesExtension/SubtitlesExtensionLoader';
-import { ThumbnailsExtensionLoader } from '@src/extensions/ThumbnailsExtension/ThumbnailsExtensionLoader';
-import { DimensionsExtensionLoader } from '@src/extensions/DimensionsExtension/DimensionsExtensionLoader';
-import { BaseMediaLoader } from '@src/media/BaseMedia/BaseMediaLoader';
-import { DashMediaLoader } from '@src/media/DashMedia/DashMediaLoader';
-import { HlsMediaLoader } from '@src/media/HlsMedia/HlsMediaLoader';
-import { HTML5PlayerLoader } from '@src/player/HTML5Player/HTML5PlayerLoader';
+import { BaseControllerLoader } from './controller/BaseController/BaseControllerLoader';
+import { BenchmarkExtensionLoader } from './extensions/BenchmarkExtension/BenchmarkExtensionLoader';
+import { ContextMenuExtensionLoader } from './extensions/ContextMenuExtension/ContextMenuExtensionLoader';
+import { FreeWheelExtensionLoader } from './extensions/FreeWheelExtension/FreeWheelExtensionLoader';
+import { FullscreenExtensionLoader } from './extensions/FullscreenExtension/FullscreenExtensionLoader';
+import { GoogleIMAExtensionLoader } from './extensions/GoogleIMAExtension/GoogleIMAExtensionLoader';
+import { KeyboardNavigationExtensionLoader } from './extensions/KeyboardNavigationExtension/KeyboardNavigationExtensionLoader';
+import { PipExtensionLoader } from './extensions/PipExtension/PipExtensionLoader';
+import { StateExtensionLoader } from './extensions/StateExtension/StateExtensionLoader';
+import { SubtitlesExtensionLoader } from './extensions/SubtitlesExtension/SubtitlesExtensionLoader';
+import { ThumbnailsExtensionLoader } from './extensions/ThumbnailsExtension/ThumbnailsExtensionLoader';
+import { DimensionsExtensionLoader } from './extensions/DimensionsExtension/DimensionsExtensionLoader';
+import { BaseMediaLoader } from './media/BaseMedia/BaseMediaLoader';
+import { DashMediaLoader } from './media/DashMedia/DashMediaLoader';
+import { HlsMediaLoader } from './media/HlsMedia/HlsMediaLoader';
+import { HTML5PlayerLoader } from './player/HTML5Player/HTML5PlayerLoader';
 import {
   IInstance,
   IModule,
   IModuleLoader,
   ModuleLoaderTypes,
-} from '@src/types';
-import { UiExtensionLoader } from '@src/ui/UiExtensionLoader';
+} from './types';
+import { UiExtensionLoader } from './ui/UiExtensionLoader';
 import find from 'lodash/find';
 
 const modules: Array<IModuleLoader<IModule>> = [
@@ -50,7 +50,7 @@ export async function createFirstSupported<T>(
   type: ModuleLoaderTypes,
   instance: IInstance,
   isSupportedArgs?: any,
-): Promise<T> {
+): Promise<T | null> {
   const items = modules.filter(item => item.type === type);
 
   for (const loader of items) {

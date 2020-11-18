@@ -18,7 +18,7 @@ function createWebpackConfig(build, argv) {
         entry: './src/index.ts',
         output: {
           path: path.resolve(__dirname, 'lib'),
-          filename: `${pkg.name}.js`,
+          filename: `index.js`,
           chunkFilename: '[name].[chunkhash].js',
           libraryExport: 'default',
           library: 'IndigoPlayer',
@@ -29,7 +29,12 @@ function createWebpackConfig(build, argv) {
           rules: [
             {
               test: /\.ts|tsx?$/,
-              use: 'ts-loader',
+              loader: 'awesome-typescript-loader',
+              exclude: /node_modules/,
+              options: {
+                declaration: true,
+              }
+
             },
             {
               test: /\.scss$/,
@@ -56,12 +61,12 @@ function createWebpackConfig(build, argv) {
             new TsConfigPathsPlugin(),
           ],
         },
-        plugins: [
-          new webpack.DefinePlugin({
-            VERSION: JSON.stringify(pkg.version),
-          }),
-          new webpack.BannerPlugin(`indigo-player v${pkg.version} - [name] - ${+new Date()}`),
-        ],
+        // plugins: [
+        //   new webpack.DefinePlugin({
+        //     VERSION: JSON.stringify(pkg.version),
+        //   }),
+        //   new webpack.BannerPlugin(`indigo-player v${pkg.version} - [name] - ${+new Date()}`),
+        // ],
         optimization: {
           splitChunks: {
             chunks: 'async',
@@ -100,14 +105,20 @@ function createWebpackConfig(build, argv) {
               use: [{
                 loader: MiniCssExtractPlugin.loader,
                 options: {
-                  publicPath: 'src'
+                  publicPath: './'
                 }
               }, 'css-loader', 'sass-loader'],
             },
             {
-              test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
-              use: ['file-loader'],
-            },
+              test: /.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+              use: [{
+                loader: 'file-loader',
+                options: {
+                  name: '[name].[ext]',
+                  outputPath: 'fonts/'
+                }
+              }]
+            }
           ],
         },
         resolve: {

@@ -1,5 +1,5 @@
-import { Media } from '@src/media/Media';
-import { IInstance, ITrack } from '@src/types';
+import { ITrack, IInstance } from '../../types';
+import { Media } from '../Media';
 export declare class DashMedia extends Media {
     name: string;
     player: any;

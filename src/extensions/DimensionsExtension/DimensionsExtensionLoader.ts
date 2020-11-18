@@ -1,10 +1,5 @@
-import { DimensionsExtension } from '@src/extensions/DimensionsExtension/DimensionsExtension';
-import {
-  Config,
-  IInstance,
-  IModuleLoader,
-  ModuleLoaderTypes,
-} from '@src/types';
+import { ModuleLoaderTypes, IInstance, Config, IModuleLoader } from "../../types";
+import { DimensionsExtension } from "./DimensionsExtension";
 
 export const DimensionsExtensionLoader = {
   type: ModuleLoaderTypes.EXTENSION,

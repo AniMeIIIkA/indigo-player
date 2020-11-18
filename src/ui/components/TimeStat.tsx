@@ -1,7 +1,7 @@
-import { Icon } from '@src/ui/components/Icon';
-import { IInfo } from '@src/ui/types';
-import { withState } from '@src/ui/withState';
+
 import React from 'react';
+import { IInfo } from '../types';
+import { withState } from '../withState';
 
 interface TimeStatProps {
   timeStatPosition: string;

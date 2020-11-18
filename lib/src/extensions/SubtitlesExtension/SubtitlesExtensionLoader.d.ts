@@ -1,3 +1,3 @@
-import { SubtitlesExtension } from '@src/extensions/SubtitlesExtension/SubtitlesExtension';
-import { IModuleLoader } from '@src/types';
+import { IModuleLoader } from "../../types";
+import { SubtitlesExtension } from "./SubtitlesExtension";
 export declare const SubtitlesExtensionLoader: IModuleLoader<SubtitlesExtension>;

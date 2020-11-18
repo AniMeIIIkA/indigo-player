@@ -1,25 +1,12 @@
-import {
-  AdBreakType,
-  Events,
-  IInstance,
-  IThumbnail,
-  ITrack,
-  KeyboardNavigationPurpose,
-  Subtitle,
-} from '@src/types';
-import { getTranslation } from '@src/ui/i18n';
-import { triggerEvent } from '@src/ui/triggerEvent';
-import {
-  IActions,
-  IData,
-  SettingsTabs,
-  ViewTypes,
-  IStateStore,
-} from '@src/ui/types';
-import { attachEvents, EventUnsubscribeFn } from '@src/ui/utils/attachEvents';
-import { secondsToHMS } from '@src/ui/utils/secondsToHMS';
+
 import uniqBy from 'lodash/uniqBy';
 import React, { RefObject } from 'react';
+import { IInstance, Subtitle, IThumbnail, KeyboardNavigationPurpose, Events, ITrack, AdBreakType } from '../types';
+import { getTranslation } from './i18n';
+import { triggerEvent } from './triggerEvent';
+import { SettingsTabs, IStateStore, IData, ViewTypes, IActions } from './types';
+import { EventUnsubscribeFn, attachEvents } from './utils/attachEvents';
+import { secondsToHMS } from './utils/secondsToHMS';
 
 export const StateContext = React.createContext({});
 
@@ -41,12 +28,12 @@ interface StateStoreState {
   isVolumebarSeeking: boolean;
 
   // Settings
-  settingsTab: SettingsTabs;
+  settingsTab: SettingsTabs | null;
 
-  lastActiveSubtitle: Subtitle;
-  activeThumbnail: IThumbnail;
+  lastActiveSubtitle: Subtitle | null;
+  activeThumbnail: IThumbnail | null;
 
-  nodPurpose: KeyboardNavigationPurpose;
+  nodPurpose: KeyboardNavigationPurpose | any;
 }
 
 export const seekbarRef: RefObject<HTMLDivElement> = React.createRef();
@@ -60,7 +47,7 @@ export class StateStore
   implements IStateStore {
   private activeTimer: number;
 
-  private nodTimer: number;
+  private nodTimer: number | null;
 
   private unsubscribe: EventUnsubscribeFn;
 
@@ -257,7 +244,7 @@ export class StateStore
 
   private closeSettings = (event: MouseEvent) => {
     const isOver = (className: string) => {
-      const target: EventTarget = event.target;
+      const target: EventTarget | null = event.target;
       const container = this.props.instance.container.querySelector(className);
       return (
         container &&
@@ -284,7 +271,7 @@ export class StateStore
     this.setState({ settingsTab });
   };
 
-  private selectSubtitle = (subtitle: Subtitle) => {
+  private selectSubtitle = (subtitle: Subtitle | null) => {
     if (subtitle) {
       this.setState({ lastActiveSubtitle: subtitle });
     }
@@ -295,7 +282,7 @@ export class StateStore
   };
 
   private toggleActiveSubtitle = () => {
-    let subtitle: Subtitle = this.state.lastActiveSubtitle;
+    let subtitle: Subtitle | null = this.state.lastActiveSubtitle;
     if (!subtitle) {
       subtitle = this.props.instance.config.subtitles[0];
     }
@@ -459,14 +446,14 @@ export class StateStore
       'height',
     );
 
-    let activeTrack = null;
+    let activeTrack: any | null = null;
     if (this.props.player.track) {
       activeTrack = tracks.find(
         track => track.id === this.props.player.track.id,
       );
     }
 
-    let selectedTrack = activeTrack;
+    let selectedTrack: string = activeTrack;
     if (this.props.player.trackAutoSwitch) {
       selectedTrack = 'auto';
     }

@@ -55,6 +55,7 @@ export const getDrmSupport = async () => {
       const supported = await isKeySystemSupported(keySystem);
 
       if (supported) {
+        //@ts-ignore
         keySystemsSupported.push(keySystem);
 
         if (!drmSupport[drm]) {

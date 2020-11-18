@@ -1,5 +1,5 @@
-import { Hookable } from '@src/Hooks';
-import { EventCallback, IEventData, IInstance, IModule } from '@src/types';
+import { Hookable } from './Hooks';
+import { EventCallback, IEventData, IInstance, IModule } from './types';
 
 @Hookable
 export class Module implements IModule {

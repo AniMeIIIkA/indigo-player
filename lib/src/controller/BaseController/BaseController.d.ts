@@ -1,5 +1,5 @@
-import { Controller } from '@src/controller/Controller';
-import { ITrack } from '@src/types';
+import { ITrack } from "../../types";
+import { Controller } from "../Controller";
 export declare class BaseController extends Controller {
     name: string;
     load(): Promise<void>;

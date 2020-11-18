@@ -1,18 +1,6 @@
-import { Instance } from '@src/Instance';
-import { Module } from '@src/Module';
-import { HTML5Player } from '@src/player/HTML5Player/HTML5Player';
-import {
-  AdBreakType,
-  Events,
-  IAdBreak,
-  IAdBreakEventData,
-  IAdBreaksEventData,
-  IAdBreakTimeUpdateEventData,
-  IAdEventData,
-  IEventData,
-  IInstance,
-  NextHook,
-} from '@src/types';
+import { Module } from "../../Module";
+import { HTML5Player } from "../../player/HTML5Player/HTML5Player";
+import { IAdBreak, IInstance, Events, NextHook, AdBreakType, IAdBreaksEventData, IAdBreakTimeUpdateEventData, IAdBreakEventData } from "../../types";
 
 interface IIMAAdBreak extends IAdBreak {
   googleIMAAd?: any;
@@ -35,7 +23,7 @@ export class GoogleIMAExtension extends Module {
 
   private adBreaks: IIMAAdBreak[];
 
-  private currentAdBreak: IIMAAdBreak;
+  private currentAdBreak: IIMAAdBreak | null;
 
   constructor(instance: IInstance) {
     super(instance);
@@ -51,19 +39,19 @@ export class GoogleIMAExtension extends Module {
       this.onInstanceInitialized.bind(this),
     );
 
-    this.instance.controller.hooks.create(
+    this.instance.controller?.hooks?.create(
       'play',
       this.onControllerPlay.bind(this),
     );
-    this.instance.controller.hooks.create(
+    this.instance.controller?.hooks?.create(
       'pause',
       this.onControllerPause.bind(this),
     );
-    this.instance.controller.hooks.create(
+    this.instance.controller?.hooks?.create(
       'setVolume',
       this.onControllerSetVolume.bind(this),
     );
-    this.instance.controller.hooks.create(
+    this.instance.controller?.hooks?.create(
       'seekTo',
       this.onControllerSeekTo.bind(this),
     );
@@ -146,7 +134,7 @@ export class GoogleIMAExtension extends Module {
   private requestAds() {
     const adsRequest = new this.ima.AdsRequest();
 
-    adsRequest.adTagUrl = this.instance.config.googleIMA.src;
+    adsRequest.adTagUrl = this.instance.config.googleIMA?.src;
 
     adsRequest.linearAdSlotWidth = 640;
     adsRequest.linearAdSlotHeight = 400;
@@ -221,16 +209,16 @@ export class GoogleIMAExtension extends Module {
       this.adsManager.init('100%', '100%', this.ima.ViewMode.NORMAL);
       this.adsManager.start();
     } catch (error) {
-      this.instance.media.play();
+      this.instance.media?.play();
     }
   }
 
   private onContentPauseRequested() {
-    this.instance.media.pause();
+    this.instance.media?.pause();
   }
 
   private onContentResumeRequested() {
-    this.instance.media.play();
+    this.instance.media?.play();
   }
 
   private onAdProgress(event) {
@@ -269,7 +257,8 @@ export class GoogleIMAExtension extends Module {
     const adBreak = this.currentAdBreak;
     this.currentAdBreak = null;
 
-    adBreak.hasBeenWatched = true;
+    if (adBreak)
+      adBreak.hasBeenWatched = true;
 
     this.emit(Events.ADBREAK_ENDED, {
       adBreak,

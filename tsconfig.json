@@ -5,23 +5,23 @@
     "moduleResolution": "node",
     "noEmit": false,
     "declaration": true,
-    "strict": false,
+    "strict": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
+    "suppressImplicitAnyIndexErrors": true,
+    "noImplicitAny": false,
     "jsx": "react",
-    "baseUrl": ".",
     "module": "esnext",
     "outDir": "lib",
-    "paths": {
-      "@src/*": [
-        "src/*"
-      ]
-    },
     "lib": [
       "dom",
       "es2018"
     ],
     "sourceMap": true,
+    "types": [
+      "node"
+    ],
     "resolveJsonModule": true,
     "typeRoots": [
       "./src/custom_types"
@@ -30,8 +30,8 @@
   "include": [
     "./src/**/*"
   ],
-  "awesomeTypescriptLoaderOptions": {
-    "useBabel": true,
-    "babelCore": "@babel/core"
-  }
+  // "awesomeTypescriptLoaderOptions": {
+  //   "useBabel": true,
+  //   "babelCore": "@babel/core"
+  // }
 }

@@ -1,6 +1,6 @@
-import { IInstance, IThumbnail, KeyboardNavigationPurpose, Subtitle } from '@src/types';
-import { SettingsTabs, IStateStore } from '@src/ui/types';
 import React, { RefObject } from 'react';
+import { IInstance, Subtitle, IThumbnail, KeyboardNavigationPurpose } from '../types';
+import { SettingsTabs, IStateStore } from './types';
 export declare const StateContext: React.Context<{}>;
 interface StateStoreProps {
     instance: IInstance;
@@ -13,10 +13,10 @@ interface StateStoreState {
     seekbarPercentage: number;
     isVolumeControlsOpen: boolean;
     isVolumebarSeeking: boolean;
-    settingsTab: SettingsTabs;
-    lastActiveSubtitle: Subtitle;
-    activeThumbnail: IThumbnail;
-    nodPurpose: KeyboardNavigationPurpose;
+    settingsTab: SettingsTabs | null;
+    lastActiveSubtitle: Subtitle | null;
+    activeThumbnail: IThumbnail | null;
+    nodPurpose: KeyboardNavigationPurpose | any;
 }
 export declare const seekbarRef: RefObject<HTMLDivElement>;
 export declare const seekbarTooltipRef: RefObject<HTMLDivElement>;

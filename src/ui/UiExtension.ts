@@ -1,8 +1,9 @@
-import { Module } from '@src/Module';
-import { Events, IInstance } from '@src/types';
-import { render } from '@src/ui/render';
-import { IStateStore } from '@src/ui/types';
+
 import React, { RefObject } from 'react';
+import { Module } from '../Module';
+import { IInstance, Events } from '../types';
+import { render } from './render';
+import { IStateStore } from './types';
 
 declare var __webpack_public_path__: string;
 

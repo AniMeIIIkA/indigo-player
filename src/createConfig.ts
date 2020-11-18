@@ -1,6 +1,7 @@
-import { Config } from '@src/types';
-import { deprecate } from '@src/utils/deprecate';
+
 import merge from 'deepmerge';
+import { Config } from './types';
+import { deprecate } from './utils/deprecate';
 
 export function createConfig(input: Config): Config {
   if (typeof input.ui !== 'object') {
@@ -19,7 +20,7 @@ export function createConfig(input: Config): Config {
     }
   }
 
-  if (typeof input.thumbnails !== 'object') {
+  if (typeof input.thumbnails !== 'object' && input?.thumbnails) {
     input.thumbnails = {
       src: input.thumbnails,
     };

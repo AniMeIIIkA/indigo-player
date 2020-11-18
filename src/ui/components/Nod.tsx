@@ -1,8 +1,9 @@
-import { Icon } from '@src/ui/components/Icon';
-import { IInfo } from '@src/ui/types';
-import { withState } from '@src/ui/withState';
+
 import cx from 'classnames';
 import React from 'react';
+import { IInfo } from '../types';
+import { withState } from '../withState';
+import { Icon } from './Icon';
 
 interface NodProps {
   icon: string;

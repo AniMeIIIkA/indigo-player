@@ -1,11 +1,5 @@
-import { BaseMedia } from '@src/media/BaseMedia/BaseMedia';
-import {
-  Format,
-  FormatTypes,
-  IInstance,
-  IModuleLoader,
-  ModuleLoaderTypes,
-} from '@src/types';
+import { ModuleLoaderTypes, IInstance, Format, FormatTypes, IModuleLoader } from "../../types";
+import { BaseMedia } from "./BaseMedia";
 
 export const BaseMediaLoader = {
   type: ModuleLoaderTypes.MEDIA,

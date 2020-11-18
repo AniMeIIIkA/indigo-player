@@ -1,3 +1,3 @@
-import { FreeWheelExtension } from '@src/extensions/FreeWheelExtension/FreeWheelExtension';
-import { IModuleLoader } from '@src/types';
+import { IModuleLoader } from "../../types";
+import { FreeWheelExtension } from "./FreeWheelExtension";
 export declare const FreeWheelExtensionLoader: IModuleLoader<FreeWheelExtension>;

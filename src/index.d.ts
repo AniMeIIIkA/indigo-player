@@ -5,13 +5,17 @@ import {
   IInstance,
   IModuleLoader,
   IPlayer,
-} from './types/types';
+} from './types';
 
 
 /**
  * Export all the internal types to module developers.
  */
-export * from './types/types';
+export * from './types';
+
+
+
+
 
 
 type ModuleConstructor<T> = new (instance: IInstance) => T;

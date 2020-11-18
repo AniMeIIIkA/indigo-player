@@ -1,16 +1,8 @@
-import { DashMedia } from '@src/media/DashMedia/DashMedia';
-import {
-  isBrowserSupported,
-  isBrowserSupportedDRM,
-} from '@src/media/DashMedia/isBrowserSupported';
-import {
-  Format,
-  FormatTypes,
-  IInstance,
-  IModuleLoader,
-  ModuleLoaderTypes,
-} from '@src/types';
-import { getDrmSupport } from '@src/utils/getDrmSupport';
+import { ModuleLoaderTypes, IInstance, Format, FormatTypes, IModuleLoader } from "../../types";
+import { getDrmSupport } from "../../utils/getDrmSupport";
+import { DashMedia } from "./DashMedia";
+import { isBrowserSupported, isBrowserSupportedDRM } from "./isBrowserSupported";
+
 
 export const DashMediaLoader = {
   type: ModuleLoaderTypes.MEDIA,
@@ -21,7 +13,7 @@ export const DashMediaLoader = {
     instance: IInstance,
     format: Format,
   ): Promise<boolean> => {
-    if (instance.player.name !== 'HTML5Player') {
+    if (instance.player?.name !== 'HTML5Player') {
       return false;
     }
 

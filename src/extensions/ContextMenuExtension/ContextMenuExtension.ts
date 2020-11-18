@@ -1,6 +1,7 @@
-import { Module } from '@src/Module';
-import { Events, IInstance } from '@src/types';
+
 import pkgInfo from '../../../package.json';
+import { Module } from '../../Module';
+import { IInstance } from '../../types';
 import './context-menu.scss';
 import logo from './indigo-logo-small.png';
 

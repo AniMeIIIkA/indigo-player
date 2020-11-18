@@ -1,10 +1,6 @@
-import { FreeWheelExtension } from '@src/extensions/FreeWheelExtension/FreeWheelExtension';
-import {
-  Config,
-  IInstance,
-  IModuleLoader,
-  ModuleLoaderTypes,
-} from '@src/types';
+import { ModuleLoaderTypes, IInstance, Config, IModuleLoader } from "../../types";
+import { FreeWheelExtension } from "./FreeWheelExtension";
+
 
 export const FreeWheelExtensionLoader = {
   type: ModuleLoaderTypes.EXTENSION,
@@ -12,6 +8,6 @@ export const FreeWheelExtensionLoader = {
   create: (instance: IInstance) => new FreeWheelExtension(instance),
 
   isSupported: ({ config }: { config: Config }): boolean => {
-    return config.freewheel && config.freewheel.clientSide;
+    return (config.freewheel && config.freewheel?.clientSide) || false;
   },
 } as IModuleLoader<FreeWheelExtension>;

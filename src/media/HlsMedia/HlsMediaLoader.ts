@@ -1,12 +1,7 @@
-import { HlsMedia } from '@src/media/HlsMedia/HlsMedia';
-import {
-  Format,
-  FormatTypes,
-  IInstance,
-  IModuleLoader,
-  ModuleLoaderTypes,
-} from '@src/types';
+
 import { isSupported } from 'hls.js/src/is-supported';
+import { ModuleLoaderTypes, IInstance, Format, FormatTypes, IModuleLoader } from '../../types';
+import { HlsMedia } from './HlsMedia';
 
 export const HlsMediaLoader = {
   type: ModuleLoaderTypes.MEDIA,
@@ -14,7 +9,7 @@ export const HlsMediaLoader = {
   create: (instance: IInstance) => new HlsMedia(instance),
 
   isSupported: (instance: IInstance, format: Format): boolean => {
-    if (instance.player.name !== 'HTML5Player') {
+    if (instance.player?.name !== 'HTML5Player') {
       return false;
     }
 

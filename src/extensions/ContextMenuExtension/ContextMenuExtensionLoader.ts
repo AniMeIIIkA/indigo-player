@@ -1,10 +1,6 @@
-import { ContextMenuExtension } from '@src/extensions/ContextMenuExtension/ContextMenuExtension';
-import {
-  Config,
-  IInstance,
-  IModuleLoader,
-  ModuleLoaderTypes,
-} from '@src/types';
+import { ModuleLoaderTypes, IInstance, Config, IModuleLoader } from "../../types";
+import { ContextMenuExtension } from "./ContextMenuExtension";
+
 
 export const ContextMenuExtensionLoader = {
   type: ModuleLoaderTypes.EXTENSION,

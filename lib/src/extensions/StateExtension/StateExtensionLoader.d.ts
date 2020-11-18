@@ -1,3 +1,3 @@
-import { StateExtension } from '@src/extensions/StateExtension/StateExtension';
-import { IModuleLoader } from '@src/types';
+import { IModuleLoader } from "../../types";
+import { StateExtension } from "./StateExtension";
 export declare const StateExtensionLoader: IModuleLoader<StateExtension>;

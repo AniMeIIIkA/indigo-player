@@ -1,5 +1,5 @@
-import { Module } from '@src/Module';
-import { IMedia, ITrack } from '@src/types';
+import { Module } from "../Module";
+import { IMedia, ITrack } from "../types";
 
 export class Media extends Module implements IMedia {
   public async load() { }
@@ -7,19 +7,19 @@ export class Media extends Module implements IMedia {
   public unload() { }
 
   public play() {
-    this.instance.player.play();
+    this.instance.player?.play();
   }
 
   public pause() {
-    this.instance.player.pause();
+    this.instance.player?.pause();
   }
 
   public seekTo(time: number) {
-    this.instance.player.seekTo(time);
+    this.instance.player?.seekTo(time);
   }
 
   public setVolume(volume: number) {
-    this.instance.player.setVolume(volume);
+    this.instance.player?.setVolume(volume);
   }
 
   public selectTrack(track: ITrack) { }
@@ -27,6 +27,6 @@ export class Media extends Module implements IMedia {
   public selectAudioLanguage(language: string) { }
 
   public setPlaybackRate(playbackRate: number) {
-    this.instance.player.setPlaybackRate(playbackRate);
+    this.instance.player?.setPlaybackRate(playbackRate);
   }
 }

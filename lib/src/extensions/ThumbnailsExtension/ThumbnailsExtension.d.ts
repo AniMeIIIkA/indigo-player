@@ -1,5 +1,5 @@
-import { Module } from '@src/Module';
-import { IInstance, IThumbnail } from '@src/types';
+import { Module } from '../../Module';
+import { IThumbnail, IInstance } from '../../types';
 export declare class ThumbnailsExtension extends Module {
     name: string;
     private thumbnails;
@@ -9,5 +9,5 @@ export declare class ThumbnailsExtension extends Module {
     private loadVttThumbs;
     private loadBifThumbs;
     load(): Promise<void>;
-    getThumbnail(seconds: number): IThumbnail;
+    getThumbnail(seconds: number): IThumbnail | null;
 }

@@ -1,9 +1,10 @@
-import { IInstance } from '@src/types';
-import { Main } from '@src/ui/components/Main';
-import { StateStore } from '@src/ui/State';
+
 import React, { RefObject } from 'react';
 import * as ReactDOM from 'react-dom';
-import { IStateStore } from '@src/ui/types';
+import { IInstance } from '../types';
+import { Main } from './components/Main';
+import { StateStore } from './State';
+import { IStateStore } from './types';
 
 export const render = (
   container: HTMLElement,

@@ -1,3 +1,3 @@
-import { GoogleIMAExtension } from '@src/extensions/GoogleIMAExtension/GoogleIMAExtension';
-import { IModuleLoader } from '@src/types';
+import { IModuleLoader } from "../../types";
+import { GoogleIMAExtension } from "./GoogleIMAExtension";
 export declare const GoogleIMAExtensionLoader: IModuleLoader<GoogleIMAExtension>;

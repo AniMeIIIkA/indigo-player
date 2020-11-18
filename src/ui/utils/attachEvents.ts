@@ -8,7 +8,7 @@ interface EventDefinition {
 export type EventUnsubscribeFn = () => void;
 
 export function attachEvents(defs: EventDefinition[]) {
-  const unsubscribers = [];
+  const unsubscribers: any = [];
 
   defs.forEach(def => {
     def.events.forEach(name => {
@@ -16,8 +16,7 @@ export function attachEvents(defs: EventDefinition[]) {
       def.element.addEventListener(name, def.callback, def.passive);
 
       // Create an unsubscribe method.
-      const unsubscribe = () =>
-        def.element.removeEventListener(name, def.callback);
+      const unsubscribe = () => def.element.removeEventListener(name, def.callback);
       unsubscribers.push(unsubscribe);
     });
   });

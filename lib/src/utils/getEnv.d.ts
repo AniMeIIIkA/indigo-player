@@ -1,2 +1,2 @@
-import { IEnv, Config } from '@src/types';
+import { Config, IEnv } from '../types';
 export declare function getEnv(config: Config): Promise<IEnv>;

@@ -1,5 +1,6 @@
-import { Events, IInstance } from '@src/types';
-import { IData } from '@src/ui/types';
+import { IInstance, Events } from "../types";
+import { IData } from "./types";
+
 
 const createEventQueue = (instance: IInstance, { state, prevState }) => (eventName: string, data: any) => {
   instance.emit(eventName, data);

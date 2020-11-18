@@ -1,8 +1,8 @@
-import { createConfig } from '@src/createConfig';
-import { createAllSupported, createFirstSupported } from '@src/ModuleLoader';
-import { PlayerError } from '@src/PlayerError';
-import { selectController, selectExtensions } from '@src/selectModule';
-import '@src/styles.scss';
+import { createConfig } from './createConfig';
+import { createAllSupported, createFirstSupported } from './ModuleLoader';
+import { PlayerError } from './PlayerError';
+import { selectController, selectExtensions } from './selectModule';
+import './styles.scss';
 import {
   Config,
   ErrorCodes,
@@ -20,10 +20,10 @@ import {
   IPlayerError,
   ITrack,
   ModuleLoaderTypes,
-} from '@src/types';
-import { getEnv } from '@src/utils/getEnv';
-import { log } from '@src/utils/log';
-import { storage } from '@src/utils/storage';
+} from './types';
+import { getEnv } from './utils/getEnv';
+import { log } from './utils/log';
+import { storage } from './utils/storage';
 import EventEmitter from 'eventemitter3';
 import find from 'lodash/find';
 import isElement from 'lodash/isElement';
@@ -56,13 +56,13 @@ export class Instance implements IInstance {
 
   public env: IEnv;
 
-  public controller: IController;
+  public controller: IController | null;
 
-  public player: IPlayer;
+  public player: IPlayer | null;
 
-  public media: IMedia;
+  public media: IMedia | null;
 
-  public format: Format;
+  public format: Format | null;
 
   public extensions: IModule[] = [];
 
@@ -79,7 +79,7 @@ export class Instance implements IInstance {
   constructor(element: HTMLElement | string, config: Config) {
     this.config = createConfig(config);
 
-    this.createContainers(element, this.config.aspectRatio);
+    this.createContainers(element, this.config.aspectRatio || 16 / 9);
 
     this.emitter = new EventEmitter();
 
@@ -87,6 +87,7 @@ export class Instance implements IInstance {
   }
 
   public on = (name: string, callback: EventCallback) =>
+
     this.emitter.on(name, callback);
 
   public once = (name: string, callback: EventCallback) =>
@@ -99,31 +100,31 @@ export class Instance implements IInstance {
     this.emitter.emit(name, eventData);
 
   public play() {
-    this.controller.play();
+    this.controller?.play();
   }
 
   public pause() {
-    this.controller.pause();
+    this.controller?.pause();
   }
 
   public seekTo(time: number) {
-    this.controller.seekTo(time);
+    this.controller?.seekTo(time);
   }
 
   public setVolume(volume: number) {
-    this.controller.setVolume(volume);
+    this.controller?.setVolume(volume);
   }
 
   public selectTrack(track: ITrack) {
-    this.controller.selectTrack(track);
+    this.controller?.selectTrack(track);
   }
 
   public selectAudioLanguage(language: string) {
-    this.controller.selectAudioLanguage(language);
+    this.controller?.selectAudioLanguage(language);
   }
 
   public setPlaybackRate(playbackRate: number) {
-    this.controller.setPlaybackRate(playbackRate);
+    this.controller?.setPlaybackRate(playbackRate);
   }
 
   public setError(error: IPlayerError) {
@@ -144,7 +145,7 @@ export class Instance implements IInstance {
 
     this.emitter.removeAllListeners();
 
-    this.controller.unload();
+    this.controller?.unload();
 
     this.controller = null;
     this.player = null;
@@ -162,14 +163,14 @@ export class Instance implements IInstance {
   public getStats() {
     return {
       config: this.config,
-      controller: [this.controller.name, this.controller],
-      media: [this.media.name, this.media],
-      player: [this.player.name, this.player],
+      controller: [this.controller?.name, this.controller],
+      media: [this.media?.name, this.media],
+      player: [this.player?.name, this.player],
       extensions: this.extensions.map(extension => [extension.name, extension]),
     };
   }
 
-  public getModule(name: string): IModule {
+  public getModule(name: string): IModule | null {
     const modules = [
       ...this.extensions,
       this.controller,
@@ -177,10 +178,12 @@ export class Instance implements IInstance {
       this.player,
     ];
 
-    return find(modules, { name });
+    const module = find(modules, { name })
+    if (!module) return null;
+    return module;
   }
 
-  private createContainers(element: HTMLElement | string, aspectRatio: number) {
+  private createContainers(element: HTMLElement | string | null, aspectRatio: number) {
     if (isString(element)) {
       element = document.getElementById(element as string);
     }
@@ -226,7 +229,7 @@ export class Instance implements IInstance {
     log('Extensions loaded', { extensions: this.extensions });
 
     try {
-      await this.controller.load();
+      await this.controller?.load();
 
       log('Controller loaded');
     } catch (error) {
@@ -243,7 +246,8 @@ export class Instance implements IInstance {
     this.emit(Events.INSTANCE_INITIALIZED);
 
     // Set initial config values.
-    this.setVolume(config.volume);
+
+    this.setVolume(config.volume || 1);
     if (config.startPosition) {
       this.seekTo(config.startPosition);
     }

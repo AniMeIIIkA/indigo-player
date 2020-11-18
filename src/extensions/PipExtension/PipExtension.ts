@@ -1,5 +1,6 @@
-import { Module } from '@src/Module';
-import { Events, IEventData, IInstance } from '@src/types';
+
+import { Module } from '../../Module';
+import { IEventData, IInstance, Events } from '../../types';
 import './pip.scss';
 
 interface IPipChangeEventData extends IEventData {
@@ -13,7 +14,7 @@ export class PipExtension extends Module {
 
   private playerContainer: HTMLElement;
 
-  private playerContainerParent: HTMLElement;
+  private playerContainerParent: HTMLElement | null;
 
   private pipPlaceholder: HTMLElement;
 
@@ -49,7 +50,7 @@ export class PipExtension extends Module {
 
     const placeholder = document.createElement('div');
     placeholder.classList.add('ig_pip-placeholder');
-    this.playerContainerParent.appendChild(placeholder);
+    this.playerContainerParent?.appendChild(placeholder);
 
     this.pipPlaceholder = placeholder;
     this.pipContainer = container;
@@ -65,9 +66,9 @@ export class PipExtension extends Module {
   }
 
   public disablePip() {
-    this.playerContainerParent.appendChild(this.playerContainer);
-    this.pipPlaceholder.parentElement.removeChild(this.pipPlaceholder);
-    this.pipContainer.parentElement.removeChild(this.pipContainer);
+    this.playerContainerParent?.appendChild(this.playerContainer);
+    this.pipPlaceholder.parentElement?.removeChild(this.pipPlaceholder);
+    this.pipContainer.parentElement?.removeChild(this.pipContainer);
 
     this.pip = false;
 

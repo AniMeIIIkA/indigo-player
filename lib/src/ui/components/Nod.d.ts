@@ -3,8 +3,8 @@ export declare const Nod: {
     new (props: {} | Readonly<{}>): {
         render(): JSX.Element;
         context: any;
-        setState<K extends never>(state: {} | ((prevState: Readonly<{}>, props: Readonly<{}>) => {} | Pick<{}, K>) | Pick<{}, K>, callback?: () => void): void;
-        forceUpdate(callback?: () => void): void;
+        setState<K extends never>(state: {} | ((prevState: Readonly<{}>, props: Readonly<{}>) => {} | Pick<{}, K> | null) | Pick<{}, K> | null, callback?: (() => void) | undefined): void;
+        forceUpdate(callback?: (() => void) | undefined): void;
         readonly props: Readonly<{}> & Readonly<{
             children?: React.ReactNode;
         }>;
@@ -28,8 +28,8 @@ export declare const Nod: {
     new (props: {}, context: any): {
         render(): JSX.Element;
         context: any;
-        setState<K extends never>(state: {} | ((prevState: Readonly<{}>, props: Readonly<{}>) => {} | Pick<{}, K>) | Pick<{}, K>, callback?: () => void): void;
-        forceUpdate(callback?: () => void): void;
+        setState<K extends never>(state: {} | ((prevState: Readonly<{}>, props: Readonly<{}>) => {} | Pick<{}, K> | null) | Pick<{}, K> | null, callback?: (() => void) | undefined): void;
+        forceUpdate(callback?: (() => void) | undefined): void;
         readonly props: Readonly<{}> & Readonly<{
             children?: React.ReactNode;
         }>;
@@ -50,5 +50,5 @@ export declare const Nod: {
         componentWillUpdate?(nextProps: Readonly<{}>, nextState: Readonly<{}>, nextContext: any): void;
         UNSAFE_componentWillUpdate?(nextProps: Readonly<{}>, nextState: Readonly<{}>, nextContext: any): void;
     };
-    contextType?: React.Context<any>;
+    contextType?: React.Context<any> | undefined;
 };

@@ -1,6 +1,6 @@
-import { Module } from '@src/Module';
-import { PlayerError } from '@src/PlayerError';
-import { IInstance, ITrack, Subtitle } from '@src/types';
+import { Module } from '../../Module';
+import { PlayerError } from '../../PlayerError';
+import { ITrack, Subtitle, IInstance } from '../../types';
 export interface IState {
     ready: boolean;
     videoSessionStarted: boolean;
@@ -13,27 +13,27 @@ export interface IState {
     contentStarted: boolean;
     contentEnded: boolean;
     ended: boolean;
-    currentTime: number;
-    duration: number;
+    currentTime: number | null;
+    duration: number | null;
     adBreaks: any;
     adBreak: any;
-    adBreakCurrentTime: number;
+    adBreakCurrentTime: number | null;
     ad: any;
-    error: PlayerError;
+    error: PlayerError | null;
     bufferedPercentage: number;
     volume: number;
     fullscreenSupported: boolean;
     fullscreen: boolean;
     pip: boolean;
     tracks: ITrack[];
-    track: ITrack;
+    track: ITrack | null;
     trackAutoSwitch: boolean;
-    subtitle: Subtitle;
-    subtitleText: string;
+    subtitle: Subtitle | null;
+    subtitleText: string | null;
     playbackRate: number;
     audioLanguages: string[];
-    width: number;
-    height: number;
+    width: number | null;
+    height: number | null;
 }
 export declare class StateExtension extends Module {
     name: string;

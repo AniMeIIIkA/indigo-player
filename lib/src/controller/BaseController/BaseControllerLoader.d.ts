@@ -1,3 +1,3 @@
-import { BaseController } from '@src/controller/BaseController/BaseController';
-import { IModuleLoader } from '@src/types';
+import { IModuleLoader } from "../../types";
+import { BaseController } from "./BaseController";
 export declare const BaseControllerLoader: IModuleLoader<BaseController>;

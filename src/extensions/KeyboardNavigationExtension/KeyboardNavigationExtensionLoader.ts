@@ -1,10 +1,6 @@
-import { KeyboardNavigationExtension } from '@src/extensions/KeyboardNavigationExtension/KeyboardNavigationExtension';
-import {
-  Config,
-  IInstance,
-  IModuleLoader,
-  ModuleLoaderTypes,
-} from '@src/types';
+import { ModuleLoaderTypes, IInstance, Config, IModuleLoader } from "../../types";
+import { KeyboardNavigationExtension } from "./KeyboardNavigationExtension";
+
 
 export const KeyboardNavigationExtensionLoader = {
   type: ModuleLoaderTypes.EXTENSION,

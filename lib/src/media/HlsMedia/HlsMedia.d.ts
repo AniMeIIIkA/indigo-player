@@ -1,5 +1,5 @@
-import { Media } from '@src/media/Media';
-import { ITrack } from '@src/types';
+import { ITrack } from '../../types';
+import { Media } from '../Media';
 export declare class HlsMedia extends Media {
     name: string;
     player: any;

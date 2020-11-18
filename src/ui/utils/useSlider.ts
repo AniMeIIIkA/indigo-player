@@ -1,5 +1,5 @@
-import { attachEvents } from '@src/ui/utils/attachEvents';
 import { useEffect } from 'react';
+import { attachEvents } from './attachEvents';
 
 function initSlider(
   element: HTMLElement,

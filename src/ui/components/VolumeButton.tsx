@@ -1,9 +1,10 @@
-import { Button } from '@src/ui/components/Button';
-import { IInfo } from '@src/ui/types';
-import { useSlider } from '@src/ui/utils/useSlider';
-import { withState } from '@src/ui/withState';
+
 import cx from 'classnames';
 import React from 'react';
+import { IInfo } from '../types';
+import { useSlider } from '../utils/useSlider';
+import { withState } from '../withState';
+import { Button } from './Button';
 
 interface VolumeButtonProps {
   volumeIcon: string;

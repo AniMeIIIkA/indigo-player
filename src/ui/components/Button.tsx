@@ -1,6 +1,6 @@
-import { Icon } from '@src/ui/components/Icon';
 import cx from 'classnames';
 import React, { useState } from 'react';
+import { Icon } from './Icon';
 
 interface ButtonProps {
   children?: JSX.Element | string;

@@ -1,4 +1,4 @@
-import { Player } from '@src/player/Player';
+import { Player } from '../Player';
 export declare class HTML5Player extends Player {
     name: string;
     mediaElement: HTMLVideoElement;

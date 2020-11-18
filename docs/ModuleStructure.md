@@ -51,14 +51,14 @@ Each module must have it's own module loader. The sole purpose of the module loa
 Let's take the BaseModule loader as an example:
 
 ```javascript
-import { Instance } from '@src/Instance';
-import { BaseMedia } from '@src/media/BaseMedia/BaseMedia';
+import { Instance } from 'src/Instance';
+import { BaseMedia } from 'src/media/BaseMedia/BaseMedia';
 import {
   Format,
   FormatTypes,
   ModuleLoader,
   ModuleLoaderTypes,
-} from '@src/types';
+} from 'src/types';
 
 export const BaseMediaLoader = {
   // Let the player know which module type we're about to load
@@ -74,7 +74,7 @@ export const BaseMediaLoader = {
   //            AT THE TOP OF THE FILE 
   //            (or it will not be chunked but included right away).
   create: async (instance: Instance) => {
-    const { BaseMedia } = await import('@src/media/BaseMedia/BaseMedia');
+    const { BaseMedia } = await import('src/media/BaseMedia/BaseMedia');
     return new BaseMedia(instance);
   },
 

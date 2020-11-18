@@ -1,4 +1,5 @@
-import { Media } from '@src/media/Media';
+import { Media } from "../Media";
+
 
 export class BaseMedia extends Media {
   public name: string = 'BaseMedia';
@@ -6,6 +7,7 @@ export class BaseMedia extends Media {
   public async load() {
     await super.load();
 
-    this.instance.player.setSource(this.instance.format.src);
+    if (this.instance.format?.src)
+      this.instance.player?.setSource(this.instance.format?.src);
   }
 }

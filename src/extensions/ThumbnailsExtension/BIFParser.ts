@@ -15,6 +15,7 @@ export const BIF_INDEX_ENTRY_LENGTH = 8;
 
 // Magic Number
 // SEE: https://sdkdocs.roku.com/display/sdkdoc/Trick+Mode+Support#TrickModeSupport-MagicNumber
+//@ts-ignore
 export const MAGIC_NUMBER = new Uint8Array([
   '0x89',
   '0x42',
@@ -51,6 +52,13 @@ function validate(magicNumber) {
  * @param {ArrayBuffer} arrayBuffer
  */
 export default class BIFParser {
+  arrayBuffer: any;
+  data: any;
+  numberOfBIFImages: any;
+  version: any;
+  bifIndex: any;
+  bifDimensions: any;
+
   constructor(arrayBuffer) {
     // Magic Number
     // SEE: https://sdkdocs.roku.com/display/sdkdoc/Trick+Mode+Support#TrickModeSupport-MagicNumber
@@ -74,7 +82,7 @@ export default class BIFParser {
     // SEE: https://sdkdocs.roku.com/display/sdkdoc/Trick+Mode+Support#TrickModeSupport-Version
     this.version = this.data.getUint32(VERSION_OFFSET, true);
 
-    this.bifIndex = this.generateBIFIndex(true);
+    this.bifIndex = this.generateBIFIndex();
 
     this.bifDimensions = { width: 240, height: 180 };
 
@@ -92,7 +100,7 @@ export default class BIFParser {
    * @returns {Array} bifIndex
    */
   generateBIFIndex() {
-    const bifIndex = [];
+    const bifIndex: any[] = [];
 
     for (
       // BIF index starts at byte 64 (BIF_INDEX_OFFSET)
@@ -137,6 +145,7 @@ export default class BIFParser {
     const src = `${image}${btoa(
       String.fromCharCode.apply(
         null,
+        //@ts-ignore
         new Uint8Array(
           this.arrayBuffer.slice(
             this.bifIndex[0].offset,
@@ -176,6 +185,7 @@ export default class BIFParser {
     const src = `${image}${btoa(
       String.fromCharCode.apply(
         null,
+        //@ts-ignore
         new Uint8Array(
           this.arrayBuffer.slice(frame.offset, frame.offset + frame.length),
         ),
@@ -199,7 +209,7 @@ export default class BIFParser {
    * @returns {string} imageData
    */
   getImageData() {
-    const images = [];
+    const images: any[] = [];
     this.bifIndex.forEach(frame => {
       const image = 'data:image/jpeg;base64,';
 
@@ -208,9 +218,8 @@ export default class BIFParser {
         src: `${image}${btoa(
           String.fromCharCode.apply(
             null,
-            new Uint8Array(
-              this.arrayBuffer.slice(frame.offset, frame.offset + frame.length),
-            ),
+            //@ts-ignore
+            new Uint8Array(this.arrayBuffer.slice(frame.offset, frame.offset + frame.length)),
           ),
         )}`,
         x: 0,

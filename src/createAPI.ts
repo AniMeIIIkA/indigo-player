@@ -1,6 +1,6 @@
-import { PlayerError } from '@src/PlayerError';
-import { EventCallback, IEventData, IInstance, ITrack } from '@src/types';
-import { createFunctionFn } from '@src/utils/defineProperty';
+import { PlayerError } from "./PlayerError";
+import { IInstance, EventCallback, IEventData, ITrack } from "./types";
+import { createFunctionFn } from "./utils/defineProperty";
 
 /**
  * Defines the public API, this is the return value of init().

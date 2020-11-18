@@ -1,3 +1,3 @@
-import { DashMedia } from '@src/media/DashMedia/DashMedia';
-import { IModuleLoader } from '@src/types';
+import { IModuleLoader } from "../../types";
+import { DashMedia } from "./DashMedia";
 export declare const DashMediaLoader: IModuleLoader<DashMedia>;

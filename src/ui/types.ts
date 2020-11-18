@@ -1,5 +1,6 @@
-import { PlayerError } from '@src/PlayerError';
-import { IThumbnail, ITrack, Subtitle } from '@src/types';
+import { PlayerError } from "../PlayerError";
+import { ITrack, Subtitle, IThumbnail } from "../types";
+
 
 export interface IData {
   paused: boolean;

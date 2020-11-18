@@ -1,7 +1,7 @@
-import { Controller } from '@src/controller/Controller';
-import { PlayerError } from '@src/PlayerError';
-import { selectMedia, selectPlayer } from '@src/selectModule';
-import { ErrorCodes, ITrack } from '@src/types';
+import { PlayerError } from "../../PlayerError";
+import { selectPlayer, selectMedia } from "../../selectModule";
+import { ErrorCodes, ITrack } from "../../types";
+import { Controller } from "../Controller";
 
 export class BaseController extends Controller {
   public name: string = 'BaseController';
@@ -17,7 +17,7 @@ export class BaseController extends Controller {
     this.instance.format = format;
     this.instance.media = media;
 
-    this.instance.player.load();
+    this.instance.player?.load();
     await this.instance.media.load();
   }
 
@@ -31,30 +31,30 @@ export class BaseController extends Controller {
   }
 
   public play() {
-    this.instance.media.play();
+    this.instance.media?.play();
   }
 
   public pause() {
-    this.instance.media.pause();
+    this.instance.media?.pause();
   }
 
   public seekTo(time: number) {
-    this.instance.media.seekTo(time);
+    this.instance.media?.seekTo(time);
   }
 
   public setVolume(volume: number) {
-    this.instance.media.setVolume(volume);
+    this.instance.media?.setVolume(volume);
   }
 
   public selectTrack(track: ITrack) {
-    this.instance.media.selectTrack(track);
+    this.instance.media?.selectTrack(track);
   }
 
   public selectAudioLanguage(language: string) {
-    this.instance.media.selectAudioLanguage(language);
+    this.instance.media?.selectAudioLanguage(language);
   }
 
   public setPlaybackRate(playbackRate: number) {
-    this.instance.media.setPlaybackRate(playbackRate);
+    this.instance.media?.setPlaybackRate(playbackRate);
   }
 }

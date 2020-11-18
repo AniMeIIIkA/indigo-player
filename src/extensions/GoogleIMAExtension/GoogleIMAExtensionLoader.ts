@@ -1,10 +1,6 @@
-import { GoogleIMAExtension } from '@src/extensions/GoogleIMAExtension/GoogleIMAExtension';
-import {
-  Config,
-  IInstance,
-  IModuleLoader,
-  ModuleLoaderTypes,
-} from '@src/types';
+import { ModuleLoaderTypes, IInstance, Config, IModuleLoader } from "../../types";
+import { GoogleIMAExtension } from "./GoogleIMAExtension";
+
 
 export const GoogleIMAExtensionLoader = {
   type: ModuleLoaderTypes.EXTENSION,

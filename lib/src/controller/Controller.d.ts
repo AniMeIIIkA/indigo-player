@@ -1,5 +1,5 @@
-import { Module } from '@src/Module';
-import { IController, ITrack } from '@src/types';
+import { Module } from "../Module";
+import { IController, ITrack } from "../types";
 export declare class Controller extends Module implements IController {
     load(): Promise<void>;
     unload(): void;

@@ -1,6 +1,6 @@
-import '@src/styles.scss';
-import { Config, EventCallback, Format, IController, IEnv, IEventData, IInstance, IMedia, IModule, IPlayer, IPlayerError, ITrack } from '@src/types';
-import { log } from '@src/utils/log';
+import './styles.scss';
+import { Config, EventCallback, Format, IController, IEnv, IEventData, IInstance, IMedia, IModule, IPlayer, IPlayerError, ITrack } from './types';
+import { log } from './utils/log';
 import EventEmitter from 'eventemitter3';
 export declare class Instance implements IInstance {
     /**
@@ -21,10 +21,10 @@ export declare class Instance implements IInstance {
     adsContainer: HTMLElement;
     uiContainer: HTMLElement;
     env: IEnv;
-    controller: IController;
-    player: IPlayer;
-    media: IMedia;
-    format: Format;
+    controller: IController | null;
+    player: IPlayer | null;
+    media: IMedia | null;
+    format: Format | null;
     extensions: IModule[];
     log: typeof log;
     storage: {
@@ -40,7 +40,7 @@ export declare class Instance implements IInstance {
     on: (name: string, callback: EventCallback) => EventEmitter<string | symbol>;
     once: (name: string, callback: EventCallback) => EventEmitter<string | symbol>;
     removeListener: (name: string, callback: EventCallback) => EventEmitter<string | symbol>;
-    emit: (name: string, eventData?: IEventData) => boolean;
+    emit: (name: string, eventData?: IEventData | undefined) => boolean;
     play(): void;
     pause(): void;
     seekTo(time: number): void;
@@ -53,12 +53,12 @@ export declare class Instance implements IInstance {
     destroy(): void;
     getStats(): {
         config: Config;
-        controller: (string | IController)[];
-        media: (string | IMedia)[];
-        player: (string | IPlayer)[];
+        controller: (string | IController | null | undefined)[];
+        media: (string | IMedia | null | undefined)[];
+        player: (string | IPlayer | null | undefined)[];
         extensions: (string | IModule)[][];
     };
-    getModule(name: string): IModule;
+    getModule(name: string): IModule | null;
     private createContainers;
     private init;
 }

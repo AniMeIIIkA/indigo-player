@@ -1,3 +1,3 @@
-import { ThumbnailsExtension } from '@src/extensions/ThumbnailsExtension/ThumbnailsExtension';
-import { IModuleLoader } from '@src/types';
+import { IModuleLoader } from "../../types";
+import { ThumbnailsExtension } from "./ThumbnailsExtension";
 export declare const ThumbnailsExtensionLoader: IModuleLoader<ThumbnailsExtension>;

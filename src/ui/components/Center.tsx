@@ -1,11 +1,12 @@
-import { IThumbnail } from '@src/types';
-import { Sprite } from '@src/ui/components/Sprite';
-import { IInfo } from '@src/ui/types';
-import { withState } from '@src/ui/withState';
+
 import * as React from 'react';
+import { IThumbnail } from '../../types';
+import { IInfo } from '../types';
+import { withState } from '../withState';
+import { Sprite } from './Sprite';
 
 interface CenterProps {
-  seekingThumbnail?: IThumbnail;
+  seekingThumbnail?: IThumbnail | null;
   playOrPause();
   toggleFullscreen();
 }

@@ -152,7 +152,7 @@ export interface Config {
   keyboardNavigation: boolean | 'focus';
 
   aspectRatio?: number;
-  volume?: number;
+  volume?: number | null;
   startPosition?: number;
 
   ui: {
@@ -412,10 +412,10 @@ export interface IInstance {
   adsContainer: HTMLElement;
 
   env: IEnv;
-  controller: IController;
-  player: IPlayer;
-  media: IMedia;
-  format: Format;
+  controller: IController | null;
+  player: IPlayer | null;
+  media: IMedia | null;
+  format: Format | null;
   extensions: IModule[];
 
   storage: any; // TODO: Proper type
@@ -439,6 +439,6 @@ export interface IInstance {
   setError(error: IPlayerError): any;
   canAutoplay(): boolean;
 
-  getModule(name: string): IModule;
+  getModule(name: string): IModule | null;
   getStats(): any;
 }
