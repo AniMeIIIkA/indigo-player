@@ -1,7 +1,7 @@
 
 import pkgInfo from '../../../package.json';
 import { Module } from '../../Module';
-import { IInstance } from "../../IInstance";
+import { IInstance } from '../../types/IInstance';
 import './context-menu.scss';
 import logo from './indigo-logo-small.png';
 

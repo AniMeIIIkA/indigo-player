@@ -1,5 +1,5 @@
 import { Module } from '../../Module';
-import { IInstance } from '../../types';
+import { IInstance } from '../../types/IInstance';
 import './context-menu.scss';
 export declare class ContextMenuExtension extends Module {
     name: string;

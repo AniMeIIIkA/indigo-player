@@ -1,6 +1,7 @@
 import { Module } from '../../Module';
 import { PlayerError } from '../../PlayerError';
-import { ITrack, Subtitle, IInstance } from '../../types';
+import { ITrack, Subtitle } from '../../types';
+import { IInstance } from '../../types/IInstance';
 export interface IState {
     ready: boolean;
     videoSessionStarted: boolean;

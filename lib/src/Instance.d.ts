@@ -1,7 +1,8 @@
 import './styles.scss';
-import { Config, EventCallback, Format, IController, IEnv, IEventData, IInstance, IMedia, IModule, IPlayer, IPlayerError, ITrack } from './types';
+import { Config, EventCallback, Format, IController, IEnv, IEventData, IMedia, IModule, IPlayer, IPlayerError, ITrack } from './types';
 import { log } from './utils/log';
 import EventEmitter from 'eventemitter3';
+import { IInstance } from './types/IInstance';
 export declare class Instance implements IInstance {
     /**
      * The initial player config.

@@ -1,7 +1,7 @@
 
 import { Module } from '../../Module';
 import { IEventData, Events } from '../../types';
-import { IInstance } from "../../IInstance";
+import { IInstance } from '../../types/IInstance';
 import './pip.scss';
 
 interface IPipChangeEventData extends IEventData {

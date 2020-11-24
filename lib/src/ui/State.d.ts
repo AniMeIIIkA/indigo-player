@@ -1,5 +1,6 @@
 import React, { RefObject } from 'react';
-import { IInstance, Subtitle, IThumbnail, KeyboardNavigationPurpose } from '../types';
+import { Subtitle, IThumbnail, KeyboardNavigationPurpose } from '../types';
+import { IInstance } from '../types/IInstance';
 import { SettingsTabs, IStateStore } from './types';
 export declare const StateContext: React.Context<{}>;
 interface StateStoreProps {

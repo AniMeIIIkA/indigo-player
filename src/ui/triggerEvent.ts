@@ -1,5 +1,5 @@
 import { Events } from "../types";
-import { IInstance } from "../IInstance";
+import { IInstance } from "../types/IInstance";
 import { IData } from "./types";
 
 

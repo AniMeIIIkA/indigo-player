@@ -2,7 +2,7 @@
 import find from 'lodash/find';
 import { Module } from '../../Module';
 import { IAdBreak, IAd, Events, NextHook, IAdBreakTimeUpdateEventData, AdBreakType, IAdBreaksEventData, IAdBreakEventData, IAdEventData, ITimeUpdateEventData } from '../../types';
-import { IInstance } from "../../IInstance";
+import { IInstance } from '../../types/IInstance';
 
 interface IFWAdBreak extends IAdBreak {
   maxAds: number;

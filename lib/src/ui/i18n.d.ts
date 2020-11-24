@@ -17,6 +17,24 @@ export declare const translations: {
         'Enable subtitles': string;
         'Disable subtitles': string;
     };
+    'ru-RU': {
+        Play: string;
+        Pause: string;
+        Mute: string;
+        Unmute: string;
+        Miniplayer: string;
+        Settings: string;
+        'Full screen': string;
+        'Exit full screen': string;
+        Speed: string;
+        'Normal speed': string;
+        Subtitles: string;
+        'No subtitles': string;
+        Quality: string;
+        'Automatic quality': string;
+        'Enable subtitles': string;
+        'Disable subtitles': string;
+    };
     'nl-BE': {
         Play: string;
         Pause: string;

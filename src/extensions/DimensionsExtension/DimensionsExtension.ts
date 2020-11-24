@@ -4,7 +4,7 @@ import debounce from 'lodash/debounce';
 import observeResize from 'simple-element-resize-detector';
 import { Module } from '../../Module';
 import { Events, IDimensionsChangeEventData } from '../../types';
-import { IInstance } from "../../IInstance";
+import { IInstance } from '../../types/IInstance';
 
 export class DimensionsExtension extends Module {
   public name: string = 'DimensionsExtension';

@@ -1,7 +1,7 @@
 import { Module } from "../../Module";
 import { HTML5Player } from "../../player/HTML5Player/HTML5Player";
 import { IAdBreak, Events, NextHook, AdBreakType, IAdBreaksEventData, IAdBreakTimeUpdateEventData, IAdBreakEventData } from "../../types";
-import { IInstance } from "../../IInstance";
+import { IInstance } from "../../types/IInstance";
 
 interface IIMAAdBreak extends IAdBreak {
   googleIMAAd?: any;

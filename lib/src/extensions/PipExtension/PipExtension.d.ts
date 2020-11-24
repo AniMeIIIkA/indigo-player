@@ -1,5 +1,5 @@
 import { Module } from '../../Module';
-import { IInstance } from '../../types';
+import { IInstance } from '../../types/IInstance';
 import './pip.scss';
 export declare class PipExtension extends Module {
     name: string;

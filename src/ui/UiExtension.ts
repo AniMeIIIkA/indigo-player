@@ -2,7 +2,7 @@
 import React, { RefObject } from 'react';
 import { Module } from '../Module';
 import { Events } from '../types';
-import { IInstance } from "../IInstance";
+import { IInstance } from '../types/IInstance';
 import { render } from './render';
 import { IStateStore } from './types';
 

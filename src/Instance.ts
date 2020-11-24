@@ -20,7 +20,6 @@ import {
   ITrack,
   ModuleLoaderTypes,
 } from './types';
-import { IInstance } from "./IInstance";
 import { getEnv } from './utils/getEnv';
 import { log } from './utils/log';
 import { storage } from './utils/storage';
@@ -28,6 +27,7 @@ import EventEmitter from 'eventemitter3';
 import find from 'lodash/find';
 import isElement from 'lodash/isElement';
 import isString from 'lodash/isString';
+import { IInstance } from './types/IInstance';
 
 declare var __webpack_public_path__: string;
 

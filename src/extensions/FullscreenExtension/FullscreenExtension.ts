@@ -3,7 +3,7 @@
 import * as sfDefault from 'screenfull';
 import { Module } from '../../Module';
 import { IEventData, Events } from '../../types';
-import { IInstance } from "../../IInstance";
+import { IInstance } from '../../types/IInstance';
 const screenfull = sfDefault as sfDefault.Screenfull;
 
 interface IFullscreenEventData extends IEventData {

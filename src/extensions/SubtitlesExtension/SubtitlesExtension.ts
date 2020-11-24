@@ -2,7 +2,7 @@
 import * as SubtitleParser from 'subtitle';
 import { Module } from '../../Module';
 import { Events } from '../../types';
-import { IInstance } from "../../IInstance";
+import { IInstance } from '../../types/IInstance';
 import { insertAfter, applyStyle } from '../../utils/dom';
 import './subtitles.scss';
 

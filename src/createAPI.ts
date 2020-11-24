@@ -1,6 +1,6 @@
 import { PlayerError } from "./PlayerError";
 import { EventCallback, IEventData, ITrack } from "./types";
-import { IInstance } from "./IInstance";
+import { IInstance } from "./types/IInstance";
 import { createFunctionFn } from "./utils/defineProperty";
 
 /**

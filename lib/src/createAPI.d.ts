@@ -1,4 +1,4 @@
-import { IInstance } from "./types";
+import { IInstance } from "./types/IInstance";
 /**
  * Defines the public API, this is the return value of init().
  * @param  {IInstance} instance

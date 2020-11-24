@@ -1,6 +1,6 @@
 import { Module } from "../../Module";
 import { Events } from "../../types";
-import { IInstance } from "../../IInstance";
+import { IInstance } from "../../types/IInstance";
 
 
 const startTime = performance.now();

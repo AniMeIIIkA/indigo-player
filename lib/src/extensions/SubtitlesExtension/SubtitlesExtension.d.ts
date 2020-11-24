@@ -1,5 +1,5 @@
 import { Module } from '../../Module';
-import { IInstance } from '../../types';
+import { IInstance } from '../../types/IInstance';
 import './subtitles.scss';
 export declare class SubtitlesExtension extends Module {
     name: string;

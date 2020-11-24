@@ -2,7 +2,7 @@
 import uniqBy from 'lodash/uniqBy';
 import React, { RefObject } from 'react';
 import { Subtitle, IThumbnail, KeyboardNavigationPurpose, Events, ITrack, AdBreakType } from '../types';
-import { IInstance } from "../IInstance";
+import { IInstance } from '../types/IInstance';
 import { getTranslation } from './i18n';
 import { triggerEvent } from './triggerEvent';
 import { SettingsTabs, IStateStore, IData, ViewTypes, IActions } from './types';

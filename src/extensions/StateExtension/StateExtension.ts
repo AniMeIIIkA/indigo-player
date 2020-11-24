@@ -4,7 +4,7 @@ import find from 'lodash/find';
 import { Module } from '../../Module';
 import { PlayerError } from '../../PlayerError';
 import { ITrack, Subtitle, IEventData, Events, AdBreakType } from '../../types';
-import { IInstance } from "../../IInstance";
+import { IInstance } from '../../types/IInstance';
 
 export interface IState {
   ready: boolean;

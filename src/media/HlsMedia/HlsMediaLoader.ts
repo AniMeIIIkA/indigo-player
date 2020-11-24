@@ -1,6 +1,6 @@
 import { isSupported } from 'hls.js';
 import { ModuleLoaderTypes, Format, FormatTypes, IModuleLoader } from '../../types';
-import { IInstance } from "../../IInstance";
+import { IInstance } from '../../types/IInstance';
 import { HlsMedia } from './HlsMedia';
 
 export const HlsMediaLoader = {

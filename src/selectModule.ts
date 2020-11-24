@@ -7,7 +7,7 @@ import {
   IPlayer,
   ModuleLoaderTypes,
 } from './types';
-import { IInstance } from "./IInstance";
+import { IInstance } from './types/IInstance';
 
 export async function selectMedia(
   instance: IInstance,

@@ -1,5 +1,6 @@
 import { Module } from '../../Module';
-import { IInstance, NextHook } from '../../types';
+import { NextHook } from '../../types';
+import { IInstance } from '../../types/IInstance';
 export declare class FreeWheelExtension extends Module {
     name: string;
     private sdk;
