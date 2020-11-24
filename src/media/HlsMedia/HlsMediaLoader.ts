@@ -1,5 +1,4 @@
-
-import { isSupported } from 'hls.js/src/is-supported';
+import { isSupported } from 'hls.js';
 import { ModuleLoaderTypes, IInstance, Format, FormatTypes, IModuleLoader } from '../../types';
 import { HlsMedia } from './HlsMedia';
 
