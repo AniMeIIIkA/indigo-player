@@ -1,4 +1,5 @@
-import { ModuleLoaderTypes, IInstance, Config, IModuleLoader } from "../../types";
+import { ModuleLoaderTypes, Config, IModuleLoader } from "../../types";
+import { IInstance } from "../../IInstance";
 import { SubtitlesExtension } from "./SubtitlesExtension";
 
 export const SubtitlesExtensionLoader = {

@@ -1,5 +1,6 @@
 import { Module } from "../../Module";
-import { IInstance, KeyboardNavigationPurpose, Events, IKeyboardNavigationKeyDownEventData } from "../../types";
+import { KeyboardNavigationPurpose, Events, IKeyboardNavigationKeyDownEventData } from "../../types";
+import { IInstance } from "../../IInstance";
 import { FullscreenExtension } from "../FullscreenExtension/FullscreenExtension";
 import { StateExtension } from "../StateExtension/StateExtension";
 

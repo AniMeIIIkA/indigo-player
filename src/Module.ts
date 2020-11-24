@@ -1,6 +1,6 @@
 import { Hookable } from './Hooks';
-import { EventCallback, IEventData, IInstance, IModule } from './types';
-
+import { EventCallback, IEventData, IModule } from './types';
+import { IInstance } from './types/IInstance';
 @Hookable
 export class Module implements IModule {
   public name = 'Unknown';

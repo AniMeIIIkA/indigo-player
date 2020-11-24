@@ -1,4 +1,5 @@
-import { ModuleLoaderTypes, IInstance, Config, IModuleLoader } from "../../types";
+import { ModuleLoaderTypes, Config, IModuleLoader } from "../../types";
+import { IInstance } from "../../IInstance";
 import { DimensionsExtension } from "./DimensionsExtension";
 
 export const DimensionsExtensionLoader = {

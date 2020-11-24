@@ -1,4 +1,5 @@
-import { IInstance, Events } from "../types";
+import { Events } from "../types";
+import { IInstance } from "../IInstance";
 import { IData } from "./types";
 
 

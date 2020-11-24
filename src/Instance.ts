@@ -13,7 +13,6 @@ import {
   IEnv,
   IErrorEventData,
   IEventData,
-  IInstance,
   IMedia,
   IModule,
   IPlayer,
@@ -21,6 +20,7 @@ import {
   ITrack,
   ModuleLoaderTypes,
 } from './types';
+import { IInstance } from "./IInstance";
 import { getEnv } from './utils/getEnv';
 import { log } from './utils/log';
 import { storage } from './utils/storage';

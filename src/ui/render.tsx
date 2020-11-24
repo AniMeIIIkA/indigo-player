@@ -1,7 +1,7 @@
 
 import React, { RefObject } from 'react';
 import * as ReactDOM from 'react-dom';
-import { IInstance } from '../types';
+import { IInstance } from "../IInstance";
 import { Main } from './components/Main';
 import { StateStore } from './State';
 import { IStateStore } from './types';

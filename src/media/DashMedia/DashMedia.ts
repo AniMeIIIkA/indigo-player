@@ -1,7 +1,8 @@
 
 import * as shaka from 'shaka-player';
 import { PlayerError } from '../../PlayerError';
-import { IEventData, ITrack, IInstance, Events, ITracksEventData, IAudioLanguagesEventData, ITrackChangeEventData, ErrorCodes } from '../../types';
+import { IEventData, ITrack, Events, ITracksEventData, IAudioLanguagesEventData, ITrackChangeEventData, ErrorCodes } from '../../types';
+import { IInstance } from "../../IInstance";
 import { Media } from '../Media';
 
 interface IShakaInstEventData extends IEventData {

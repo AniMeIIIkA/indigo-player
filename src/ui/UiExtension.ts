@@ -1,7 +1,8 @@
 
 import React, { RefObject } from 'react';
 import { Module } from '../Module';
-import { IInstance, Events } from '../types';
+import { Events } from '../types';
+import { IInstance } from "../IInstance";
 import { render } from './render';
 import { IStateStore } from './types';
 

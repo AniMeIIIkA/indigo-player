@@ -4,7 +4,8 @@ import BIFParser from './BIFParser';
 import parse from 'url-parse';
 import vttToJson from 'vtt-to-json';
 import { Module } from '../../Module';
-import { IThumbnail, IInstance } from '../../types';
+import { IThumbnail } from '../../types';
+import { IInstance } from "../../IInstance";
 
 export class ThumbnailsExtension extends Module {
   public name: string = 'ThumbnailsExtension';

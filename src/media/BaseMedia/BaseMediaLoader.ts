@@ -1,4 +1,5 @@
-import { ModuleLoaderTypes, IInstance, Format, FormatTypes, IModuleLoader } from "../../types";
+import { ModuleLoaderTypes, Format, FormatTypes, IModuleLoader } from "../../types";
+import { IInstance } from "../../IInstance";
 import { BaseMedia } from "./BaseMedia";
 
 export const BaseMediaLoader = {

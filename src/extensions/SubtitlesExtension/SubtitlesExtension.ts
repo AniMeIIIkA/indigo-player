@@ -1,7 +1,8 @@
 
 import * as SubtitleParser from 'subtitle';
 import { Module } from '../../Module';
-import { IInstance, Events } from '../../types';
+import { Events } from '../../types';
+import { IInstance } from "../../IInstance";
 import { insertAfter, applyStyle } from '../../utils/dom';
 import './subtitles.scss';
 

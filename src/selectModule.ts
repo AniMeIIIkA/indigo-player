@@ -2,12 +2,12 @@ import { createAllSupported, createFirstSupported } from './ModuleLoader';
 import {
   Format,
   IController,
-  IInstance,
   IMedia,
   IModule,
   IPlayer,
   ModuleLoaderTypes,
 } from './types';
+import { IInstance } from "./IInstance";
 
 export async function selectMedia(
   instance: IInstance,

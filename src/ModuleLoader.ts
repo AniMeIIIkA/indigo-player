@@ -15,13 +15,13 @@ import { DashMediaLoader } from './media/DashMedia/DashMediaLoader';
 import { HlsMediaLoader } from './media/HlsMedia/HlsMediaLoader';
 import { HTML5PlayerLoader } from './player/HTML5Player/HTML5PlayerLoader';
 import {
-  IInstance,
   IModule,
   IModuleLoader,
   ModuleLoaderTypes,
 } from './types';
 import { UiExtensionLoader } from './ui/UiExtensionLoader';
 import find from 'lodash/find';
+import { IInstance } from './types/IInstance';
 
 const modules: Array<IModuleLoader<IModule>> = [
   BaseControllerLoader,
