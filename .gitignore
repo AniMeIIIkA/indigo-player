@@ -23,3 +23,6 @@ bin/release-beta.sh
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+lib/index.js
+lib/index.js.LICENSE.txt
+lib/indigo-theme.css
