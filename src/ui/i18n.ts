@@ -1,5 +1,7 @@
 // List of language codes: http://www.lingoes.net/en/translator/langcode.htm
 
+export type Locale = 'en-US' | 'ru-RU' | 'nl-BE' | 'de-DE' | 'hi-IN' | 'mr-IN' | 'pt-BR';
+
 export const translations = {
   'en-US': {
     Play: 'Play',

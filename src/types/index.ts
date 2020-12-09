@@ -1,5 +1,6 @@
 // Enums
 
+import { Locale } from "../ui/i18n";
 import { IInstance } from "./IInstance";
 
 
@@ -160,7 +161,7 @@ export interface Config {
   ui: {
     enabled: boolean;
     lockControlsVisibility: boolean;
-    locale: string;
+    locale: Locale;
     pip: boolean;
     image?: string;
     ignoreStylesheet?: boolean;
