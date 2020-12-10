@@ -3,14 +3,15 @@ import * as React from 'react';
 import { IPlayerError } from '../../types';
 import { IInfo } from '../types';
 import { withState } from '../withState';
-
 interface ErrorViewProps {
   error: IPlayerError;
+  getTranslation(text: string): string;
 }
 
 export const ErrorView = withState((props: ErrorViewProps) => {
-  const title = 'Uh oh!';
-  const message = `Something went wrong (${props.error.code})`;
+  const title = props.getTranslation('Uh oh!');
+  const message = `${props.getTranslation('Something went wrong')} (${props.error.code})`;
+
   return (
     <div className='igui_view_error'>
       <div>
@@ -26,5 +27,6 @@ export const ErrorView = withState((props: ErrorViewProps) => {
 function mapProps(info: IInfo): ErrorViewProps {
   return {
     error: info.data.error as IPlayerError,
+    getTranslation: info.data.getTranslation
   };
 }

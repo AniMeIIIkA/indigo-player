@@ -20,6 +20,8 @@ export const translations = {
     'Automatic quality': 'Auto',
     'Enable subtitles': 'Enable subtitles',
     'Disable subtitles': 'Disable subtitles',
+    'Uh oh!': 'Uh oh!',
+    'Something went wrong': 'Something went wrong'
   },
   'ru-RU': {
     Play: 'Смотреть',
@@ -38,6 +40,8 @@ export const translations = {
     'Automatic quality': 'Автонастройка',
     'Enable subtitles': 'Включить субтитры',
     'Disable subtitles': 'Выключить субтитры',
+    'Uh oh!': 'Упс!',
+    'Something went wrong': 'Что-то пошло не так'
   },
   'nl-BE': {
     Play: 'Afspelen',
@@ -56,6 +60,8 @@ export const translations = {
     'Automatic quality': 'Automatisch',
     'Enable subtitles': 'Ondertitels aan',
     'Disable subtitles': 'Ondertitels uit',
+    'Uh oh!': 'Oh Oh!',
+    'Something went wrong': 'Er is iets fout gegaan'
   },
   'de-DE': {
     Play: 'Wiedergabe',
@@ -74,6 +80,8 @@ export const translations = {
     'Automatic quality': 'Automatisch',
     'Enable subtitles': 'Untertitel an',
     'Disable subtitles': 'Untertitel aus',
+    'Uh oh!': 'Oh oh!',
+    'Something went wrong': 'Etwas ist schief gelaufen'
   },
   'hi-IN': {
     Play: 'चलाएँ',
@@ -92,6 +100,8 @@ export const translations = {
     'Automatic quality': 'स्वचालित',
     'Enable subtitles': 'उपशीर्षक जारी रखें',
     'Disable subtitles': 'उपशीर्षक बंद करें',
+    'Uh oh!': 'उह ओह!',
+    'Something went wrong': 'कुछ गलत हो गया'
   },
   'mr-IN': {
     Play: 'चालू करा',
@@ -110,6 +120,8 @@ export const translations = {
     'Automatic quality': 'स्वयंचलित',
     'Enable subtitles': 'उपशीर्षके सूरू करा',
     'Disable subtitles': 'उपशीर्षके बंद करा',
+    'Uh oh!': 'ओहो!',
+    'Something went wrong': 'काहीतरी चूक झाली'
   },
   'pt-BR': {
     Play: 'Reproduzir',
@@ -128,10 +140,12 @@ export const translations = {
     'Automatic quality': 'Automática',
     'Enable subtitles': 'Habilitar legenda',
     'Disable subtitles': 'Desabilitar legenda',
+    'Uh oh!': 'Uh oh!',
+    'Something went wrong': 'Algo deu errado'
   },
 };
 
-export const getTranslation = languageCode => text => {
+export const getTranslation = (languageCode: Locale) => text => {
   if (translations[languageCode] && translations[languageCode][text]) {
     return translations[languageCode][text];
   }

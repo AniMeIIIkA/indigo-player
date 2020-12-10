@@ -14,6 +14,7 @@ interface MainProps {
   visibleControls: boolean;
   isPip: boolean;
   isFullscreen: boolean;
+  getTranslation(text: string): string;
 }
 
 export const Main = withState(
@@ -42,5 +43,6 @@ function mapProps(info: IInfo): MainProps {
     visibleControls: info.data.visibleControls,
     isPip: info.data.pip,
     isFullscreen: info.data.isFullscreen,
+    getTranslation: info.data.getTranslation,
   };
 }
