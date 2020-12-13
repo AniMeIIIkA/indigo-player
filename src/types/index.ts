@@ -157,6 +157,7 @@ export interface Config {
   aspectRatio?: number;
   volume?: number | null;
   startPosition?: number;
+  playbackRate?: number;
 
   ui: {
     enabled: boolean;

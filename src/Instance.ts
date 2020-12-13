@@ -247,9 +247,13 @@ export class Instance implements IInstance {
 
     // Set initial config values.
 
-    this.setVolume(config.volume || 1);
+    this.setVolume(config.volume ?? 1);
     if (config.startPosition) {
       this.seekTo(config.startPosition);
+    }
+
+    if (config.playbackRate) {
+      this.setPlaybackRate(config.playbackRate);
     }
 
     // Now that we know we can autoplay, actually do it.
