@@ -3,7 +3,6 @@ import isString from 'lodash/isString';
 
 export class PlayerError extends Error implements IPlayerError {
   public code: ErrorCodes;
-
   public underlyingError: any;
 
   constructor(input: ErrorCodes | string, error?: any) {

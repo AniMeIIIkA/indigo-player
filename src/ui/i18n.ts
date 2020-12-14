@@ -21,7 +21,8 @@ export const translations = {
     'Enable subtitles': 'Enable subtitles',
     'Disable subtitles': 'Disable subtitles',
     'Uh oh!': 'Uh oh!',
-    'Something went wrong': 'Something went wrong'
+    'Something went wrong': 'Something went wrong',
+    'Processing': 'Video processing is still ongoing',
   },
   'ru-RU': {
     Play: 'Смотреть',
@@ -41,7 +42,8 @@ export const translations = {
     'Enable subtitles': 'Включить субтитры',
     'Disable subtitles': 'Выключить субтитры',
     'Uh oh!': 'Упс!',
-    'Something went wrong': 'Что-то пошло не так'
+    'Something went wrong': 'Что-то пошло не так',
+    'Processing': 'Обработка видео еще продолжается',
   },
   'nl-BE': {
     Play: 'Afspelen',
@@ -61,7 +63,8 @@ export const translations = {
     'Enable subtitles': 'Ondertitels aan',
     'Disable subtitles': 'Ondertitels uit',
     'Uh oh!': 'Oh Oh!',
-    'Something went wrong': 'Er is iets fout gegaan'
+    'Something went wrong': 'Er is iets fout gegaan',
+    'Processing': 'Verwerken',
   },
   'de-DE': {
     Play: 'Wiedergabe',
@@ -81,7 +84,8 @@ export const translations = {
     'Enable subtitles': 'Untertitel an',
     'Disable subtitles': 'Untertitel aus',
     'Uh oh!': 'Oh oh!',
-    'Something went wrong': 'Etwas ist schief gelaufen'
+    'Something went wrong': 'Etwas ist schief gelaufen',
+    'Processing': 'Wird bearbeitet',
   },
   'hi-IN': {
     Play: 'चलाएँ',
@@ -101,7 +105,8 @@ export const translations = {
     'Enable subtitles': 'उपशीर्षक जारी रखें',
     'Disable subtitles': 'उपशीर्षक बंद करें',
     'Uh oh!': 'उह ओह!',
-    'Something went wrong': 'कुछ गलत हो गया'
+    'Something went wrong': 'कुछ गलत हो गया',
+    'Processing': 'प्रसंस्करण',
   },
   'mr-IN': {
     Play: 'चालू करा',
@@ -121,7 +126,8 @@ export const translations = {
     'Enable subtitles': 'उपशीर्षके सूरू करा',
     'Disable subtitles': 'उपशीर्षके बंद करा',
     'Uh oh!': 'ओहो!',
-    'Something went wrong': 'काहीतरी चूक झाली'
+    'Something went wrong': 'काहीतरी चूक झाली',
+    'Processing': 'प्रक्रिया करीत आहे',
   },
   'pt-BR': {
     Play: 'Reproduzir',
@@ -141,7 +147,8 @@ export const translations = {
     'Enable subtitles': 'Habilitar legenda',
     'Disable subtitles': 'Desabilitar legenda',
     'Uh oh!': 'Uh oh!',
-    'Something went wrong': 'Algo deu errado'
+    'Something went wrong': 'Algo deu errado',
+    'Processing': 'Em processamento',
   },
 };
 
