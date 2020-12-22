@@ -13,7 +13,8 @@ export class HlsMedia extends Media {
     await super.load();
 
     this.player = new HlsJs({
-      autoStartLoad: false
+      autoStartLoad: false,
+      enableWorker: false
     });
 
     const mediaElement: HTMLMediaElement = (this.instance.getModule(
@@ -51,7 +52,6 @@ export class HlsMedia extends Media {
       } else if (data.type === HlsJs.ErrorTypes.MEDIA_ERROR) {
         this.player.recoverMediaError();
       } else {
-        debugger
         this.instance.setError(
           new PlayerError(ErrorCodes.HLSJS_CRITICAL_ERROR, data),
         );
