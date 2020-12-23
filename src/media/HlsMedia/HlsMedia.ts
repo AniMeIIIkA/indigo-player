@@ -72,8 +72,10 @@ export class HlsMedia extends Media {
   }
 
   public unload() {
-    this.player.destroy();
-    this.player = null;
+    if (this.player) {
+      this.player.destroy();
+      this.player = null;
+    }
   }
 
   public selectTrack(track: ITrack | string) {
