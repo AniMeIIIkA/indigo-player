@@ -1,3 +1,4 @@
+import { Locale } from "../ui/i18n";
 import { IInstance } from "./IInstance";
 export declare enum FormatTypes {
     MP4 = "mp4",
@@ -124,10 +125,11 @@ export interface Config {
     aspectRatio?: number;
     volume?: number | null;
     startPosition?: number;
+    playbackRate?: number;
     ui: {
         enabled: boolean;
         lockControlsVisibility: boolean;
-        locale: string;
+        locale: Locale;
         pip: boolean;
         image?: string;
         ignoreStylesheet?: boolean;

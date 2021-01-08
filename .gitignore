@@ -26,3 +26,5 @@ bin/release-beta.sh
 lib/index.js
 lib/index.js.LICENSE.txt
 lib/indigo-theme.css
+package-lock.json
+yarn.lock

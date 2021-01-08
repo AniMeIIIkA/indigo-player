@@ -1,3 +1,4 @@
+export declare type Locale = 'en-US' | 'ru-RU' | 'nl-BE' | 'de-DE' | 'hi-IN' | 'mr-IN' | 'pt-BR';
 export declare const translations: {
     'en-US': {
         Play: string;
@@ -16,6 +17,9 @@ export declare const translations: {
         'Automatic quality': string;
         'Enable subtitles': string;
         'Disable subtitles': string;
+        'Uh oh!': string;
+        'Something went wrong': string;
+        Processing: string;
     };
     'ru-RU': {
         Play: string;
@@ -34,6 +38,9 @@ export declare const translations: {
         'Automatic quality': string;
         'Enable subtitles': string;
         'Disable subtitles': string;
+        'Uh oh!': string;
+        'Something went wrong': string;
+        Processing: string;
     };
     'nl-BE': {
         Play: string;
@@ -52,6 +59,9 @@ export declare const translations: {
         'Automatic quality': string;
         'Enable subtitles': string;
         'Disable subtitles': string;
+        'Uh oh!': string;
+        'Something went wrong': string;
+        Processing: string;
     };
     'de-DE': {
         Play: string;
@@ -70,6 +80,9 @@ export declare const translations: {
         'Automatic quality': string;
         'Enable subtitles': string;
         'Disable subtitles': string;
+        'Uh oh!': string;
+        'Something went wrong': string;
+        Processing: string;
     };
     'hi-IN': {
         Play: string;
@@ -88,6 +101,9 @@ export declare const translations: {
         'Automatic quality': string;
         'Enable subtitles': string;
         'Disable subtitles': string;
+        'Uh oh!': string;
+        'Something went wrong': string;
+        Processing: string;
     };
     'mr-IN': {
         Play: string;
@@ -106,6 +122,9 @@ export declare const translations: {
         'Automatic quality': string;
         'Enable subtitles': string;
         'Disable subtitles': string;
+        'Uh oh!': string;
+        'Something went wrong': string;
+        Processing: string;
     };
     'pt-BR': {
         Play: string;
@@ -124,6 +143,9 @@ export declare const translations: {
         'Automatic quality': string;
         'Enable subtitles': string;
         'Disable subtitles': string;
+        'Uh oh!': string;
+        'Something went wrong': string;
+        Processing: string;
     };
 };
-export declare const getTranslation: (languageCode: any) => (text: any) => any;
+export declare const getTranslation: (languageCode: Locale) => (text: any) => any;
