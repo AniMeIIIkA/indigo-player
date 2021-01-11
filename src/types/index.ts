@@ -190,6 +190,8 @@ export interface Config {
   thumbnails?: {
     src: string;
   };
+
+  contextMenuItems?: IContextMenuItem[];
 }
 
 export interface IThumbnail {
@@ -404,6 +406,12 @@ export interface IMedia extends IModule {
   selectTrack(track: ITrack);
   selectAudioLanguage(language: string);
   setPlaybackRate(playbackRate: number);
+}
+
+export interface IContextMenuItem {
+  name: string;
+
+  onClick: (ev: MouseEvent) => void;
 }
 
 export type LogFunction = (...args: any) => void;

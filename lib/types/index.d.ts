@@ -152,6 +152,7 @@ export interface Config {
     thumbnails?: {
         src: string;
     };
+    contextMenuItems?: IContextMenuItem[];
 }
 export interface IThumbnail {
     start: number;
@@ -309,5 +310,9 @@ export interface IMedia extends IModule {
     selectTrack(track: ITrack): any;
     selectAudioLanguage(language: string): any;
     setPlaybackRate(playbackRate: number): any;
+}
+export interface IContextMenuItem {
+    name: string;
+    onClick: (ev: MouseEvent) => void;
 }
 export declare type LogFunction = (...args: any) => void;

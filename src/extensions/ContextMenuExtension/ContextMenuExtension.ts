@@ -1,5 +1,4 @@
 
-import pkgInfo from '../../../package.json';
 import { Module } from '../../Module';
 import { IInstance } from '../../types/IInstance';
 import './context-menu.scss';
@@ -19,7 +18,16 @@ export class ContextMenuExtension extends Module {
     this.contextMenu = document.createElement('div');
     this.contextMenu.classList.add('ig_contextmenu');
     this.contextMenu.style.opacity = '0';
-    instance.container.appendChild(this.contextMenu);  
+    instance.container.appendChild(this.contextMenu);
+
+    if (instance.config.contextMenuItems && instance.config.contextMenuItems.length > 0) {
+      for (let item of instance.config.contextMenuItems) {
+        this.addItem(
+          item.name,
+          item.onClick,
+        );
+      }
+    }
   }
 
   public addItem(html: string, onClick: any) {
