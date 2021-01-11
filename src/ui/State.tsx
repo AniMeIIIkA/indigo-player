@@ -229,6 +229,14 @@ export class StateStore
     }
   };
 
+  private seekToBackward = (seconds: number) => {
+    this.props.instance.seekTo(this.props.player.currentTime + (seconds * -1));
+  };
+
+  private seekToForward = (seconds: number) => {
+    this.props.instance.seekTo(this.props.player.currentTime + seconds);
+  };
+
   private toggleFullscreen = () => {
     (this.props.instance.getModule(
       'FullscreenExtension',
@@ -550,6 +558,8 @@ export class StateStore
   private createActions(): IActions {
     return {
       playOrPause: this.playOrPause,
+      seekToBackward: this.seekToBackward,
+      seekToForward: this.seekToForward,
       toggleFullscreen: this.toggleFullscreen,
       setVolumeControlsOpen: this.setVolumeControlsOpen,
       toggleMute: this.toggleMute,

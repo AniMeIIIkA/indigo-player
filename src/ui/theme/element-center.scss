@@ -1,5 +1,9 @@
 .igui_center {
   @include stretch();
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 
   .igui_center_preview {
     width: 100%;
@@ -12,5 +16,11 @@
       @include stretch();
       background-color: rgba(0, 0, 0, .5);
     }
+  }
+
+  .igui_center_region_backward, .igui_center_region_forward {
+    width: 10%;
+    height: 80%;
+    z-index: 1;
   }
 }

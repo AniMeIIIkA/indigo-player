@@ -46,6 +46,8 @@ export interface IActions {
     playOrPause(origin?: string): any;
     startSeeking(): any;
     seekToPercentage(percentage: number): any;
+    seekToBackward(seconds: number): any;
+    seekToForward(seconds: number): any;
     setVolume(volume: number): any;
     setVolumeControlsOpen(isVolumeControlsOpen: boolean): any;
     startVolumebarSeeking(): any;

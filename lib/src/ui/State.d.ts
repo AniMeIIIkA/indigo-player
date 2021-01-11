@@ -39,6 +39,8 @@ export declare class StateStore extends React.Component<StateStoreProps, StateSt
     private setVolumebarState;
     private toggleMute;
     private playOrPause;
+    private seekToBackward;
+    private seekToForward;
     private toggleFullscreen;
     private selectTrack;
     private setPlaybackRate;
