@@ -21,7 +21,7 @@ export class FullscreenExtension extends Module {
   constructor(instance: IInstance) {
     super(instance);
 
-    if (screenfull.enabled) {
+    if (screenfull.isEnabled) {
       this.emit(Events.FULLSCREEN_SUPPORTED);
 
       screenfull.on('change', () => {
@@ -37,7 +37,7 @@ export class FullscreenExtension extends Module {
   }
 
   public toggleFullscreen() {
-    if (screenfull.enabled) {
+    if (screenfull.isEnabled) {
       screenfull.toggle(this.instance.container);
     }
   }
