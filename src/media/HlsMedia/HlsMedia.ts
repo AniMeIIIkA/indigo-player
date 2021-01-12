@@ -7,15 +7,17 @@ import { Media } from '../Media';
 export class HlsMedia extends Media {
   public name: string = 'HlsMedia';
 
-  public player: any;
+  public player: HlsJs;
+  public isSourceLoaded: boolean;
 
   public async load() {
     await super.load();
-    
+
     this.player = new HlsJs(this.instance.config.hlsConfig ?? {
       autoStartLoad: false,
       enableWorker: false
     });
+    this.isSourceLoaded = false;
 
     const mediaElement: HTMLMediaElement = (this.instance.getModule(
       'HTML5Player',
@@ -37,7 +39,7 @@ export class HlsMedia extends Media {
       const level = data.level;
 
       this.emit(Events.MEDIA_STATE_TRACKCHANGE, {
-        track: this.formatTrack(this.player.levels[data.level], data.level),
+        track: this.formatTrack(this.player.levels[level], level),
         auto: this.player.autoLevelEnabled,
       } as ITrackChangeEventData);
     });
@@ -56,12 +58,19 @@ export class HlsMedia extends Media {
           new PlayerError(ErrorCodes.HLSJS_CRITICAL_ERROR, data),
         );
       }
-    });    
+    });
   }
 
   public async play() {
-    this.player.loadSource(this.instance.format?.src);
-    this.player.startLoad();
+    if (!this.instance.format?.src) {
+      return;
+    }
+
+    if (!this.isSourceLoaded) {
+      this.isSourceLoaded = true;
+      this.player.loadSource(this.instance.format!.src);
+      this.player.startLoad();
+    }
 
     super.play();
   }
@@ -77,7 +86,6 @@ export class HlsMedia extends Media {
   public unload() {
     if (this.player) {
       this.player.destroy();
-      this.player = null;
     }
   }
 
