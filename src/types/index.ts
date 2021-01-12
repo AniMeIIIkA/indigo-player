@@ -192,6 +192,7 @@ export interface Config {
   };
 
   contextMenuItems?: IContextMenuItem[];
+  hlsConfig?: Partial<Hls.Config>
 }
 
 export interface IThumbnail {

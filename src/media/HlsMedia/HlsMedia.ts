@@ -11,8 +11,8 @@ export class HlsMedia extends Media {
 
   public async load() {
     await super.load();
-
-    this.player = new HlsJs({
+    
+    this.player = new HlsJs(this.instance.config.hlsConfig ?? {
       autoStartLoad: false,
       enableWorker: false
     });

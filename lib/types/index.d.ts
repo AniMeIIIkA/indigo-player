@@ -153,6 +153,7 @@ export interface Config {
         src: string;
     };
     contextMenuItems?: IContextMenuItem[];
+    hlsConfig?: Partial<Hls.Config>;
 }
 export interface IThumbnail {
     start: number;
