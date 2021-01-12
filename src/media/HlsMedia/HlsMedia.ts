@@ -56,11 +56,14 @@ export class HlsMedia extends Media {
           new PlayerError(ErrorCodes.HLSJS_CRITICAL_ERROR, data),
         );
       }
-    });
+    });    
+  }
 
+  public async play() {
     this.player.loadSource(this.instance.format?.src);
-
     this.player.startLoad();
+
+    super.play();
   }
 
   public seekTo(time: number) {
