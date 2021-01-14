@@ -45,14 +45,21 @@ export class HlsMedia extends Media {
     });
 
     this.player.on(HlsJs.Events.ERROR, (event, data) => {
-      if (!data.fatal) {
+      if (!data.fatal && data.details != 'fragParsingError') {
         return;
       }
 
       if (data.type === HlsJs.ErrorTypes.NETWORK_ERROR) {
         this.player.startLoad();
       } else if (data.type === HlsJs.ErrorTypes.MEDIA_ERROR) {
-        this.player.recoverMediaError();
+        if (data.details == 'fragParsingError') {
+          if (this.player.media != null && data.frag != null) {
+            this.player.media.currentTime = data.frag.start + data.frag.duration + 1.0;
+            this.player.startLoad(this.player.media.currentTime);
+          }          
+        } else {
+          this.player.recoverMediaError();
+        }        
       } else {
         this.instance.setError(
           new PlayerError(ErrorCodes.HLSJS_CRITICAL_ERROR, data),
