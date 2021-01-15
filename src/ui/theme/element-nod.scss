@@ -19,6 +19,10 @@
   &.igui_nod-active {
     animation-name: nod-zoomin;
   }
+
+  .igui_icon_backward, .igui_icon_forward {
+    padding-bottom: 5px;
+  }
 }
 
 @keyframes nod-zoomin {

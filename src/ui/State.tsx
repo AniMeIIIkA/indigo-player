@@ -231,10 +231,12 @@ export class StateStore
 
   private seekToBackward = (seconds: number) => {
     this.props.instance.seekTo(this.props.player.currentTime + (seconds * -1));
+    this.triggerNod(KeyboardNavigationPurpose.PREV_SEEK);
   };
 
   private seekToForward = (seconds: number) => {
     this.props.instance.seekTo(this.props.player.currentTime + seconds);
+    this.triggerNod(KeyboardNavigationPurpose.NEXT_SEEK);
   };
 
   private toggleFullscreen = () => {
@@ -487,6 +489,8 @@ export class StateStore
     const nodIcon = {
       [KeyboardNavigationPurpose.PLAY]: 'play',
       [KeyboardNavigationPurpose.PAUSE]: 'pause',
+      [KeyboardNavigationPurpose.PREV_SEEK]: 'backward',
+      [KeyboardNavigationPurpose.NEXT_SEEK]: 'forward',
       [KeyboardNavigationPurpose.VOLUME_UP]: 'volume-2',
       [KeyboardNavigationPurpose.VOLUME_DOWN]: 'volume-1',
       [KeyboardNavigationPurpose.VOLUME_MUTED]: 'volume-off',

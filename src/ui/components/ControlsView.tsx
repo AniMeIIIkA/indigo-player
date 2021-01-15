@@ -1,5 +1,6 @@
 
 import * as React from 'react';
+import { SKIP_CURRENTTIME_OFFSET } from '../../extensions/KeyboardNavigationExtension/KeyboardNavigationExtension';
 import { IInfo, SettingsTabs } from '../types';
 import { withState } from '../withState';
 import { Button } from './Button';
@@ -16,7 +17,9 @@ interface ControlsViewProps {
   showRebuffer: boolean;
   playIcon: string;
   playTooltipText: string;
+  seekToBackwardIcon: string;
   seekToBackwardTooltipText: string;
+  seekToForwardIcon: string;
   seekToForwardTooltipText: string;
   showSubtitlesToggle: boolean;
   isSubtitleActive: boolean;
@@ -47,7 +50,7 @@ export const ControlsView = withState((props: ControlsViewProps) => {
       <div className="igui_container_controls">
         <Button
           name="backward"
-          icon="backward"
+          icon={props.seekToBackwardIcon}
           onClick={props.seekToBackward}
           tooltip={props.seekToBackwardTooltipText}
         />
@@ -59,7 +62,7 @@ export const ControlsView = withState((props: ControlsViewProps) => {
         />
         <Button
           name="forward"
-          icon="forward"
+          icon={props.seekToForwardIcon}
           onClick={props.seekToForward}
           tooltip={props.seekToForwardTooltipText}
         />
@@ -116,14 +119,16 @@ function mapProps(info: IInfo): ControlsViewProps {
     showRebuffer: info.data.rebuffering,
     playIcon: info.data.playRequested ? 'pause' : 'play',
     playOrPause: info.actions.playOrPause,
-    seekToBackward: () => info.actions.seekToBackward(15),
-    seekToForward: () => info.actions.seekToForward(15),
+    seekToBackwardIcon: 'backward',
+    seekToBackwardTooltipText: createTooltipText('Seek to backward', '←'),
+    seekToForwardIcon: 'forward',
+    seekToForwardTooltipText: createTooltipText('Seek to forward', '→'),
+    seekToBackward: () => info.actions.seekToBackward(SKIP_CURRENTTIME_OFFSET),
+    seekToForward: () => info.actions.seekToForward(SKIP_CURRENTTIME_OFFSET),
     playTooltipText: createTooltipText(
       info.data.playRequested ? 'Pause' : 'Play',
       'k',
-    ),
-    seekToBackwardTooltipText: createTooltipText('Seek to backward 15 seconds', 'k'),
-    seekToForwardTooltipText: createTooltipText('Seek to forward 15 seconds', 'k'),
+    ),    
     showSubtitlesToggle: !!info.data.subtitles.length,
     isSubtitleActive: !!info.data.activeSubtitle,
     toggleActiveSubtitle: info.actions.toggleActiveSubtitle,

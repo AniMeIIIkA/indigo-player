@@ -17,9 +17,9 @@ enum KeyCodes {
   I = 73,
 }
 
-const SKIP_CURRENTTIME_OFFSET: number = 5;
+export const SKIP_CURRENTTIME_OFFSET: number = 15;
 
-const SKIP_VOLUME_OFFSET: number = 0.1;
+export const SKIP_VOLUME_OFFSET: number = 0.1;
 
 export class KeyboardNavigationExtension extends Module {
   public name: string = 'KeyboardNavigationExtension';

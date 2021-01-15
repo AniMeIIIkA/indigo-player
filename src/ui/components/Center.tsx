@@ -1,5 +1,6 @@
 
 import * as React from 'react';
+import { SKIP_CURRENTTIME_OFFSET } from '../../extensions/KeyboardNavigationExtension/KeyboardNavigationExtension';
 import { IThumbnail } from '../../types';
 import { IInfo } from '../types';
 import { withState } from '../withState';
@@ -14,11 +15,28 @@ interface CenterProps {
   toggleFullscreen();
 }
 
-export const Center = withState((props: CenterProps) => {
+let clicksCount = 0;
+
+export const Center = withState((props: CenterProps) => {  
+  const delayedClick = (event: () => void) => {    
+    clicksCount++;
+    const timeout = setTimeout(() => {      
+      if (clicksCount == 1) {
+        event();
+      }      
+      clearTimeout(timeout);
+      clicksCount = 0;
+    }, 170);
+  }
+
   return (
     <div
       className='igui_center'
-      onClick={props.playOrPause}
+      onClick={(e) => {
+        delayedClick(() => {
+          props.playOrPause();
+        });
+      }}
       onDoubleClick={props.toggleFullscreen}
     >
       <div className='igui_center_region_backward'
@@ -45,8 +63,8 @@ export const Center = withState((props: CenterProps) => {
 function mapProps(info: IInfo): CenterProps {
   return {
     playOrPause: () => info.actions.playOrPause('center'),
-    seekToBackward: () => info.actions.seekToBackward(15),
-    seekToForward: () => info.actions.seekToForward(15),
+    seekToBackward: () => info.actions.seekToBackward(SKIP_CURRENTTIME_OFFSET),
+    seekToForward: () => info.actions.seekToForward(SKIP_CURRENTTIME_OFFSET),
     seekingThumbnail: info.data.isSeekbarSeeking
       ? info.data.activeThumbnail
       : null,

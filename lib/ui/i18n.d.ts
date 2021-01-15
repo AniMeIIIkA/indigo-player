@@ -6,8 +6,8 @@ export declare const translations: {
         Mute: string;
         Unmute: string;
         Miniplayer: string;
-        'Seek to backward 15 seconds': string;
-        'Seek to forward 15 seconds': string;
+        'Seek to backward': string;
+        'Seek to forward': string;
         Settings: string;
         'Full screen': string;
         'Exit full screen': string;
@@ -29,8 +29,8 @@ export declare const translations: {
         Mute: string;
         Unmute: string;
         Miniplayer: string;
-        'Seek to backward 15 seconds': string;
-        'Seek to forward 15 seconds': string;
+        'Seek to backward': string;
+        'Seek to forward': string;
         Settings: string;
         'Full screen': string;
         'Exit full screen': string;
@@ -52,8 +52,8 @@ export declare const translations: {
         Mute: string;
         Unmute: string;
         Miniplayer: string;
-        'Seek to backward 15 seconds': string;
-        'Seek to forward 15 seconds': string;
+        'Seek to backward': string;
+        'Seek to forward': string;
         Settings: string;
         'Full screen': string;
         'Exit full screen': string;
@@ -75,8 +75,8 @@ export declare const translations: {
         Mute: string;
         Unmute: string;
         Miniplayer: string;
-        'Seek to backward 15 seconds': string;
-        'Seek to forward 15 seconds': string;
+        'Seek to backward': string;
+        'Seek to forward': string;
         Settings: string;
         'Full screen': string;
         'Exit full screen': string;
@@ -98,8 +98,8 @@ export declare const translations: {
         Mute: string;
         Unmute: string;
         Miniplayer: string;
-        'Seek to backward 15 seconds': string;
-        'Seek to forward 15 seconds': string;
+        'Seek to backward': string;
+        'Seek to forward': string;
         Settings: string;
         'Full screen': string;
         'Exit full screen': string;
@@ -121,8 +121,8 @@ export declare const translations: {
         Mute: string;
         Unmute: string;
         Miniplayer: string;
-        'Seek to backward 15 seconds': string;
-        'Seek to forward 15 seconds': string;
+        'Seek to backward': string;
+        'Seek to forward': string;
         Settings: string;
         'Full screen': string;
         'Exit full screen': string;
@@ -144,8 +144,8 @@ export declare const translations: {
         Mute: string;
         Unmute: string;
         Miniplayer: string;
-        'Seek to backward 15 seconds': string;
-        'Seek to forward 15 seconds': string;
+        'Seek to backward': string;
+        'Seek to forward': string;
         Settings: string;
         'Full screen': string;
         'Exit full screen': string;
