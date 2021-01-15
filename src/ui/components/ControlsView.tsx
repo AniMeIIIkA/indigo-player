@@ -16,6 +16,8 @@ interface ControlsViewProps {
   showRebuffer: boolean;
   playIcon: string;
   playTooltipText: string;
+  seekToBackwardTooltipText: string;
+  seekToForwardTooltipText: string;
   showSubtitlesToggle: boolean;
   isSubtitleActive: boolean;
   subtitleToggleTooltipText: string;
@@ -27,6 +29,8 @@ interface ControlsViewProps {
   fullscreenTooltipText: string;
   isSettingsTabActive: boolean;
   playOrPause();
+  seekToBackward();
+  seekToForward();
   toggleActiveSubtitle();
   togglePip();
   toggleSettings();
@@ -42,10 +46,22 @@ export const ControlsView = withState((props: ControlsViewProps) => {
       {props.showRebuffer && <Rebuffer />}
       <div className="igui_container_controls">
         <Button
+          name="backward"
+          icon="backward"
+          onClick={props.seekToBackward}
+          tooltip={props.seekToBackwardTooltipText}
+        />
+        <Button
           name="play"
           icon={props.playIcon}
           onClick={props.playOrPause}
           tooltip={props.playTooltipText}
+        />
+        <Button
+          name="forward"
+          icon="forward"
+          onClick={props.seekToForward}
+          tooltip={props.seekToForwardTooltipText}
         />
         <VolumeButton />
         <TimeStat />
@@ -100,10 +116,14 @@ function mapProps(info: IInfo): ControlsViewProps {
     showRebuffer: info.data.rebuffering,
     playIcon: info.data.playRequested ? 'pause' : 'play',
     playOrPause: info.actions.playOrPause,
+    seekToBackward: () => info.actions.seekToBackward(15),
+    seekToForward: () => info.actions.seekToForward(15),
     playTooltipText: createTooltipText(
       info.data.playRequested ? 'Pause' : 'Play',
       'k',
     ),
+    seekToBackwardTooltipText: createTooltipText('Seek to backward 15 seconds', 'k'),
+    seekToForwardTooltipText: createTooltipText('Seek to forward 15 seconds', 'k'),
     showSubtitlesToggle: !!info.data.subtitles.length,
     isSubtitleActive: !!info.data.activeSubtitle,
     toggleActiveSubtitle: info.actions.toggleActiveSubtitle,

@@ -65,8 +65,34 @@
   }
 
   .igui_button_name-play {
-    margin-left: 9px;
+    .igui_button_tooltip {
+      left: 2px;
+      transform: translateX(0);
+    }
+  }
 
+  .igui_button_name-backward {
+    margin-left: 9px;
+    .igui_icon_backward {
+      height: 40px;
+      &::before {
+        line-height: 35px;
+      }
+    }
+    .igui_button_tooltip {
+      left: 2px;
+      transform: translateX(0);
+    }
+  }
+
+  .igui_button_name-forward {
+    display: inline-flex;
+    .igui_icon_forward {
+      height: 40px;
+      &::before {
+        line-height: 35px;
+      }
+    }
     .igui_button_tooltip {
       left: 2px;
       transform: translateX(0);
