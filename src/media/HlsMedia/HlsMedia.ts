@@ -79,7 +79,10 @@ export class HlsMedia extends Media {
       this.player.startLoad();
     }
 
-    super.play();
+    const playTimeout = setTimeout(() => {
+      super.play();
+      clearTimeout(playTimeout);
+    }, 200);
   }
 
   public seekTo(time: number) {

@@ -4,7 +4,6 @@ import { SKIP_CURRENTTIME_OFFSET } from '../../extensions/KeyboardNavigationExte
 import { IThumbnail } from '../../types';
 import { IInfo } from '../types';
 import { withState } from '../withState';
-import { Icon } from './Icon';
 import { Sprite } from './Sprite';
 
 interface CenterProps {
