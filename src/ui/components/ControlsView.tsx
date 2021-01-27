@@ -40,7 +40,7 @@ interface ControlsViewProps {
   toggleFullscreen();
 }
 
-export const ControlsView = withState((props: ControlsViewProps) => {
+export const ControlsView = withState((props: ControlsViewProps) => {  
   return (
     <>
       <Nod />

@@ -161,7 +161,7 @@ export interface Config {
 
   ui: {
     enabled: boolean;
-    lockControlsVisibility: boolean;
+    showControls: boolean;
     locale: Locale;
     pip: boolean;
     image?: string;

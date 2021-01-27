@@ -20,7 +20,7 @@ const player = IndigoPlayer.init(
     // startPosition: 100,
     ui: {
       pip: true,
-      lockControlsVisibility: false,
+      showControls: false,
       locale: 'en-US',
       image: 'https://peach.blender.org/wp-content/uploads/rodents2.png?x11217',
     },

@@ -43,7 +43,7 @@ export function createConfig(input: Config): Config {
       volume: 1,
       ui: {
         enabled: true,
-        lockControlsVisibility: false,
+        showControls: true,
         locale: 'en-US',
         pip: false,
       },

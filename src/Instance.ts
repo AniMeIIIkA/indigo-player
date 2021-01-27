@@ -196,7 +196,6 @@ export class Instance implements IInstance {
 
     this.container = document.createElement('div');
     this.container.classList.add('ig-container');
-    this.container.style.paddingTop = `${100 / aspectRatio}%`;
 
     this.playerContainer = document.createElement('div');
     this.playerContainer.classList.add('ig-player');

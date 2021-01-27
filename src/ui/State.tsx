@@ -331,15 +331,16 @@ export class StateStore
 
     // Do we need to show the controls?
     let visibleControls = this.state.visibleControls;
-    if (
-      this.state.isSeekbarSeeking ||
+    if (!this.props.instance.config.ui.showControls) {
+      visibleControls = false;
+    } else if (this.state.isSeekbarSeeking ||
       this.state.isVolumebarSeeking ||
-      !!this.state.settingsTab ||
-      this.props.instance.config.ui.lockControlsVisibility
+      !!this.state.settingsTab
     ) {
       // If we're seeking, either by video position or volume, keep the controls visible.
       visibleControls = true;
     }
+    
 
     // Do we need to open the volume bar?
     let isVolumeControlsOpen = this.state.isVolumeControlsOpen;
