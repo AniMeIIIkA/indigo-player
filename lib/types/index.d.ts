@@ -128,7 +128,7 @@ export interface Config {
     playbackRate?: number;
     ui: {
         enabled: boolean;
-        lockControlsVisibility: boolean;
+        showControls: boolean;
         locale: Locale;
         pip: boolean;
         image?: string;
