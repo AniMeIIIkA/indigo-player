@@ -18,6 +18,8 @@ export class ContextMenuExtension extends Module {
     this.contextMenu = document.createElement('div');
     this.contextMenu.classList.add('ig_contextmenu');
     this.contextMenu.style.opacity = '0';
+    this.contextMenu.style.display = 'none';
+    this.contextMenu.style.pointerEvents = 'none';
     instance.container.appendChild(this.contextMenu);
 
     if (instance.config.contextMenuItems && instance.config.contextMenuItems.length > 0) {
@@ -45,6 +47,7 @@ export class ContextMenuExtension extends Module {
     this.contextMenu.style.top = 'initial';
     this.contextMenu.style.bottom = 'initial';
     this.contextMenu.style.opacity = '1';
+    this.contextMenu.style.display = 'block';
     this.contextMenu.style.pointerEvents = 'auto';
 
     const rect = this.instance.container.getBoundingClientRect();
@@ -68,6 +71,7 @@ export class ContextMenuExtension extends Module {
   };
 
   private onClick = () => {
+    this.contextMenu.style.display = 'none';
     this.contextMenu.style.opacity = '0';
     this.contextMenu.style.pointerEvents = 'none';
     window.removeEventListener('click', this.onClick);
