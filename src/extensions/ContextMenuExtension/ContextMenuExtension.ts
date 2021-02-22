@@ -13,6 +13,10 @@ export class ContextMenuExtension extends Module {
   constructor(instance: IInstance) {
     super(instance);
 
+    if (!instance.config.contextMenuItems || instance.config.contextMenuItems.length == 0) {
+      return;
+    }
+    
     instance.container.addEventListener('contextmenu', this.onContextMenu);
 
     this.contextMenu = document.createElement('div');
@@ -22,13 +26,11 @@ export class ContextMenuExtension extends Module {
     this.contextMenu.style.pointerEvents = 'none';
     instance.container.appendChild(this.contextMenu);
 
-    if (instance.config.contextMenuItems && instance.config.contextMenuItems.length > 0) {
-      for (let item of instance.config.contextMenuItems) {
-        this.addItem(
-          item.name,
-          item.onClick,
-        );
-      }
+    for (let item of instance.config.contextMenuItems) {
+      this.addItem(
+        item.name,
+        item.onClick,
+      );
     }
   }
 
