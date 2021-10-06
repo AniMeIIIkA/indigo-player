@@ -87,7 +87,8 @@ export class HlsMedia extends Media {
 
   public seekTo(time: number) {
     if (time === Infinity) {
-      this.instance.player?.seekTo(this.player.liveSyncPosition);
+      if (this.player.liveSyncPosition)
+        this.instance.player?.seekTo(this.player.liveSyncPosition!);
       return;
     }
     super.seekTo(time);

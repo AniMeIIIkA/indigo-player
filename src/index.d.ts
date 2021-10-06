@@ -2,10 +2,10 @@ import {
   IController,
   IMedia,
   IModule,
-  IInstance,
   IModuleLoader,
   IPlayer,
 } from './types';
+import { IInstance } from './types/IInstance';
 
 
 /**

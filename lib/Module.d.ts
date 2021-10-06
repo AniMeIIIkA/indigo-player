@@ -1,5 +1,5 @@
 import { EventCallback, IEventData, IModule } from './types';
-import { IInstance } from './types/IInstance';
+import type { IInstance } from './types/IInstance';
 export declare class Module implements IModule {
     name: string;
     hooks: any;

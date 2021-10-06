@@ -1,3 +1,4 @@
+import { HlsConfig } from "hls.js";
 import { Locale } from "../ui/i18n";
 import { IInstance } from "./IInstance";
 export declare enum FormatTypes {
@@ -153,7 +154,7 @@ export interface Config {
         src: string;
     };
     contextMenuItems?: IContextMenuItem[];
-    hlsConfig?: Partial<Hls.Config>;
+    hlsConfig?: Partial<HlsConfig>;
 }
 export interface IThumbnail {
     start: number;

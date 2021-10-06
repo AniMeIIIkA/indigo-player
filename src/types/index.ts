@@ -1,5 +1,5 @@
 // Enums
-
+import { HlsConfig } from "hls.js";
 import { Locale } from "../ui/i18n";
 import { IInstance } from "./IInstance";
 
@@ -192,7 +192,7 @@ export interface Config {
   };
 
   contextMenuItems?: IContextMenuItem[];
-  hlsConfig?: Partial<Hls.Config>
+  hlsConfig?: Partial<HlsConfig>
 }
 
 export interface IThumbnail {
