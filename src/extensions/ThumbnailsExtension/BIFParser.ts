@@ -88,7 +88,7 @@ export default class BIFParser {
 
     try {
       this.getInitialImageDimensions();
-    } catch (e) {
+    } catch (e: any) {
       console.warn('BIF Parser', e.stack);
     }
   }

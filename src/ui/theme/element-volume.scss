@@ -1,3 +1,5 @@
+@use "sass:math";
+
 $volumebar-height: 3px;
 $volumebar-scrubber-radius: 14px;
 
@@ -39,7 +41,7 @@ $volumebar-scrubber-radius: 14px;
 
 .igui_volumebar_container {
   height: $volumebar-height;
-  background-color: rgba(255, 255, 255, .5);
+  background-color: rgba(255, 255, 255, 0.5);
   position: relative;
   width: 50px;
 }
@@ -61,6 +63,6 @@ $volumebar-scrubber-radius: 14px;
   background-color: #ffffff;
   border-radius: 100%;
   position: relative;
-  top: (($volumebar-height / 2) - ($volumebar-scrubber-radius / 2));
-  margin-left: -($volumebar-scrubber-radius / 2);
+  top: (math.div($volumebar-height, 2) - math.div($volumebar-scrubber-radius, 2));
+  margin-left: math.div($volumebar-scrubber-radius, 2) * -1;
 }

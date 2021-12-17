@@ -14,6 +14,7 @@
     "jsx": "react",
     "module": "esnext",
     "outDir": "lib",
+    "allowJs": true,
     "lib": [
       "dom",
       "es2018"
@@ -29,9 +30,5 @@
   },
   "include": [
     "./src/**/*"
-  ],
-  // "awesomeTypescriptLoaderOptions": {
-  //   "useBabel": true,
-  //   "babelCore": "@babel/core"
-  // }
+  ]
 }

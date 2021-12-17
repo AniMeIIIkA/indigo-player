@@ -1,8 +1,8 @@
+@use "sass:math";
 @mixin stretch() {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
   bottom: 0;
 }
 
@@ -30,23 +30,14 @@
   position: relative;
 
   &:after {
-    content: '';
+    content: "";
     @include stretch();
     background-color: rgba(0, 0, 0, 0.5);
   }
 }
 
 /* Credits to: https://css-tricks.com/glitch-effect-text-images-svg/ */
-@mixin text-glitch(
-  $name,
-  $intensity,
-  $textColor,
-  $background,
-  $highlightColor1,
-  $highlightColor2,
-  $width,
-  $height
-) {
+@mixin text-glitch($name, $intensity, $textColor, $background, $highlightColor1, $highlightColor2, $width, $height) {
   color: $textColor;
   position: relative;
   $steps: $intensity;
@@ -55,13 +46,8 @@
     @for $i from 1 through 2 {
       @keyframes #{$name}-anim-#{$i} {
         @for $i from 0 through $steps {
-          #{percentage($i*(1/$steps))} {
-            clip: rect(
-              random($height) + px,
-              $width + px,
-              random($height) + px,
-              0
-            );
+          #{percentage($i*math.div(1,$steps))} {
+            clip: rect(random($height) + px, $width + px, random($height) + px, 0);
           }
         }
       }

@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const path = require('path');
-const { TsConfigPathsPlugin } = require('awesome-typescript-loader');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -29,12 +28,8 @@ function createWebpackConfig(build, argv) {
           rules: [
             {
               test: /\.ts|tsx?$/,
-              loader: 'awesome-typescript-loader',
+              loader: 'ts-loader',
               exclude: /node_modules/,
-              options: {
-                declaration: true,
-              }
-
             },
             {
               test: /\.scss$/,
@@ -57,9 +52,6 @@ function createWebpackConfig(build, argv) {
         },
         resolve: {
           extensions: ['.tsx', '.ts', '.js'],
-          plugins: [
-            new TsConfigPathsPlugin(),
-          ],
         },
         // plugins: [
         //   new webpack.DefinePlugin({
@@ -123,9 +115,6 @@ function createWebpackConfig(build, argv) {
         },
         resolve: {
           extensions: ['.tsx', '.ts', '.js'],
-          plugins: [
-            new TsConfigPathsPlugin(),
-          ],
         },
         plugins: [
           new MiniCssExtractPlugin({

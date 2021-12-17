@@ -1,11 +1,12 @@
+@use "sass:math";
 .ig_pip-container {
   position: fixed;
   z-index: 91337;
   bottom: 12px;
   right: 12px;
   width: 400px;
-  height: 400px / 16 * 9;
-  box-shadow: 0px 0px 28px rgba(0, 0, 0, .3);
+  height: math.div(400px, 16) * 9;
+  box-shadow: 0px 0px 28px rgba(0, 0, 0, 0.3);
 }
 
 .ig_pip-handler {
@@ -27,7 +28,7 @@
   font-size: 28px;
   cursor: pointer;
   color: #fff;
-  text-shadow: 0px 0px rgba(0, 0, 0, .5);
+  text-shadow: 0px 0px rgba(0, 0, 0, 0.5);
   z-index: 1;
   display: flex;
   align-items: center;

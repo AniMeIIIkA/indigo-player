@@ -1,3 +1,5 @@
+@use "sass:math";
+
 .igui_nod {
   pointer-events: none;
   position: absolute;
@@ -6,9 +8,9 @@
   font-size: 24px;
   width: 48px;
   height: 48px;
-  margin-left: -(48px / 2);
-  margin-top: -(48px / 2);
-  background-color: rgba(0, 0, 0, .5);
+  margin-left: math.div(48px, 2) * -1;
+  margin-top: math.div(48px, 2) * -1;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,7 +22,8 @@
     animation-name: nod-zoomin;
   }
 
-  .igui_icon_backward, .igui_icon_forward {
+  .igui_icon_backward,
+  .igui_icon_forward {
     padding-bottom: 5px;
   }
 }
@@ -31,7 +34,9 @@
     transform: scale(0);
   }
 
-  70% { opacity: 1; }
+  70% {
+    opacity: 1;
+  }
 
   100% {
     opacity: 0;
