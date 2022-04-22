@@ -124,12 +124,24 @@ tabs[SettingsTabs.PLAYBACKRATES] = (props: SettingsProps) => (
           label: '0.5',
         },
         {
+          item: 0.75,
+          label: '0.75',
+        },
+        {
           item: 1,
           label: props.data.getTranslation('Normal speed'),
         },
         {
+          item: 1.25,
+          label: '1.25',
+        },
+        {
           item: 1.5,
           label: '1.5',
+        },
+        {
+          item: 1.75,
+          label: '1.75',
         },
         {
           item: 2,
