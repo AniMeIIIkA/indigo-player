@@ -1,4 +1,4 @@
-import Hls from 'hls.js';
+import Hls from 'axl-hls.js';
 import { ModuleLoaderTypes, Format, FormatTypes, IModuleLoader } from '../../types';
 import { IInstance } from '../../types/IInstance';
 import { HlsMedia } from './HlsMedia';

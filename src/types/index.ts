@@ -1,5 +1,5 @@
 // Enums
-import { HlsConfig } from "hls.js";
+import { HlsConfig } from "axl-hls.js";
 import { Locale } from "../ui/i18n";
 import { IInstance } from "./IInstance";
 
