@@ -11,20 +11,24 @@ export class HTML5Player extends Player {
   public load() {
     super.load();
 
-    
+
     this.mediaElement = document.createElement('video');
     this.mediaElement.style.width = '100%';
     this.mediaElement.style.height = '100%';
     this.mediaElement.preload = 'metadata';
     this.mediaElement.crossOrigin = 'anonymous';
     this.mediaElement.volume = 1;
-    this.mediaElement.setAttribute('playsinline', '');
+    this.mediaElement.setAttribute('playsinline', 'playsinline');
     this.mediaElement.setAttribute('preload', 'auto');
+
+    if (this.instance.config.autoplay === true) {
+      this.mediaElement.setAttribute('autoplay', 'autoplay');
+    }
 
     if ((this.instance.env.isSafari || this.instance.env.isIOS) && this.instance.config.ui.enabled) {
       this.mediaElement.setAttribute('controls', '');
-    }    
-    
+    }
+
     this.instance.playerContainer.appendChild(this.mediaElement);
 
     this.mediaElement.addEventListener('playing', () => {
