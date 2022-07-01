@@ -132,6 +132,7 @@ export interface Config {
         showControls: boolean;
         locale: Locale;
         pip: boolean;
+        playbackRate: boolean;
         image?: string;
         ignoreStylesheet?: boolean;
     };

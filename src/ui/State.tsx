@@ -340,7 +340,7 @@ export class StateStore
       // If we're seeking, either by video position or volume, keep the controls visible.
       visibleControls = true;
     }
-    
+
 
     // Do we need to open the volume bar?
     let isVolumeControlsOpen = this.state.isVolumeControlsOpen;
@@ -469,12 +469,16 @@ export class StateStore
     if (this.props.player.trackAutoSwitch) {
       selectedTrack = 'auto';
     }
+    const visibleSettingsTabs: SettingsTabs[] = [];
+    const playbackRate = this.props.instance.config.ui.playbackRate;
+    if (playbackRate) {
+      visibleSettingsTabs.push(SettingsTabs.PLAYBACKRATES);
+    }
 
     const subtitles = this.props.instance.config.subtitles || [];
 
     const activeSubtitle = this.props.player.subtitle;
 
-    const visibleSettingsTabs = [SettingsTabs.PLAYBACKRATES];
     if (subtitles.length) {
       visibleSettingsTabs.push(SettingsTabs.SUBTITLES);
     }

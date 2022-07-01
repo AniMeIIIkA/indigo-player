@@ -46,6 +46,7 @@ export function createConfig(input: Config): Config {
         showControls: true,
         locale: 'en-US',
         pip: false,
+        playbackRate: true
       },
       sources: [],
       subtitles: [],
