@@ -25,8 +25,14 @@ export class HTML5Player extends Player {
       this.mediaElement.setAttribute('autoplay', 'autoplay');
     }
 
-    if ((this.instance.env.isSafari || this.instance.env.isIOS) && this.instance.config.ui.enabled) {
-      this.mediaElement.setAttribute('controls', '');
+    if ((this.instance.env.isSafari || this.instance.env.isIOS)) {
+      if (this.instance.config.ui.enabled) {
+        this.mediaElement.setAttribute('controls', '');
+      }
+  
+      if (this.instance.config.ui.image && this.instance.config.ui.image.length > 0) {
+        this.mediaElement.setAttribute('poster', this.instance.config.ui.image);
+      }
     }
 
     this.instance.playerContainer.appendChild(this.mediaElement);
