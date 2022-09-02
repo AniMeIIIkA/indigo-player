@@ -22,7 +22,9 @@ export const StartView = withState((props: StartViewProps) => {
           style={{ backgroundImage: `url(${props.image})` }}
         />
       )}
-      <Icon icon='play' />
+      <div className='igui_view_play_button'>
+        <Icon icon='play' />
+      </div>
     </button>
   );
 }, mapProps);

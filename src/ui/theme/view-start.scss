@@ -7,14 +7,18 @@
   justify-content: center;
   cursor: pointer;
 
-  .igui_icon_play {
+  .igui_view_play_button {
+    width: 90px;
+    height: 90px;
+    line-height: 122px;
     animation: 250ms ease-out 0s 1 play-appear;
-    font-size: 6em;
-    padding: 5px;
     background: rgba(0,0,0,0.75);
     z-index: 1;
     border-radius: 50%;
     box-shadow: 0px 0 40px rgba(255,255,255,0.2);
+    > img {
+      height: 40px;
+    }
 
     @keyframes play-appear {
       0% {
