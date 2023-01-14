@@ -24,7 +24,9 @@
     "@types/jest": "^26.0.15",
     "@types/lodash": "^4.14.165",
     "@types/node": "^10.17.45",
-    "@types/react": "^16.9.56",
+    "@types/react": "17.0.39",
+    "@types/react-dom": "17.0.13",
+    "@types/hls.js": "^1.0.0",
     "awesome-typescript-loader": "^5.2.1",
     "css-loader": "^5.0.1",
     "file-loader": "^6.2.0",
@@ -51,15 +53,15 @@
     "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
-    "dev": "webpack-dev-server --host 0.0.0.0 --mode development --hot --builds dev,player,theme",
+    "start": "webpack-dev-server --host 0.0.0.0 --mode development --hot --builds dev,player,theme",
+    "dev": "webpack --mode development",
     "build": "rimraf lib && webpack --mode production",
     "lint": "prettier-tslint fix '**/*.ts{,x}'",
     "test": "jest"
   },
   "main": "./lib/index.js",
-  "types": "./lib/src/index.d.ts",
+  "types": "./lib/index.d.ts",
   "dependencies": {
-    "@types/hls.js": "^1.0.0",
     "can-autoplay": "^3.0.0",
     "classnames": "^2.2.6",
     "deepmerge": "^3.1.0",
@@ -68,8 +70,6 @@
     "immer": "^1.10.0",
     "jdataview": "^2.5.0",
     "lodash": "^4.17.11",
-    "react": "^16.9.56",
-    "react-dom": "^16.9.56",
     "request-frame": "^1.5.3",
     "screenfull": "^5.1.0",
     "shaka-player": "^2.5.19",
@@ -78,5 +78,9 @@
     "ts-polyfill": "^3.8.2",
     "url-parse": "^1.4.4",
     "vtt-to-json": "^0.1.1"
+  },
+  "peerDependencies": {
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
   }
 }

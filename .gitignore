@@ -1,5 +1,8 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+/lib
+.turbo
+
 # compiled output
 compilation_stats.json
 yarn-error.log
@@ -23,8 +26,5 @@ bin/release-beta.sh
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-lib/index.js
-lib/index.js.LICENSE.txt
-lib/indigo-theme.css
 package-lock.json
 yarn.lock
