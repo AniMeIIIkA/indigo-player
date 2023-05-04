@@ -78,5 +78,10 @@
     "ts-polyfill": "^3.8.2",
     "url-parse": "^1.4.4",
     "vtt-to-json": "^0.1.1"
+  },
+  "peerDependencies": {
+    "lodash": "^4.17.11",
+    "react": "^16.9.56",
+    "react-dom": "^16.9.56"
   }
 }
