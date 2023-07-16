@@ -1,34 +1,29 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "removeComments": false,
-    "moduleResolution": "node",
-    "noEmit": false,
+    "module": "esnext",
+    "target": "es5",
+    "moduleResolution": "Node",
     "declaration": true,
-    "strict": true,
+    "declarationMap": true,
+    "declarationDir": "dist",
+    "noEmit": false,
+    "strict": false,
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "strictPropertyInitialization": false,
-    "suppressImplicitAnyIndexErrors": true,
-    "noImplicitAny": false,
     "jsx": "react",
-    "module": "esnext",
-    "outDir": "lib",
-    "allowJs": true,
-    "lib": [
-      "dom",
-      "es2018"
-    ],
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": ["src/*"]
+    },
+    "lib": ["dom", "es2018"],
     "sourceMap": true,
-    "types": [
-      "node"
-    ],
-    "resolveJsonModule": true,
-    "typeRoots": [
-      "./src/custom_types"
-    ]
+    "resolveJsonModule": true
   },
   "include": [
     "./src/**/*"
-  ]
+  ],
+  "awesomeTypescriptLoaderOptions": {
+    "useBabel": true,
+    "babelCore": "@babel/core"
+  }
 }

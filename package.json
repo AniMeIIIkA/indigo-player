@@ -51,13 +51,17 @@
     "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
-    "dev": "webpack-dev-server --host 0.0.0.0 --mode development --hot --builds dev,player,theme",
+    "start": "webpack-dev-server --host 0.0.0.0 --mode development --hot --builds dev,player,theme",
     "build": "rimraf lib && webpack --mode production",
+    "turbo:start": "npm run build:vite",
+    "start:vite": "vite",
+    "build:vite": "vite build",
     "lint": "prettier-tslint fix '**/*.ts{,x}'",
     "test": "jest"
   },
-  "main": "./lib/index.js",
-  "types": "./lib/src/index.d.ts",
+  "main": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "module": "dist/index.mjs",
   "dependencies": {
     "@types/hls.js": "^1.0.0",
     "can-autoplay": "^3.0.0",
@@ -77,6 +81,8 @@
     "subtitle": "^2.0.2",
     "ts-polyfill": "^3.8.2",
     "url-parse": "^1.4.4",
-    "vtt-to-json": "^0.1.1"
+    "vtt-to-json": "^0.1.1",
+    "vite": "^4.4.4",
+    "vite-plugin-dts": "^3.3.0"
   }
 }

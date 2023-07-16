@@ -1,4 +1,8 @@
 .ig-container {
+  position: relative;
+  background-color: #000;
+  overflow: hidden;
+  height: 100%;
   color: #fff;
   -webkit-tap-highlight-color: transparent;
   font-family: Verdana, Geneva, sans-serif;
@@ -6,6 +10,15 @@
 
   * {
     box-sizing: border-box;
+  }
+
+  .ig-player {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: black;
   }
 }
 

@@ -1,9 +1,9 @@
 const webpack = require('webpack');
 const path = require('path');
+const { TsConfigPathsPlugin } = require('awesome-typescript-loader');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-//const WebpackShellPlugin = require('webpack-shell-plugin');
 const pkg = require('./package.json');
 
 function createWebpackConfig(build, argv) {
@@ -22,18 +22,17 @@ function createWebpackConfig(build, argv) {
           libraryExport: 'default',
           library: 'IndigoPlayer',
           libraryTarget: 'umd',
-          publicPath: '/',
         },
         module: {
           rules: [
             {
-              test: /\.ts|tsx?$/,
+              test: /\.tsx?$/,
               loader: 'ts-loader',
               exclude: /node_modules/,
             },
             {
               test: /\.scss$/,
-              use: ['style-loader', 'css-loader', 'sass-loader']
+              use: ['style-loader', 'css-loader', 'sass-loader'],
             },
             {
               test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
@@ -52,13 +51,16 @@ function createWebpackConfig(build, argv) {
         },
         resolve: {
           extensions: ['.tsx', '.ts', '.js'],
+          plugins: [
+            new TsConfigPathsPlugin(),
+          ],
         },
-        // plugins: [
-        //   new webpack.DefinePlugin({
-        //     VERSION: JSON.stringify(pkg.version),
-        //   }),
-        //   new webpack.BannerPlugin(`indigo-player v${pkg.version} - [name] - ${+new Date()}`),
-        // ],
+        plugins: [
+          new webpack.DefinePlugin({
+            VERSION: JSON.stringify(pkg.version),
+          }),
+          // new webpack.BannerPlugin(`indigo-player v${pkg.version} - [name] - ${+new Date()}`),
+        ],
         optimization: {
           splitChunks: {
             chunks: 'async',
@@ -94,12 +96,11 @@ function createWebpackConfig(build, argv) {
           rules: [
             {
               test: /\.scss$/,
-              use: [{
-                loader: MiniCssExtractPlugin.loader,
-                options: {
-                  publicPath: './'
-                }
-              }, 'css-loader', 'sass-loader'],
+              use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+            },
+            {
+              test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+              use: ['file-loader'],
             },
             {
               test: /.(svg?)(\?[a-z0-9]+)?$/,
@@ -115,6 +116,9 @@ function createWebpackConfig(build, argv) {
         },
         resolve: {
           extensions: ['.tsx', '.ts', '.js'],
+          plugins: [
+            new TsConfigPathsPlugin(),
+          ],
         },
         plugins: [
           new MiniCssExtractPlugin({
@@ -126,7 +130,7 @@ function createWebpackConfig(build, argv) {
       // if (isProduction) {
       //   config.plugins.push(new WebpackShellPlugin({
       //     onBuildEnd: [
-      //       'rimraf ./lib/theme.js',
+      //       'rm ./lib/theme.js',
       //       'perfectionist ./lib/indigo-theme.css ./lib/indigo-theme.css --indentSize=2',
       //     ],
       //   }));

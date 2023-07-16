@@ -49,7 +49,7 @@ export class UiExtension extends Module {
     const link = document.createElement('link');
     link.setAttribute('rel', 'stylesheet');
     link.setAttribute('type', 'text/css');
-    link.setAttribute('href', `${__webpack_public_path__}indigo-theme.css`);
+    // link.setAttribute('href', `${__webpack_public_path__}indigo-theme.css`);
     link.setAttribute('data-indigo', 'internal');
     document.getElementsByTagName('head')[0].appendChild(link);
   }

@@ -3,12 +3,20 @@ import { EventCallback, IEventData, ITrack } from "./types";
 import { IInstance } from "./types/IInstance";
 import { createFunctionFn } from "./utils/defineProperty";
 
+export type IndigoPlayerApi = {
+  on: (event: string, cb: () => void) => void;
+  once: (event: string, cb: () => void) => void;
+  removeListener: (event: string) => void;
+  destroy: () => void;
+  setError: (error: PlayerError) => void;
+}
+
 /**
  * Defines the public API, this is the return value of init().
  * @param  {IInstance} instance
  * @return {Object}   External API.
  */
-export function createAPI(instance: IInstance) {
+export function createAPI(instance: IInstance): IndigoPlayerApi {
   const api: any = {};
 
   const createFunction = createFunctionFn(api);

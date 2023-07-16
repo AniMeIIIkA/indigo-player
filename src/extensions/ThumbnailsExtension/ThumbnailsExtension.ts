@@ -1,5 +1,5 @@
 
-import BIFParser from './BIFParser';
+// import BIFParser from './BIFParser';
 
 import parse from 'url-parse';
 import vttToJson from 'vtt-to-json';
@@ -14,7 +14,7 @@ export class ThumbnailsExtension extends Module {
 
   private extension: string | undefined = '';
 
-  private bifParser: BIFParser;
+  // private bifParser: BIFParser;
 
   constructor(instance: IInstance) {
     super(instance);
@@ -49,15 +49,15 @@ export class ThumbnailsExtension extends Module {
       .sort((a, b) => b.start - a.start);
   }
 
-  private async loadBifThumbs(file) {
-    const response = await fetch(file);
-    const data = await response.arrayBuffer();
+  // private async loadBifThumbs(file) {
+  //   const response = await fetch(file);
+  //   const data = await response.arrayBuffer();
 
-    // Since we already have functionality to grab the bif image that we
-    // need at a given second, we are only prepping the parser class and
-    // do not need to create an array of thumbs
-    this.bifParser = new BIFParser(data);
-  }
+  //   // Since we already have functionality to grab the bif image that we
+  //   // need at a given second, we are only prepping the parser class and
+  //   // do not need to create an array of thumbs
+  //   // this.bifParser = new BIFParser(data);
+  // }
 
   public async load() {
     if (!this.instance.config.thumbnails?.src) return;
@@ -70,7 +70,7 @@ export class ThumbnailsExtension extends Module {
     if (this.extension === 'vtt') {
       this.loadVttThumbs(file);
     } else if (this.extension === 'bif') {
-      this.loadBifThumbs(file);
+      // this.loadBifThumbs(file);
     } else {
       // We shouldn't get here, but still
       this.instance.log('ThumbnailsExtension')(
@@ -83,7 +83,7 @@ export class ThumbnailsExtension extends Module {
     if (this.extension === 'vtt' && this.thumbnails.length > 0) {
       return this.thumbnails.find(thumbnail => thumbnail.start <= seconds) || null;
     } else if (this.extension === 'bif') {
-      return this.bifParser.getImageDataAtSecond(seconds) as IThumbnail;
+      // return this.bifParser.getImageDataAtSecond(seconds) as IThumbnail;
     } else {
       return null;
     }

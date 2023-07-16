@@ -2,7 +2,6 @@ import { createConfig } from './createConfig';
 import { createAllSupported, createFirstSupported } from './ModuleLoader';
 import { PlayerError } from './PlayerError';
 import { selectController, selectExtensions } from './selectModule';
-import './styles.scss';
 import {
   Config,
   ErrorCodes,
@@ -217,7 +216,7 @@ export class Instance implements IInstance {
 
     const log = this.log('instance.init');
 
-    log(`Will fetch chunks from ${__webpack_public_path__}`);
+    // log(`Will fetch chunks from ${__webpack_public_path__}`);
 
     this.env = await getEnv(config);
 
