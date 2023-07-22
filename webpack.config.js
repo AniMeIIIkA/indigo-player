@@ -16,7 +16,7 @@ function createWebpackConfig(build, argv) {
       config = {
         entry: './src/index.ts',
         output: {
-          path: path.resolve(__dirname, 'lib'),
+          path: path.resolve(__dirname, 'dist'),
           filename: `index.js`,
           chunkFilename: '[name].[chunkhash].js',
           libraryExport: 'default',
@@ -90,7 +90,7 @@ function createWebpackConfig(build, argv) {
           theme: './src/ui/theme/index.scss',
         },
         output: {
-          path: path.resolve(__dirname, 'lib'),
+          path: path.resolve(__dirname, 'dist'),
         },
         module: {
           rules: [
@@ -122,7 +122,7 @@ function createWebpackConfig(build, argv) {
         },
         plugins: [
           new MiniCssExtractPlugin({
-            filename: 'indigo-theme.css',
+            filename: 'style.css',
           }),
         ],
       };

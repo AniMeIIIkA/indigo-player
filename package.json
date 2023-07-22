@@ -52,7 +52,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --host 0.0.0.0 --mode development --hot --builds dev,player,theme",
-    "build": "rimraf lib && webpack --mode production",
+    "build": "rimraf dist && webpack --mode production",
     "turbo:start": "npm run build:vite",
     "turbo:clean": "rimraf dist",
     "start:vite": "vite",
