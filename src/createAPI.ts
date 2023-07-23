@@ -4,8 +4,8 @@ import { IInstance } from "./types/IInstance";
 import { createFunctionFn } from "./utils/defineProperty";
 
 export type IndigoPlayerApi = {
-  on: (event: string, cb: () => void) => void;
-  once: (event: string, cb: () => void) => void;
+  on: (event: string, cb: () => any) => void;
+  once: (event: string, cb: () => any) => void;
   removeListener: (event: string) => void;
   destroy: () => void;
   setError: (error: PlayerError) => void;

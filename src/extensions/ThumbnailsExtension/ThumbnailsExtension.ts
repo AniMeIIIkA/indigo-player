@@ -83,6 +83,7 @@ export class ThumbnailsExtension extends Module {
     if (this.extension === 'vtt' && this.thumbnails.length > 0) {
       return this.thumbnails.find(thumbnail => thumbnail.start <= seconds) || null;
     } else if (this.extension === 'bif') {
+      return null;
       // return this.bifParser.getImageDataAtSecond(seconds) as IThumbnail;
     } else {
       return null;
