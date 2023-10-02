@@ -23,9 +23,7 @@ export class UiExtension extends Module {
 
     this.setTheme();
 
-    const container = this.instance.container.querySelector(
-      '.ig-ui',
-    ) as HTMLElement;
+    const container = this.instance.uiContainer;
 
     this.instance.on(Events.STATE_CHANGE, state =>
       render(container, state, this.instance, this.ref),
