@@ -14,6 +14,8 @@ export function withState(WrappedComponent, mapProps: any = null) {
           if (mapProps) {
             info = mapProps(info, this.props);
           } // This is temporary, once all components are integrated with mapProps, remove.
+
+          //@ts-ignore
           return <MemoizedWrappedComponent {...this.props} {...info} />;
         }}
       </StateContext.Consumer>

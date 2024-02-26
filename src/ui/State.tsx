@@ -126,6 +126,7 @@ export class StateStore
     const actions = this.createActions();
 
     return (
+      //@ts-ignore
       <StateContext.Provider value={{ data, actions }}>
         {this.props.children}
       </StateContext.Provider>
