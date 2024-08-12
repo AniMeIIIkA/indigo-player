@@ -26,7 +26,7 @@ export class HTML5Player extends Player {
     }
 
     if ((this.instance.env.isSafari || this.instance.env.isIOS)) {
-      if (this.instance.config.ui.enabled) {
+      if (this.instance.config.ui.showControls) {
         this.mediaElement.setAttribute('controls', '');
       }
   
