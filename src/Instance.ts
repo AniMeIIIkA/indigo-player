@@ -63,7 +63,7 @@ export class Instance implements IInstance {
 
   public format: Format | null;
 
-  public extensions: IModule[] = [];  
+  public extensions: IModule[] = [];
 
   public log = log;
 
@@ -246,9 +246,6 @@ export class Instance implements IInstance {
     // Set initial config values.
 
     this.setVolume(config.volume ?? 1);
-    if (config.startPosition) {
-      this.seekTo(config.startPosition);
-    }
 
     if (config.playbackRate) {
       this.setPlaybackRate(config.playbackRate);
@@ -259,6 +256,11 @@ export class Instance implements IInstance {
       this.play();
       log('play() called because of autoplay');
     }
+
+    this.once(Events.STATE_PLAY_REQUESTED, () => {
+      if (config.startPosition)
+        this.seekTo(config.startPosition);
+    });
 
     setTimeout(() => this.emit(Events.READY));
   }

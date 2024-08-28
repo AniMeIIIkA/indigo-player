@@ -1,5 +1,5 @@
 
-import HlsJs from 'axl-hls.js';
+import HlsJs from 'hls.js';
 import { PlayerError } from '../../PlayerError';
 import { Events, ITracksEventData, ITrackChangeEventData, ErrorCodes, ITrack } from '../../types';
 import { Media } from '../Media';

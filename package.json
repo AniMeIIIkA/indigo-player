@@ -65,12 +65,11 @@
   "types": "dist/index.d.ts",
   "module": "dist/index.mjs",
   "dependencies": {
-    "@types/hls.js": "^1.0.0",
+    "hls.js": "^1.5.15",
     "can-autoplay": "^3.0.0",
     "classnames": "^2.2.6",
     "deepmerge": "^3.1.0",
     "eventemitter3": "^3.1.0",
-    "axl-hls.js": "1.0.1",
     "immer": "^1.10.0",
     "jdataview": "^2.5.0",
     "lodash": "^4.17.11",

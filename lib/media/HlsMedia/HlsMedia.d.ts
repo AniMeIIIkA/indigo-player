@@ -1,4 +1,4 @@
-import HlsJs from 'axl-hls.js';
+import HlsJs from 'hls.js';
 import { ITrack } from '../../types';
 import { Media } from '../Media';
 export declare class HlsMedia extends Media {
