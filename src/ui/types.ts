@@ -1,5 +1,5 @@
 import { PlayerError } from "../PlayerError";
-import { ITrack, Subtitle, IThumbnail } from "../types";
+import { ITrack, Subtitle, IThumbnail, WatermarkConfig } from "../types";
 
 
 export interface IData {
@@ -44,6 +44,7 @@ export interface IData {
   nodIcon: string;
   showTitle: boolean;
   title: string;
+  watermark: WatermarkConfig;
   getTranslation(text: string): string;
 }
 

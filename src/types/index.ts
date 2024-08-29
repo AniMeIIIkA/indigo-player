@@ -146,6 +146,15 @@ export interface Subtitle {
   src: string;
 }
 
+export type WatermarkPlacement = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight' | 'center' | 'leftCenter' | 'rightCenter' | 'topCenter' | 'bottomCenter';
+export interface WatermarkConfig {
+  enabled: boolean;
+  data: string;
+  mode: 'constant' | 'frequency';
+  frequencyDelayInSec?: number;
+  constantPlacement: WatermarkPlacement;
+}
+
 export type Cuepoint = 'preroll' | 'postroll' | number;
 
 export interface Config {
@@ -169,6 +178,7 @@ export interface Config {
     ignoreStylesheet?: boolean;
     showTitle?: boolean;
     title?: string;
+    watermark?: WatermarkConfig;
   };
 
   sources: Format[];

@@ -12,6 +12,8 @@ import { Settings } from './Settings';
 import { TimeStat } from './TimeStat';
 import { VolumeButton } from './VolumeButton';
 import { Title } from './Title';
+import { WatermarkConfig } from '@src/types';
+import { Watermark } from './Watermark';
 
 interface ControlsViewProps {
   isCenterClickAllowed: boolean;
@@ -34,6 +36,7 @@ interface ControlsViewProps {
   isSettingsTabActive: boolean;
   showTitle: boolean;
   title: string;
+  watermark: WatermarkConfig;
   playOrPause();
   seekToBackward();
   seekToForward();
@@ -107,6 +110,7 @@ export const ControlsView = withState((props: ControlsViewProps) => {
           disabled={!props.isFullscreenSupported}
         />
       </div>
+      {props.watermark?.enabled && <Watermark />}
     </>
   );
 }, mapProps);
@@ -154,5 +158,6 @@ function mapProps(info: IInfo): ControlsViewProps {
     ),
     showTitle: info.data.showTitle,
     title: info.data.title,
+    watermark: info.data.watermark
   };
 }

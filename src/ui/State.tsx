@@ -560,6 +560,9 @@ export class StateStore
       showTitle: this.props.instance.config.ui.showTitle,
       title: this.props.instance.config.ui.title,
 
+      // Watermark
+      watermark: this.props.instance.config.ui.watermark,
+
       // i18n
       getTranslation: this.getTranslation,
     } as IData;
