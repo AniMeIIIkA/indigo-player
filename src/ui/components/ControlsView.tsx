@@ -11,6 +11,7 @@ import { Seekbar } from './Seekbar';
 import { Settings } from './Settings';
 import { TimeStat } from './TimeStat';
 import { VolumeButton } from './VolumeButton';
+import { Title } from './Title';
 
 interface ControlsViewProps {
   isCenterClickAllowed: boolean;
@@ -31,6 +32,8 @@ interface ControlsViewProps {
   isFullscreenSupported: boolean;
   fullscreenTooltipText: string;
   isSettingsTabActive: boolean;
+  showTitle: boolean;
+  title: string;
   playOrPause();
   seekToBackward();
   seekToForward();
@@ -40,9 +43,10 @@ interface ControlsViewProps {
   toggleFullscreen();
 }
 
-export const ControlsView = withState((props: ControlsViewProps) => {  
+export const ControlsView = withState((props: ControlsViewProps) => {
   return (
     <>
+      {props.showTitle && <Title />}
       <Nod />
       <Settings />
       {props.isCenterClickAllowed && <Center />}
@@ -128,7 +132,7 @@ function mapProps(info: IInfo): ControlsViewProps {
     playTooltipText: createTooltipText(
       info.data.playRequested ? 'Pause' : 'Play',
       'k',
-    ),    
+    ),
     showSubtitlesToggle: !!info.data.subtitles.length,
     isSubtitleActive: !!info.data.activeSubtitle,
     toggleActiveSubtitle: info.actions.toggleActiveSubtitle,
@@ -148,5 +152,7 @@ function mapProps(info: IInfo): ControlsViewProps {
       info.data.isFullscreen ? 'Exit full screen' : 'Full screen',
       'f',
     ),
+    showTitle: info.data.showTitle,
+    title: info.data.title,
   };
 }

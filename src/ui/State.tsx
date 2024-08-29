@@ -556,6 +556,10 @@ export class StateStore
       activeSubtitle,
       activeThumbnail: this.state.activeThumbnail,
 
+      // Title
+      showTitle: this.props.instance.config.ui.showTitle,
+      title: this.props.instance.config.ui.title,
+
       // i18n
       getTranslation: this.getTranslation,
     } as IData;

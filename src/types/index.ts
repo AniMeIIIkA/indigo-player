@@ -167,6 +167,8 @@ export interface Config {
     playbackRate: boolean;
     image?: string;
     ignoreStylesheet?: boolean;
+    showTitle?: boolean;
+    title?: string;
   };
 
   sources: Format[];
