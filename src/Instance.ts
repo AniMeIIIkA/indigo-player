@@ -19,6 +19,7 @@ import {
   ITrack,
   IWatermarkChangeEventData,
   ModuleLoaderTypes,
+  WatermarkConfig,
 } from './types';
 import { getEnv } from './utils/getEnv';
 import { log } from './utils/log';
@@ -127,9 +128,9 @@ export class Instance implements IInstance {
     this.controller?.setPlaybackRate(playbackRate);
   }
 
-  public setWatermark(data: string) {
+  public setWatermark(config: Partial<WatermarkConfig>) {
     this.emit(Events.UI_WATERMARK_CHANGE, {
-       data
+      config
     } as IWatermarkChangeEventData);
   }
 

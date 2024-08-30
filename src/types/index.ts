@@ -340,7 +340,7 @@ export interface IAdEventData extends IEventData {
 }
 
 export interface IWatermarkChangeEventData extends IEventData {
-  data: string;
+  config: Partial<WatermarkConfig>;
 }
 
 

@@ -1,5 +1,5 @@
 import { PlayerError } from "./PlayerError";
-import { EventCallback, IEventData, ITrack } from "./types";
+import { EventCallback, IEventData, ITrack, WatermarkConfig } from "./types";
 import { IInstance } from "./types/IInstance";
 import { createFunctionFn } from "./utils/defineProperty";
 
@@ -16,7 +16,7 @@ export type IndigoPlayerApi = {
   selectTrack: (track: ITrack) => void;
   selectAudioLanguage: (language: string) => void;
   setPlaybackRate: (playbackRate: number) => void;
-  setWatermark: (value: string) => void;
+  setWatermark: (config: Partial<WatermarkConfig>) => void;
 }
 
 /**
@@ -95,7 +95,7 @@ export function createAPI(instance: IInstance): IndigoPlayerApi {
     ['getModule', (name: string) => instance.getModule(name)],
 
     // Set watermark
-    ['setWatermark', (value: string) => instance.setWatermark(value)],
+    ['setWatermark', (config: Partial<WatermarkConfig>) => instance.setWatermark(config)],
   ].forEach(tuple => createFunction(tuple[0], tuple[1]));
 
   api._getInstanceForDev = () => instance;

@@ -1,7 +1,7 @@
 
 import uniqBy from 'lodash/uniqBy';
 import React, { RefObject } from 'react';
-import { Subtitle, IThumbnail, KeyboardNavigationPurpose, Events, ITrack, AdBreakType, WatermarkConfig } from '../types';
+import { Subtitle, IThumbnail, KeyboardNavigationPurpose, Events, ITrack, AdBreakType, WatermarkConfig, IWatermarkChangeEventData } from '../types';
 import { IInstance } from '../types/IInstance';
 import { getTranslation } from './i18n';
 import { triggerEvent } from './triggerEvent';
@@ -116,8 +116,8 @@ export class StateStore
       }
     });
 
-    this.props.instance.on(Events.UI_WATERMARK_CHANGE, data => {
-      this.setWatermarkData(data.data);
+    this.props.instance.on(Events.UI_WATERMARK_CHANGE, ({ config }: IWatermarkChangeEventData) => {
+      this.updateWatermark(config);
     });
   }
 
@@ -158,11 +158,11 @@ export class StateStore
     this.setState({ visibleControls: false });
   };
 
-  public setWatermarkData = (value: string) => {
+  public updateWatermark = (config: Partial<WatermarkConfig>) => {
     this.setState({
       watermark: {
         ...this.state.watermark,
-        data: value,
+        ...config
       } as any
     });
   };
