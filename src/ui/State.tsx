@@ -117,7 +117,6 @@ export class StateStore
     });
 
     this.props.instance.on(Events.UI_WATERMARK_CHANGE, data => {
-      console.log(data, 'watermark on');
       this.setWatermarkData(data.data);
     });
   }
@@ -160,15 +159,11 @@ export class StateStore
   };
 
   public setWatermarkData = (value: string) => {
-    console.log(this.state.watermark, 'watermark');
-    //@ts-ignore
     this.setState({
-       //@ts-ignore
       watermark: {
-         //@ts-ignore
         ...this.state.watermark,
         data: value,
-      }
+      } as any
     });
   };
 

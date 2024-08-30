@@ -128,7 +128,6 @@ export class Instance implements IInstance {
   }
 
   public setWatermark(data: string) {
-    console.log(data, 'set watermark emit');
     this.emit(Events.UI_WATERMARK_CHANGE, {
        data
     } as IWatermarkChangeEventData);
