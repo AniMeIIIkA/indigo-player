@@ -9,6 +9,14 @@ export type IndigoPlayerApi = {
   removeListener: (event: string) => void;
   destroy: () => void;
   setError: (error: PlayerError) => void;
+  play: () => void;
+  pause: () => void;
+  seekTo: (time: number) => void;
+  setVolume: (volume: number) => void;
+  selectTrack: (track: ITrack) => void;
+  selectAudioLanguage: (language: string) => void;
+  setPlaybackRate: (playbackRate: number) => void;
+  setWatermark: (value: string) => void;
 }
 
 /**
@@ -85,6 +93,9 @@ export function createAPI(instance: IInstance): IndigoPlayerApi {
 
     // Get a specific module by name
     ['getModule', (name: string) => instance.getModule(name)],
+
+    // Set watermark
+    ['setWatermark', (value: string) => instance.setWatermark(value)],
   ].forEach(tuple => createFunction(tuple[0], tuple[1]));
 
   api._getInstanceForDev = () => instance;

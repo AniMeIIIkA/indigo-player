@@ -1,7 +1,7 @@
 
 import uniqBy from 'lodash/uniqBy';
 import React, { RefObject } from 'react';
-import { Subtitle, IThumbnail, KeyboardNavigationPurpose, Events, ITrack, AdBreakType } from '../types';
+import { Subtitle, IThumbnail, KeyboardNavigationPurpose, Events, ITrack, AdBreakType, WatermarkConfig } from '../types';
 import { IInstance } from '../types/IInstance';
 import { getTranslation } from './i18n';
 import { triggerEvent } from './triggerEvent';
@@ -33,6 +33,9 @@ interface StateStoreState {
 
   lastActiveSubtitle: Subtitle | null;
   activeThumbnail: IThumbnail | null;
+
+  // Watermark
+  watermark: WatermarkConfig | null;
 
   nodPurpose: KeyboardNavigationPurpose | any;
 }
@@ -76,6 +79,9 @@ export class StateStore
       activeThumbnail: null,
 
       nodPurpose: null,
+
+      // Watermark
+      watermark: this.props.instance.config.ui.watermark || null,
     };
 
     this.unsubscribe = attachEvents([
@@ -108,6 +114,11 @@ export class StateStore
       ) {
         this.togglePip();
       }
+    });
+
+    this.props.instance.on(Events.UI_WATERMARK_CHANGE, data => {
+      console.log(data, 'watermark on');
+      this.setWatermarkData(data.data);
     });
   }
 
@@ -146,6 +157,19 @@ export class StateStore
   private hideControls = () => {
     clearTimeout(this.activeTimer);
     this.setState({ visibleControls: false });
+  };
+
+  public setWatermarkData = (value: string) => {
+    console.log(this.state.watermark, 'watermark');
+    //@ts-ignore
+    this.setState({
+       //@ts-ignore
+      watermark: {
+         //@ts-ignore
+        ...this.state.watermark,
+        data: value,
+      }
+    });
   };
 
   private triggerNod = (purpose: KeyboardNavigationPurpose) => {
@@ -561,7 +585,7 @@ export class StateStore
       title: this.props.instance.config.ui.title,
 
       // Watermark
-      watermark: this.props.instance.config.ui.watermark,
+      watermark: this.state.watermark,
 
       // i18n
       getTranslation: this.getTranslation,

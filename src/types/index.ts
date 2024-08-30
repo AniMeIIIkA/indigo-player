@@ -114,6 +114,7 @@ export enum Events {
   UI_VISIBLECONTROLS_CHANGE = 'ui:visiblecontrols-change',
   UI_VIEW_CHANGE = 'ui:view-change',
   UI_STATE_CHANGE = 'ui:state-change',
+  UI_WATERMARK_CHANGE = 'ui:watermark-change',
 }
 
 export enum ErrorCodes {
@@ -337,6 +338,11 @@ export interface IAdBreakEventData extends IEventData {
 export interface IAdEventData extends IEventData {
   ad: IAd;
 }
+
+export interface IWatermarkChangeEventData extends IEventData {
+  data: string;
+}
+
 
 export interface IEventData { }
 

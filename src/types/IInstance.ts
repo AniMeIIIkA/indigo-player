@@ -26,6 +26,7 @@ export interface IInstance {
   selectTrack(track: ITrack): any;
   selectAudioLanguage(language: string): any;
   setPlaybackRate(playbackRate: number): any;
+  setWatermark(value: string): any;
   destroy: any;
 
   on(name: string, callback: EventCallback): any;

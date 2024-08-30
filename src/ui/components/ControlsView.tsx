@@ -12,8 +12,8 @@ import { Settings } from './Settings';
 import { TimeStat } from './TimeStat';
 import { VolumeButton } from './VolumeButton';
 import { Title } from './Title';
-import { WatermarkConfig } from '@src/types';
 import { Watermark } from './Watermark';
+import { WatermarkConfig } from '../../types';
 
 interface ControlsViewProps {
   isCenterClickAllowed: boolean;

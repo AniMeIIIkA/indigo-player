@@ -17,6 +17,7 @@ import {
   IPlayer,
   IPlayerError,
   ITrack,
+  IWatermarkChangeEventData,
   ModuleLoaderTypes,
 } from './types';
 import { getEnv } from './utils/getEnv';
@@ -124,6 +125,13 @@ export class Instance implements IInstance {
 
   public setPlaybackRate(playbackRate: number) {
     this.controller?.setPlaybackRate(playbackRate);
+  }
+
+  public setWatermark(data: string) {
+    console.log(data, 'set watermark emit');
+    this.emit(Events.UI_WATERMARK_CHANGE, {
+       data
+    } as IWatermarkChangeEventData);
   }
 
   public setError(error: IPlayerError) {
