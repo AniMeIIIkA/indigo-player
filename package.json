@@ -65,7 +65,7 @@
   "types": "dist/index.d.ts",
   "module": "dist/index.mjs",
   "dependencies": {
-    "hls.js": "^1.5.15",
+    "hls.js": "1.1.5",
     "can-autoplay": "^3.0.0",
     "classnames": "^2.2.6",
     "deepmerge": "^3.1.0",
