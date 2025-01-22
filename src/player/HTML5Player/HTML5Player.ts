@@ -35,6 +35,11 @@ export class HTML5Player extends Player {
       }
     }
 
+    this.mediaElement.setAttribute('pip', this.instance.config.ui.pip.toString());
+    if (!this.instance.config.ui.pip) {
+      this.mediaElement.setAttribute('disablePictureInPicture', 'true');
+    }
+
     this.instance.playerContainer.appendChild(this.mediaElement);
 
     this.mediaElement.addEventListener('playing', () => {
