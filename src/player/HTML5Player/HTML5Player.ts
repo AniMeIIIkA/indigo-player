@@ -42,6 +42,14 @@ export class HTML5Player extends Player {
 
     this.instance.playerContainer.appendChild(this.mediaElement);
 
+    this.mediaElement.addEventListener('play', () => {
+      this.emit(Events.PLAYER_STATE_PLAY);
+    });
+
+    this.mediaElement.addEventListener('pause', () => {
+      this.emit(Events.PLAYER_STATE_PAUSE);
+    });
+
     this.mediaElement.addEventListener('playing', () => {
       this.emit(Events.PLAYER_STATE_PLAYING);
     });
