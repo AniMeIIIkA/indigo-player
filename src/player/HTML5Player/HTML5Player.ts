@@ -24,7 +24,6 @@ export class HTML5Player extends Player {
     if (this.instance.config.autoplay === true) {
       this.mediaElement.setAttribute('autoplay', 'autoplay');
     }
-    console.log("fire")
 
     if (this.instance.env.isSafari || this.instance.env.isIOS) {
       if (this.instance.config.ui.showControls) {
