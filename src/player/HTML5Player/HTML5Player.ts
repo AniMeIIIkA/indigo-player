@@ -25,7 +25,7 @@ export class HTML5Player extends Player {
       this.mediaElement.setAttribute('autoplay', 'autoplay');
     }
 
-    if ((this.instance.env.isSafari || this.instance.env.isIOS)) {
+    if (this.instance.env.isSafari || this.instance.env.isIOS) {
       if (this.instance.config.ui.showControls) {
         this.mediaElement.setAttribute('controls', '');
       }
