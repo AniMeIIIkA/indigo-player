@@ -1,7 +1,7 @@
 
 // import BIFParser from './BIFParser';
 
-import parse from 'url-parse';
+import * as urlParse from 'url-parse';
 import vttToJson from 'vtt-to-json';
 import { Module } from '../../Module';
 import { IThumbnail } from '../../types';
@@ -30,8 +30,8 @@ export class ThumbnailsExtension extends Module {
 
     this.thumbnails = json
       .map(item => {
-        const url = parse(item.part);
-        const parts = parse(url.hash.replace('#', '?'), true);
+        const url = new (urlParse as any)(item.part);
+        const parts = new (urlParse as any)(url.hash.replace('#', '?'), true);
         const [x, y, width, height] = parts.query.xywh.split(',').map(Number);
 
         url.set('hash', null);
