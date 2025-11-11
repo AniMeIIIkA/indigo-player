@@ -1,3 +1,5 @@
+@use './mixins.scss' as *;
+
 .igui_image {
   @include stretch();
   background-size: cover;

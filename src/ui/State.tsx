@@ -14,6 +14,7 @@ export const StateContext = React.createContext({});
 interface StateStoreProps {
   instance: IInstance;
   player: any;
+  children?: React.ReactNode;
 }
 
 interface StateStoreState {
@@ -38,6 +39,8 @@ interface StateStoreState {
   watermark: WatermarkConfig | null;
 
   nodPurpose: KeyboardNavigationPurpose | any;
+
+  children?: React.ReactNode;
 }
 
 export const seekbarRef: RefObject<HTMLDivElement> = React.createRef();

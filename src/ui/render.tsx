@@ -1,10 +1,12 @@
 
 import React, { RefObject } from 'react';
-import * as ReactDOM from 'react-dom';
+import { createRoot, Root } from 'react-dom/client';
 import { IInstance } from '../types/IInstance';
 import { Main } from './components/Main';
 import { StateStore } from './State';
 import { IStateStore } from './types';
+
+let root: Root | null = null;
 
 export const render = (
   container: HTMLElement,
@@ -12,10 +14,12 @@ export const render = (
   instance: IInstance,
   ref: RefObject<IStateStore>
 ) => {
-  ReactDOM.render(
+  if (!root) {
+    root = createRoot(container);
+  }
+  root.render(
     <StateStore instance={instance} player={state.state} ref={ref as any}>
       <Main />
-    </StateStore>,
-    container,
+    </StateStore>
   );
 };

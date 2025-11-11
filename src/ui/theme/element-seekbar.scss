@@ -1,4 +1,5 @@
 @use "sass:math";
+@use './mixins.scss' as *;
 
 $seekbar-bars-height: 5px;
 $seekbar-scrubber-radius: 13px;

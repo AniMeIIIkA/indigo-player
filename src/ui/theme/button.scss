@@ -1,3 +1,5 @@
+@use './mixins.scss' as *;
+
 .igui_button {
   @include reset-button();
   user-select: none;

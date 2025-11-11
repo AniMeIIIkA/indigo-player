@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 import { Icon } from './Icon';
 
 interface ButtonProps {
-  children?: JSX.Element | string;
+  children?: React.ReactNode;
   icon?: string;
   name?: string;
   disabled?: boolean;
   active?: boolean;
   tooltip?: string;
-  onClick();
+  onClick: () => void;
 }
 
 export const Button = (props: ButtonProps) => {

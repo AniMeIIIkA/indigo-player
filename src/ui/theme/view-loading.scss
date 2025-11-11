@@ -1,3 +1,5 @@
+@use './mixins.scss' as *;
+
 .igui_view_loading {
   @include stretch();
   display: flex;
