@@ -1,3 +1,5 @@
+@use './mixins.scss' as *;
+
 .igui_view_start {
   @include stretch();
   @include reset-button();

@@ -2,7 +2,7 @@ import filter from 'lodash/filter';
 import includes from 'lodash/includes';
 import omit from 'lodash/omit';
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import { createRoot } from "react-dom/client";
 import './styles.scss';
 
 // Start the player
@@ -190,5 +190,5 @@ export const State = (props: StateProps) => {
 };
 
 function render(state) {
-  ReactDOM.render(<State state={state} />, document.getElementById('state'));
+  createRoot(document.getElementById('state') as HTMLElement).render(<State state={state} />);
 }

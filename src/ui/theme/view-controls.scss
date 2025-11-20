@@ -1,3 +1,5 @@
+@use './mixins.scss' as *;
+
 .igui_container_controls {
   position: absolute;
   left: 0;

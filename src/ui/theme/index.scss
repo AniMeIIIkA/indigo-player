@@ -1,22 +1,22 @@
-@import './mixins.scss';
-@import './root.scss';
+@use './mixins.scss' as *;
+@use './root.scss' as *;
 
-@import './button.scss';
+@use './button.scss' as *;
 
-@import './view-controls.scss';
-@import './view-loading.scss';
-@import './view-start.scss';
-@import './view-error.scss';
+@use './view-controls.scss' as *;
+@use './view-loading.scss' as *;
+@use './view-start.scss' as *;
+@use './view-error.scss' as *;
 
-@import './element-seekbar.scss';
-@import './element-volume.scss';
-@import './element-spinner.scss';
-@import './element-rebuffer.scss';
-@import './element-center.scss';
-@import './element-settings.scss';
-@import './element-title.scss';
-@import './element-image.scss';
-@import './element-nod.scss';
-@import './element-watermark.scss';
+@use './element-seekbar.scss' as *;
+@use './element-volume.scss' as *;
+@use './element-spinner.scss' as *;
+@use './element-rebuffer.scss' as *;
+@use './element-center.scss' as *;
+@use './element-settings.scss' as *;
+@use './element-title.scss' as *;
+@use './element-image.scss' as *;
+@use './element-nod.scss' as *;
+@use './element-watermark.scss' as *;
 
-@import './svg/icons.scss';
+@use './svg/icons.scss' as *;

@@ -47,8 +47,8 @@
     @for $i from 1 through 2 {
       @keyframes #{$name}-anim-#{$i} {
         @for $i from 0 through $steps {
-          #{percentage($i*math.div(1,$steps))} {
-            clip: rect(random($height) + px, $width + px, random($height) + px, 0);
+          #{math.percentage($i*math.div(1,$steps))} {
+            clip: rect(math.random($height) + px, $width + px, math.random($height) + px, 0);
           }
         }
       }

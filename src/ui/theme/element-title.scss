@@ -1,3 +1,5 @@
+@use './mixins.scss' as *;
+
 .igui_title {
   position: absolute;
   left: 0px;
