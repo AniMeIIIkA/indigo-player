@@ -1,13 +1,28 @@
 
-
 import * as sfDefault from 'screenfull';
 import { Module } from '../../Module';
 import { IEventData, Events } from '../../types';
 import { IInstance } from '../../types/IInstance';
-const screenfull = sfDefault as sfDefault.Screenfull;
+
+// Handle ESM/CommonJS: real API may be on .default
+const screenfull = (sfDefault as any).default ?? sfDefault;
 
 interface IFullscreenEventData extends IEventData {
   fullscreen: boolean;
+}
+
+/** Cross-browser fullscreen element check (fallback when screenfull.isFullscreen is undefined). */
+function getFullscreenElement(): Element | null {
+  const doc = document as Document & {
+    webkitFullscreenElement?: Element | null;
+    msFullscreenElement?: Element | null;
+  };
+  return (
+    document.fullscreenElement ??
+    doc.webkitFullscreenElement ??
+    doc.msFullscreenElement ??
+    null
+  );
 }
 
 export class FullscreenExtension extends Module {
@@ -25,7 +40,8 @@ export class FullscreenExtension extends Module {
       this.emit(Events.FULLSCREEN_SUPPORTED);
 
       screenfull.on('change', () => {
-        const fullscreen: boolean = screenfull.isFullscreen;
+        const fullscreen: boolean =
+          screenfull.isFullscreen ?? Boolean(getFullscreenElement());
 
         this.handleDocumentPos(fullscreen);
 

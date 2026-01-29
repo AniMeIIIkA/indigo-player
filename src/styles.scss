@@ -1,6 +1,7 @@
 .ig-container {
   position: relative;
-  background-color: #000;
+  // IMPORTANT do not set #000, Chrome is experiencing a bug in fullscreen mode where controls overlap by player
+  background-color: rgb(1, 1, 1);
   overflow: hidden;
   height: 100%;
 }
@@ -11,5 +12,6 @@
   right: 0;
   top: 0;
   bottom: 0;
-  background-color: black;
+  // IMPORTANT do not set #000, Chrome is experiencing a bug in fullscreen mode where controls overlap by player
+  background-color: rgb(1, 1, 1);
 }
