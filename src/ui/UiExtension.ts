@@ -18,9 +18,6 @@ export class UiExtension extends Module {
   constructor(instance: IInstance) {
     super(instance);
 
-    if (this.instance.config.ui.showControls === true && (this.instance.env.isSafari || this.instance.env.isIOS))
-      return;
-
     this.setTheme();
 
     const container = this.instance.uiContainer;

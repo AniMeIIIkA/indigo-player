@@ -23,7 +23,8 @@ export async function getEnv(config: Config): Promise<IEnv> {
     userAgent,
   );
 
-  const isIOS: boolean = /iPad|iPhone|iPod/i.test(userAgent);
+  const isIOS: boolean = /iPad|iPhone|iPod/i.test(userAgent) ||
+    (/Macintosh/i.test(userAgent) && navigator.maxTouchPoints > 1);
 
   const isFacebook: boolean =
     /FBAN/i.test(userAgent) && /FBAV/i.test(userAgent);
