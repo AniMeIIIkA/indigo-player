@@ -16,7 +16,13 @@ export class HTML5Player extends Player {
     this.mediaElement.style.width = '100%';
     this.mediaElement.style.height = '100%';
     this.mediaElement.preload = 'metadata';
-    this.mediaElement.crossOrigin = 'anonymous';
+    // On iOS/Safari HLS plays natively; crossOrigin='anonymous' forces CORS on the
+    // alternate audio rendition, which drops audio when entering native fullscreen.
+    // Nothing here needs CORS media access (watermark is a DOM overlay, thumbnails are
+    // a separate BIF sprite, no canvas frame capture), so skip it on those platforms.
+    if (!(this.instance.env.isSafari || this.instance.env.isIOS)) {
+      this.mediaElement.crossOrigin = 'anonymous';
+    }
     this.mediaElement.volume = 1;
     this.mediaElement.setAttribute('playsinline', 'playsinline');
     this.mediaElement.setAttribute('preload', 'auto');
@@ -25,16 +31,14 @@ export class HTML5Player extends Player {
       this.mediaElement.setAttribute('autoplay', 'autoplay');
     }
 
-    // Set muted attribute early (before src) so Safari allows muted autoplay
-    // and correctly initializes audio renditions for later unmuting
-    if (this.instance.config.volume === 0) {
-      this.mediaElement.muted = true;
-      this.mediaElement.setAttribute('muted', '');
-    }
+    if (this.instance.env.isSafari || this.instance.env.isIOS) {
+      if (this.instance.config.ui.showControls) {
+        this.mediaElement.setAttribute('controls', '');
+      }
 
-    if ((this.instance.env.isSafari || this.instance.env.isIOS) &&
-        this.instance.config.ui.image && this.instance.config.ui.image.length > 0) {
-      this.mediaElement.setAttribute('poster', this.instance.config.ui.image);
+      if (this.instance.config.ui.image && this.instance.config.ui.image.length > 0) {
+        this.mediaElement.setAttribute('poster', this.instance.config.ui.image);
+      }
     }
 
     this.mediaElement.setAttribute('pip', this.instance.config.ui.pip.toString());

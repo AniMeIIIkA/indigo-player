@@ -48,6 +48,15 @@ Consumers depend on `dist/index.mjs` + `dist/index.d.ts`; regenerate them whenev
 - **Events:** `eventemitter3`.
 - **State:** `immer` for immutable patches inside the core reducer.
 
+## iOS / Safari playback gotchas (hard-won — read before "improving" the player on iOS)
+
+On iOS/Safari the player **deliberately uses the browser's native `<video>` controls**, not the custom React UI:
+
+- `HTML5Player.load()` sets the native `controls` attribute when `ui.showControls`, and `UiExtension`'s constructor `return`s early for `isSafari || isIOS` so the custom UI is **not** rendered. HLS also plays **natively** on these platforms (`HlsMediaLoader.isSupported` returns `false` for iOS → `BaseMedia` does `video.src = m3u8`).
+- **Why:** iOS Safari does not support the Fullscreen API on a container `<div>` (only `video.webkitEnterFullscreen()`), and the player is embedded in an **iframe** (AccelSite `client/site`) without `allowfullscreen`, so `screenfull.isEnabled` is `false`. The custom UI's fullscreen button is then `disabled` (`ControlsView` → `disabled={!isFullscreenSupported}`), which looks broken to users. The native player has its own working fullscreen.
+- A June 2026 commit (`be7bfb5`) tried to switch iOS to the custom UI and regressed both fullscreen (greyed-out button) and audio for course students. It was reverted. **Do not switch iOS to the custom UI** unless you also solve native fullscreen and audio on real devices first.
+- **Do NOT set `crossOrigin='anonymous'` on the `<video>` element on iOS/Safari.** With native HLS + an alternate audio rendition (Accel's transcoded HLS has one), it forces CORS on the audio segments and **audio drops when entering native fullscreen** (sound works inline, dies in fullscreen). Nothing in the player needs CORS media access — the watermark is a DOM overlay, thumbnails are a separate BIF sprite, there is no canvas frame capture. `crossOrigin` is only set off-iOS now.
+
 ## What NOT to do without asking
 
 - **Do not change the public API of `Player` / module lifecycle hooks** without coordinating with the consumers — every consumer would need a matched update.
