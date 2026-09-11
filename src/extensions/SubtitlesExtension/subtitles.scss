@@ -9,10 +9,15 @@
   span {
     transition: transform 200ms ease-in-out;
     transform: translateY(0px);
-    color: #ffffff;
-    text-shadow: #000000 0px 0px 7px;
+    // The viewer's style choice (settings → Subtitle style) arrives as CSS variables on the player root; the defaults are what the
+    // player always drew: white text with a dark shadow, 17px.
+    color: var(--ig-sub-color, #ffffff);
+    text-shadow: var(--ig-sub-shadow, #000000 0px 0px 7px);
+    background: var(--ig-sub-bg, transparent);
+    padding: var(--ig-sub-padding, 0);
+    border-radius: 4px;
     font-family: Arial, Helvetica, sans-serif;
     max-width: 580px;
-    font-size: 17px;
+    font-size: var(--ig-sub-size, 17px);
   }
 }

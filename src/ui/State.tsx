@@ -4,6 +4,26 @@ import React, { RefObject } from 'react';
 import { Subtitle, IThumbnail, KeyboardNavigationPurpose, Events, ITrack, AdBreakType, WatermarkConfig, IWatermarkChangeEventData } from '../types';
 import { IInstance } from '../types/IInstance';
 import { getTranslation } from './i18n';
+import { ISubtitleStyle } from './types';
+
+const SUBTITLE_STYLE_KEY = 'igui_subtitle_style';
+const DEFAULT_SUBTITLE_STYLE: ISubtitleStyle = { color: 'white', background: 'shadow', size: 'normal' };
+const loadSubtitleStyle = (): ISubtitleStyle => {
+  try {
+    const raw = window.localStorage && window.localStorage.getItem(SUBTITLE_STYLE_KEY);
+    return raw ? { ...DEFAULT_SUBTITLE_STYLE, ...JSON.parse(raw) } : DEFAULT_SUBTITLE_STYLE;
+  } catch (e) {
+    return DEFAULT_SUBTITLE_STYLE;
+  }
+};
+const saveSubtitleStyle = (style: ISubtitleStyle) => {
+  try {
+    window.localStorage && window.localStorage.setItem(SUBTITLE_STYLE_KEY, JSON.stringify(style));
+  } catch (e) {
+    // private mode / storage disabled — the choice lives for this page only
+  }
+};
+
 import { triggerEvent } from './triggerEvent';
 import { SettingsTabs, IStateStore, IData, ViewTypes, IActions } from './types';
 import { EventUnsubscribeFn, attachEvents } from './utils/attachEvents';
@@ -18,6 +38,7 @@ interface StateStoreProps {
 }
 
 interface StateStoreState {
+  subtitleStyle: ISubtitleStyle;
   visibleControls: boolean;
 
   // Seekbar
@@ -65,6 +86,7 @@ export class StateStore
 
     this.state = {
       visibleControls: false,
+      subtitleStyle: loadSubtitleStyle(),
 
       // Seekbar
       isSeekbarHover: false,
@@ -305,6 +327,25 @@ export class StateStore
     this.setState({ settingsTab });
   };
 
+  private setSubtitleStyle = (style: Partial<ISubtitleStyle>) => {
+    const subtitleStyle = { ...this.state.subtitleStyle, ...style };
+    saveSubtitleStyle(subtitleStyle);
+    this.setState({ subtitleStyle });
+  };
+
+  /** The style is CSS variables on the player root (the subtitles container sits beside the player, inside the same root). */
+  private applySubtitleStyle() {
+    const root = this.props.instance.container as HTMLElement;
+    if (!root || !root.style) return;
+    const s = this.state.subtitleStyle || loadSubtitleStyle();
+    const colors = { white: '#ffffff', yellow: '#ffe14d', cyan: '#7fe3ff', green: '#8dff8d' };
+    root.style.setProperty('--ig-sub-color', colors[s.color] || colors.white);
+    root.style.setProperty('--ig-sub-bg', s.background === 'box' ? 'rgba(0, 0, 0, 0.75)' : 'transparent');
+    root.style.setProperty('--ig-sub-shadow', s.background === 'none' ? 'none' : '#000000 0px 0px 7px');
+    root.style.setProperty('--ig-sub-padding', s.background === 'box' ? '4px 10px' : '0');
+    root.style.setProperty('--ig-sub-size', s.size === 'large' ? '24px' : '17px');
+  }
+
   private selectSubtitle = (subtitle: Subtitle | null) => {
     if (subtitle) {
       this.setState({ lastActiveSubtitle: subtitle });
@@ -504,7 +545,9 @@ export class StateStore
 
     if (subtitles.length) {
       visibleSettingsTabs.push(SettingsTabs.SUBTITLES);
+      visibleSettingsTabs.push(SettingsTabs.SUBTITLE_STYLE);
     }
+    this.applySubtitleStyle();
     if (tracks.length) {
       visibleSettingsTabs.push(SettingsTabs.TRACKS);
     }
@@ -576,6 +619,7 @@ export class StateStore
       // Subtitles
       subtitles,
       activeSubtitle,
+      subtitleStyle: this.state.subtitleStyle,
       activeThumbnail: this.state.activeThumbnail,
 
       // Title
@@ -608,6 +652,7 @@ export class StateStore
       setSettingsTab: this.setSettingsTab,
       toggleSettings: this.toggleSettings,
       selectSubtitle: this.selectSubtitle,
+      setSubtitleStyle: this.setSubtitleStyle,
       toggleActiveSubtitle: this.toggleActiveSubtitle,
       setPlaybackRate: this.setPlaybackRate,
       togglePip: this.togglePip,

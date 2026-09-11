@@ -35,6 +35,7 @@ export interface IData {
   visibleSettingsTabs: SettingsTabs[];
   subtitles: Subtitle[];
   activeSubtitle: Subtitle;
+  subtitleStyle: ISubtitleStyle;
   playbackRate: number;
   pip: boolean;
   pipSupported: boolean;
@@ -66,6 +67,7 @@ export interface IActions {
   setSettingsTab(tab: SettingsTabs);
   toggleSettings();
   selectSubtitle(subtitle: Subtitle);
+  setSubtitleStyle(style: Partial<ISubtitleStyle>);
   setPlaybackRate(playbackRate: number);
   togglePip();
   toggleActiveSubtitle();
@@ -89,6 +91,14 @@ export enum SettingsTabs {
   TRACKS,
   SUBTITLES,
   PLAYBACKRATES,
+  SUBTITLE_STYLE,
+}
+
+/** How subtitles are drawn — the viewer's own preference, kept in localStorage, applied as CSS variables on the player root. */
+export interface ISubtitleStyle {
+  color: 'white' | 'yellow' | 'cyan' | 'green';
+  background: 'shadow' | 'box' | 'none';
+  size: 'normal' | 'large';
 }
 
 export interface IStateStore {

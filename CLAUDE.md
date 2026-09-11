@@ -64,3 +64,7 @@ On iOS/Safari the player **deliberately uses the browser's native `<video>` cont
 - **Do not remove the dynamic bundle-loading behavior** to "simplify" the build — it is a deliberate performance choice.
 - **Do not bump `hls.js` / `shaka-player` majors** without testing against a representative playlist set; stream-format regressions are common.
 - **Do not push commits directly to the submodule's default branch** — it is a separate repo with its own PR process, and upstream sync from `matvp91/indigo-player` is a periodic manual task.
+
+## The subtitles button rendered as a 2-px dash (fixed 2026-09-11)
+
+`src/ui/theme/svg/icons.scss` declared the `cc` glyph as `.igui_icon_cc:before { content: url(...) }` while every other icon puts the SVG on the element itself (`.igui_icon_settings { content: … }`); the `Icon` component renders the glyph from the element's own `content`, so the CC button showed nothing but the `.igui_button_name-subtitle:before` underline bar — the «_» left of the gear. The rule is `.igui_icon_cc { … }` now. The button itself (`ControlsView`, `showSubtitlesToggle` = the stream has subtitle tracks, key `c`) and the Subtitles tab in the settings menu were always there. This is a change INSIDE the submodule — it needs its own commit/PR in the indigo-player repository; the outer repo only moves the submodule pointer.

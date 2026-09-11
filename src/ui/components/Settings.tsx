@@ -29,6 +29,14 @@ tabs[SettingsTabs.OPTIONS] = (props: SettingsProps) => {
     });
   }
 
+  if (props.data.visibleSettingsTabs.includes(SettingsTabs.SUBTITLE_STYLE)) {
+    items.push({
+      item: SettingsTabs.SUBTITLE_STYLE,
+      label: props.data.getTranslation('Subtitle style'),
+      info: props.data.subtitleStyle ? props.data.getTranslation(subtitleColorLabel(props.data.subtitleStyle.color)) : '',
+    });
+  }
+
   if (props.data.visibleSettingsTabs.includes(SettingsTabs.PLAYBACKRATES)) {
     items.push({
       item: SettingsTabs.PLAYBACKRATES,
@@ -49,6 +57,47 @@ tabs[SettingsTabs.OPTIONS] = (props: SettingsProps) => {
       )}
   </>
 }
+
+const subtitleColorLabel = (color: string) => ({ white: 'White', yellow: 'Yellow', cyan: 'Cyan', green: 'Green' }[color] || 'White');
+
+/** Colour, background and size of the subtitle text — each row applies at once and the menu stays open so several can be changed. */
+tabs[SettingsTabs.SUBTITLE_STYLE] = (props: SettingsProps) => {
+  const t = props.data.getTranslation;
+  const style = props.data.subtitleStyle || { color: 'white', background: 'shadow', size: 'normal' };
+  return (
+    <>
+      <SettingsHeader
+        title={t('Subtitle style')}
+        onBackClick={() => props.actions.setSettingsTab(SettingsTabs.OPTIONS)}
+      />
+      <div className="igui_settings_group">{t('Color')}</div>
+      <SettingsSelect
+        selected={style.color}
+        onClick={color => props.actions.setSubtitleStyle({ color })}
+        items={['white', 'yellow', 'cyan', 'green'].map(color => ({ item: color, label: t(subtitleColorLabel(color)) }))}
+      />
+      <div className="igui_settings_group">{t('Background')}</div>
+      <SettingsSelect
+        selected={style.background}
+        onClick={background => props.actions.setSubtitleStyle({ background })}
+        items={[
+          { item: 'shadow', label: t('Shadow') },
+          { item: 'box', label: t('Box') },
+          { item: 'none', label: t('No background') },
+        ]}
+      />
+      <div className="igui_settings_group">{t('Size')}</div>
+      <SettingsSelect
+        selected={style.size}
+        onClick={size => props.actions.setSubtitleStyle({ size })}
+        items={[
+          { item: 'normal', label: t('Normal') },
+          { item: 'large', label: t('Large') },
+        ]}
+      />
+    </>
+  );
+};
 
 tabs[SettingsTabs.TRACKS] = (props: SettingsProps) => (
   <>
