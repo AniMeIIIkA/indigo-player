@@ -120,6 +120,8 @@ export enum Events {
 export enum ErrorCodes {
   NO_SUPPORTED_FORMAT_FOUND = 1001,
   CONTROLLER_LOAD_FAILED = 1002,
+  /** The media element itself failed on its source (native HLS / a plain file) and recovery is exhausted. */
+  MEDIA_SOURCE_ERROR = 1003,
 
   // Shaka
   SHAKA_CRITICAL_ERROR = 2001,
@@ -145,6 +147,37 @@ export interface Subtitle {
   label: string;
   srclang: string;
   src: string;
+}
+
+/** Why the player is asking for a fresh url (informational — a host may log or ignore it). */
+export type SourceRefreshReason = 'expired' | 'error' | 'proactive';
+
+export interface SourceRefreshResult {
+  /** A fresh url of the SAME media the player was created with. */
+  src: string;
+  /** Epoch milliseconds after which `src` stops working (a signed link's grant); null/omitted = unknown. */
+  expiresAt?: number | null;
+  /** Replacement subtitle tracks when they are signed like the source. */
+  subtitles?: Subtitle[];
+}
+
+/**
+ * Recovery of a source whose url stops working — a signed link with an expiring grant. Without this
+ * block the player keeps its old behaviour, minus the unbounded retry loop (see `media/SourceRecovery`).
+ */
+export interface SourceRefreshConfig {
+  /**
+   * Fetches a fresh url of the same media. Resolve `null` when the source cannot be had at all (the
+   * video is gone, access was revoked) — the player then shows its error and stops. Reject on a
+   * transient failure — the player retries a couple of times before giving up.
+   */
+  refresh: (reason: SourceRefreshReason) => Promise<SourceRefreshResult | string | null>;
+  /** Epoch milliseconds after which the initial url stops working; null/omitted = recovery is error-driven only. */
+  expiresAt?: number | null;
+  /** How many rebuilds on a fresh url may fail in a row before the player gives up (default 2). */
+  maxAttempts?: number;
+  /** Shown in the error view when recovery is exhausted (defaults to the player's generic message). */
+  failedMessage?: string;
 }
 
 export type WatermarkPlacement = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight' | 'center' | 'leftCenter' | 'rightCenter' | 'topCenter' | 'bottomCenter';
@@ -206,7 +239,9 @@ export interface Config {
   };
 
   contextMenuItems?: IContextMenuItem[];
-  hlsConfig?: Partial<HlsConfig>
+  hlsConfig?: Partial<HlsConfig>;
+  /** Re-issue an expiring source url instead of failing on it — see `SourceRefreshConfig`. */
+  sourceRefresh?: SourceRefreshConfig;
 }
 
 export interface IThumbnail {

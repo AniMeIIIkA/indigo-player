@@ -68,3 +68,42 @@ On iOS/Safari the player **deliberately uses the browser's native `<video>` cont
 ## The subtitles button rendered as a 2-px dash (fixed 2026-09-11)
 
 `src/ui/theme/svg/icons.scss` declared the `cc` glyph as `.igui_icon_cc:before { content: url(...) }` while every other icon puts the SVG on the element itself (`.igui_icon_settings { content: … }`); the `Icon` component renders the glyph from the element's own `content`, so the CC button showed nothing but the `.igui_button_name-subtitle:before` underline bar — the «_» left of the gear. The rule is `.igui_icon_cc { … }` now. The button itself (`ControlsView`, `showSubtitlesToggle` = the stream has subtitle tracks, key `c`) and the Subtitles tab in the settings menu were always there. This is a change INSIDE the submodule — it needs its own commit/PR in the indigo-player repository; the outer repo only moves the submodule pointer.
+
+## A dead source url is refreshed, not retried forever (2026-09-17)
+
+`src/media/SourceRecovery.ts` is the retry/refresh POLICY both media modules run their errors through, and
+`Config.sourceRefresh` (`SourceRefreshConfig` in `src/types`) is how a host plugs in a fresh url. Why: an AXL
+video plays from a signed url whose grant runs out (`/v/hls/{token}/…` plus the CDN segment tokens beside it),
+and a student who paused longer than the grant resumed into a 404 on every playlist — while `HlsMedia.onError`
+answered EVERY fatal network error with `startLoad()`, so one tab hit the proxy every ~9 s for hours (New Relic,
+2026-09-17: 35 % of the site's playlist requests were 404s, every one an expired token). Facts to keep straight:
+
+- **hls.js 1.6 never retries a 4xx** (`retryForHttpStatus`); it walks the renditions instead — which is why the
+  loop showed up as `v_360p/v_720p/v_480p.m3u8` — and then goes fatal `NETWORK_ERROR` with the HTTP status in
+  `data.response.code`. `SourceRecovery.classify` turns that into `refresh` (a definitive status 400/401/403/404/410,
+  a status 0, or a url known to be past its `expiresAt`) when the host offers a refresher, at most `maxAttempts`
+  (default 2) failed rebuilds in a row; without a refresher a definitive status is retried twice and then fails;
+  anything else is retried with exponential pacing (1 s → 30 s), offline for as long as it takes; a `MEDIA_ERROR`
+  gets `recoverMediaError()` three times. `markRecovered()` (`FRAG_BUFFERED` / `loadedmetadata`) resets every budget.
+- **A refresh rebuilds the pipeline; it does not `detachMedia` around it.** `HlsMedia.rebuild` destroys the hls.js
+  instance and creates a new one on the fresh url with `startLoad(position)`, re-picks a hand-chosen quality by
+  HEIGHT once `MANIFEST_PARSED` (level indexes are not stable across playlists), restores
+  `defaultPlaybackRate`/`playbackRate` (`media.load()` inside a detach resets them) and calls `play()` only if it
+  was playing. `BaseMedia` (native HLS on Safari/iOS, plain files) does the same through `setSource` + `loadedmetadata`.
+- **Expiry is a server-provided RELATIVE number, turned into an instant by the host** (`expiresAt = Date.now() +
+  urlExpiresInSec * 1000`) — a wrong client clock cannot make the player believe a live grant is dead, and no
+  token is decoded in the browser. With it the player refreshes BEFORE the first fetch after a long pause
+  (`shouldRefreshBeforePlay`, 60 s lead) and prefetches a fresh url when the tab becomes visible while paused
+  (`media/visibility.ts`; nothing runs in a hidden tab, no timers). Without it the recovery is error-driven only.
+- **The host decides what a refusal means**: `refresh()` resolving `null` = the video cannot be had (gone, access
+  revoked) → `ErrorCodes.HLSJS_CRITICAL_ERROR` / `MEDIA_SOURCE_ERROR` (1003) with `failedMessage` as the text;
+  rejecting = transport trouble, retried at 1.5 s and 4 s before it counts as one failed attempt. Nothing in the
+  player knows what a playback token is — the hosts do (`client/site/src/player`, the admin `VideoPlayer`, the
+  scene editor's `PlaybackSource.refreshUrl`).
+- **Tests: `npx jest tests/SourceRecovery.test.ts` from this folder** — pure policy, no DOM. The docblock
+  `@jest-environment node` is load-bearing: the default jsdom environment requires the `canvas` native module,
+  which has no Node 22 binary in this workspace, so a jsdom test file cannot even start; a test that needs
+  `navigator` stubs it.
+- Consumers ship the player from `dist/`, which is gitignored and rebuilt by turbo (`build:admin`, site
+  `build:deps`); this is a submodule commit — push it to the indigo-player remote BEFORE the pointer commit
+  (root CLAUDE.md → submodules).
