@@ -3,7 +3,8 @@ import dts from 'vite-plugin-dts';
 import react from '@vitejs/plugin-react';
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ command }) => ({
+  root: command === 'serve' ? 'dev' : undefined,
   build: {
     lib: {
       entry: ['src/index.ts', 'src/ui/theme/index.scss'],
@@ -23,4 +24,4 @@ export default defineConfig({
     react(),
     dts()
   ]
-})
+}))

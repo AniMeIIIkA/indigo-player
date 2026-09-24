@@ -30,7 +30,7 @@ Claude Code guide for the vendored video player. **Read the monorepo root [`../.
 From `client/packages/indigo-player/`:
 
 - `npm start` — `npm run build:vite` (the default `start` script builds; there is no dev-server entry here — use `start:vite` below for HMR in `dev/`).
-- `npm run start:vite` — `vite` (dev server for the `dev/` harness).
+- `npm run start:vite` — opens the Vite-powered `dev/` workbench with HMR. It imports `src/` directly, defaults to a short Mux HLS with four in-range chapters, and provides live source, preview-size, accent, volume, speed, and chapter controls plus a collapsible state inspector. No prior `dist/` build is required. Keep an explicit size or `aspect-ratio` on `.player-host`: the player's `.ig-container` fills its host with `height: 100%` and otherwise collapses to zero height.
 - `npm run build` / `npm run build:vite` — `vite build` → populates `dist/`.
 - `npm run turbo:start` / `turbo:build` / `turbo:clean` — turbo wrappers for the outer monorepo pipeline.
 - `npm run lint` — `prettier-tslint fix '**/*.ts{,x}'`.
