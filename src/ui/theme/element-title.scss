@@ -1,42 +1,32 @@
 @use './mixins.scss' as *;
 
+// The video's title over the top of the picture, on a gradient dark enough for white text over a white frame. It never takes a
+// click: the picture under it is the play/pause target, and on a phone it used to be stretched over the whole player.
 .igui_title {
   position: absolute;
-  left: 0px;
-  top: 0px;
-  color: #fff;
+  left: 0;
+  right: 0;
+  top: 0;
   z-index: 1;
-  min-width: 180px;
-  overflow-y: auto;
-  opacity: 0;
-  transition: opacity .1s linear;
+  // Room on the right for the miniplayer's close button.
+  padding: 12px 48px 36px 16px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  // close button in pip mode
-  padding-right: 20px;
-  padding-left: 9px;
-  padding-top: 5px;
-  width: 100%;
-
-  &:before {
-    content: '';
-    position: absolute;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.1));
-    left: 0;
-    right: 0;
-    top: 0;
-    height: 60px;
-    z-index: -1;
-    pointer-events: none;
-  }
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 100%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 150ms linear;
 
   .igui_state-fullscreen & {
-    top: big-mode(5px);
-  }
-
-  .igui_state-mobile & {
-    @include stretch();
+    padding: 20px 64px 44px 24px;
+    font-size: 20px;
+    line-height: 28px;
   }
 
   .igui_state-active & {

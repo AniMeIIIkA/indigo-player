@@ -1,10 +1,11 @@
-
 import * as React from 'react';
 import { SKIP_CURRENTTIME_OFFSET } from '../../extensions/KeyboardNavigationExtension/KeyboardNavigationExtension';
 import { IInfo, SettingsTabs } from '../types';
 import { withState } from '../withState';
 import { Button } from './Button';
 import { Center } from './Center';
+import { ChaptersPanel } from './ChaptersPanel';
+import { ChapterTitle } from './ChapterTitle';
 import { Nod } from './Nod';
 import { Rebuffer } from './Rebuffer';
 import { Seekbar } from './Seekbar';
@@ -46,69 +47,82 @@ interface ControlsViewProps {
   toggleFullscreen();
 }
 
+/**
+ * The player chrome, laid out the way YouTube's is: the progress bar across the whole width, and under it one row of controls —
+ * play, the skips, volume, the time and the current chapter on the left; subtitles, settings, the miniplayer and full screen on
+ * the right.
+ */
 export const ControlsView = withState((props: ControlsViewProps) => {
   return (
     <>
       {props.showTitle && <Title />}
       <Nod />
       <Settings />
+      <ChaptersPanel />
       {props.isCenterClickAllowed && <Center />}
       {props.showRebuffer && <Rebuffer />}
       <div className="igui_container_controls">
-        <Button
-          name="backward"
-          icon={props.seekToBackwardIcon}
-          onClick={props.seekToBackward}
-          tooltip={props.seekToBackwardTooltipText}
-        />
-        <Button
-          name="play"
-          icon={props.playIcon}
-          onClick={props.playOrPause}
-          tooltip={props.playTooltipText}
-        />
-        <Button
-          name="forward"
-          icon={props.seekToForwardIcon}
-          onClick={props.seekToForward}
-          tooltip={props.seekToForwardTooltipText}
-        />
-        <VolumeButton />
-        <TimeStat />
         <div className="igui_container_controls_seekbar">
           <Seekbar />
         </div>
-        {props.showSubtitlesToggle && (
-          <Button
-            name="subtitle"
-            icon="cc"
-            onClick={props.toggleActiveSubtitle}
-            active={props.isSubtitleActive}
-            tooltip={props.subtitleToggleTooltipText}
-          />
-        )}
-        {props.showPip && (
-          <Button
-            name="pip"
-            icon="pip"
-            onClick={props.togglePip}
-            tooltip={props.pipTooltipText}
-          />
-        )}
-        <Button
-          name="settings"
-          icon="settings"
-          onClick={() => props.toggleSettings()}
-          tooltip={props.settingsTooltipText}
-          active={props.isSettingsTabActive}
-        />
-        <Button
-          name="fullscreen"
-          icon={props.fullscreenIcon}
-          onClick={props.toggleFullscreen}
-          tooltip={props.fullscreenTooltipText}
-          disabled={!props.isFullscreenSupported}
-        />
+        <div className="igui_container_controls_row">
+          <div className="igui_container_controls_left">
+            <Button
+              name="play"
+              icon={props.playIcon}
+              onClick={props.playOrPause}
+              tooltip={props.playTooltipText}
+            />
+            <Button
+              name="backward"
+              icon={props.seekToBackwardIcon}
+              onClick={props.seekToBackward}
+              tooltip={props.seekToBackwardTooltipText}
+            />
+            <Button
+              name="forward"
+              icon={props.seekToForwardIcon}
+              onClick={props.seekToForward}
+              tooltip={props.seekToForwardTooltipText}
+            />
+            <VolumeButton />
+            <TimeStat />
+            <ChapterTitle />
+          </div>
+          <div className="igui_container_controls_right">
+            {props.showSubtitlesToggle && (
+              <Button
+                name="subtitle"
+                icon="cc"
+                onClick={props.toggleActiveSubtitle}
+                active={props.isSubtitleActive}
+                tooltip={props.subtitleToggleTooltipText}
+              />
+            )}
+            <Button
+              name="settings"
+              icon="settings"
+              onClick={() => props.toggleSettings()}
+              tooltip={props.settingsTooltipText}
+              active={props.isSettingsTabActive}
+            />
+            {props.showPip && (
+              <Button
+                name="pip"
+                icon="pip"
+                onClick={props.togglePip}
+                tooltip={props.pipTooltipText}
+              />
+            )}
+            <Button
+              name="fullscreen"
+              icon={props.fullscreenIcon}
+              onClick={props.toggleFullscreen}
+              tooltip={props.fullscreenTooltipText}
+              disabled={!props.isFullscreenSupported}
+            />
+          </div>
+        </div>
       </div>
       {props.watermark?.enabled && <Watermark />}
     </>
@@ -123,7 +137,7 @@ function mapProps(info: IInfo): ControlsViewProps {
 
   return {
     isCenterClickAllowed: info.data.isCenterClickAllowed,
-    isSettingsTabActive: info.data.settingsTab !== SettingsTabs.NONE,
+    isSettingsTabActive: info.data.settingsTab !== SettingsTabs.NONE && info.data.settingsTab !== null,
     showRebuffer: info.data.rebuffering,
     playIcon: info.data.playRequested ? 'pause' : 'play',
     playOrPause: info.actions.playOrPause,

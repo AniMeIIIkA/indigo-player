@@ -1,7 +1,17 @@
 
 import uniqBy from 'lodash/uniqBy';
 import React, { RefObject } from 'react';
-import { Subtitle, IThumbnail, KeyboardNavigationPurpose, Events, ITrack, AdBreakType, WatermarkConfig, IWatermarkChangeEventData } from '../types';
+import { Subtitle, IThumbnail, KeyboardNavigationPurpose, Events, ITrack, AdBreakType, WatermarkConfig, IWatermarkChangeEventData, IChaptersChangeEventData, Chapter, IDimensionsChangeEventData } from '../types';
+import {
+  chapterIndexAt,
+  ChapterSegment,
+  layoutSegments,
+  positionToTime,
+  resolveChapters,
+  ResolvedChapter,
+  segmentFill,
+  timeToPosition,
+} from '../extensions/ChaptersExtension/chapters';
 import { IInstance } from '../types/IInstance';
 import { getTranslation } from './i18n';
 import { ISubtitleStyle } from './types';
@@ -59,6 +69,13 @@ interface StateStoreState {
   // Watermark
   watermark: WatermarkConfig | null;
 
+  // Chapters (2026-09-24)
+  chapters: Chapter[];
+  chaptersPanelOpen: boolean;
+
+  // The player's width, px: a narrow player drops the less important buttons so the row fits.
+  playerWidth: number;
+
   nodPurpose: KeyboardNavigationPurpose | any;
 
   children?: React.ReactNode;
@@ -107,6 +124,14 @@ export class StateStore
 
       // Watermark
       watermark: this.props.instance.config.ui.watermark || null,
+
+      // Chapters
+      chapters: this.props.instance.config.chapters || [],
+      chaptersPanelOpen: false,
+
+      playerWidth: this.props.instance.container
+        ? this.props.instance.container.getBoundingClientRect().width
+        : 0,
     };
 
     this.unsubscribe = attachEvents([
@@ -143,6 +168,17 @@ export class StateStore
 
     this.props.instance.on(Events.UI_WATERMARK_CHANGE, ({ config }: IWatermarkChangeEventData) => {
       this.updateWatermark(config);
+    });
+
+    this.props.instance.on(Events.DIMENSIONS_CHANGE, ({ width }: IDimensionsChangeEventData) => {
+      this.setState({ playerWidth: width || 0 });
+    });
+
+    this.props.instance.on(Events.UI_CHAPTERS_CHANGE, ({ chapters }: IChaptersChangeEventData) => {
+      this.setState({
+        chapters: chapters || [],
+        chaptersPanelOpen: this.state.chaptersPanelOpen && !!(chapters && chapters.length),
+      });
     });
   }
 
@@ -218,10 +254,11 @@ export class StateStore
     const thumbnailsExtension: any = this.props.instance.getModule(
       'ThumbnailsExtension',
     );
+    // The pointer's place on the bar is not a share of the duration when the bar is cut into chapter segments (the gaps take
+    // pixels, not seconds) — so the moment it points at goes through the chapter layout.
+    const time = this.seekbarTime(state.percentage);
     if ((state.hover || state.seeking) && thumbnailsExtension) {
-      activeThumbnail = thumbnailsExtension.getThumbnail(
-        state.percentage * this.props.player.duration,
-      );
+      activeThumbnail = thumbnailsExtension.getThumbnail(time);
     }
 
     this.setState({
@@ -233,8 +270,50 @@ export class StateStore
 
     if (!state.seeking && prevState.seeking) {
       this.showControls();
-      this.props.instance.seekTo(this.props.player.duration * state.percentage);
+      this.props.instance.seekTo(time);
     }
+  };
+
+  /** The chapters on the current duration and their segments on the bar as it is drawn now; both empty without chapters. */
+  private chapterLayout(): { chapters: ResolvedChapter[]; segments: ChapterSegment[]; width: number } {
+    const duration = this.props.player.duration || 0;
+    const chapters = resolveChapters(this.state.chapters, duration);
+    const width = chapters.length && seekbarRef.current
+      ? (seekbarRef.current as HTMLElement).getBoundingClientRect().width
+      : 0;
+    return { chapters, segments: layoutSegments(chapters, duration, width), width };
+  }
+
+  /** The moment of the video a place on the seekbar (0..1 of its width) stands for. */
+  private seekbarTime(percentage: number): number {
+    const duration = this.props.player.duration || 0;
+    const { segments, width } = this.chapterLayout();
+    return segments.length
+      ? positionToTime(segments, percentage * width, duration)
+      : percentage * duration;
+  }
+
+  private toggleChaptersPanel = () => {
+    this.setState(prevState => ({
+      chaptersPanelOpen: !prevState.chaptersPanelOpen,
+      settingsTab: SettingsTabs.NONE,
+    }));
+  };
+
+  private closeChaptersPanel = () => {
+    this.setState({ chaptersPanelOpen: false });
+  };
+
+  /** Plays from the start of a chapter picked in the panel; the panel closes — it lies over the video. */
+  private seekToChapter = (index: number) => {
+    const { chapters } = this.chapterLayout();
+    const chapter = chapters[index];
+    if (!chapter) {
+      return;
+    }
+    this.props.instance.seekTo(chapter.start);
+    this.setState({ chaptersPanelOpen: false });
+    this.showControls();
   };
 
   private setVolumebarState = (state, prevState) => {
@@ -307,6 +386,14 @@ export class StateStore
         (container === target || container.contains(target as Node))
       );
     };
+
+    if (
+      this.state.chaptersPanelOpen &&
+      !isOver('.igui_chapters') &&
+      !isOver('.igui_chapter_title')
+    ) {
+      this.setState({ chaptersPanelOpen: false });
+    }
 
     if (isOver('.igui_settings') || isOver('.igui_button_name-settings')) {
       return;
@@ -399,7 +486,8 @@ export class StateStore
       visibleControls = false;
     } else if (this.state.isSeekbarSeeking ||
       this.state.isVolumebarSeeking ||
-      !!this.state.settingsTab
+      !!this.state.settingsTab ||
+      this.state.chaptersPanelOpen
     ) {
       // If we're seeking, either by video position or volume, keep the controls visible.
       visibleControls = true;
@@ -423,6 +511,15 @@ export class StateStore
       };
     }
 
+    // Chapters: the segments as drawn now, and the moment the pointer stands for (not the pointer's share of the width — the gaps
+    // between segments are pixels, not seconds).
+    const duration = this.props.player.duration || 0;
+    const { chapters, segments, width: seekbarWidth } = this.chapterLayout();
+    const pointerTime = segments.length
+      ? positionToTime(segments, this.state.seekbarPercentage * seekbarWidth, duration)
+      : this.state.seekbarPercentage * duration;
+    const pointerPercentage = duration ? pointerTime / duration : 0;
+
     // Calculate the current progress percentage.
     // TODO: Do not calculate progressPercentage if controls are not visible for x-ms (animation time)
     //       and with smooth seeking on.
@@ -434,7 +531,7 @@ export class StateStore
     if (this.state.isSeekbarSeeking) {
       // If we're seeking with the seekbar, no longer show the current video progress
       // but use the seekbar percentage.
-      progressPercentage = this.state.seekbarPercentage;
+      progressPercentage = pointerPercentage;
     }
     if (adBreakData) {
       // If we're playing an ad, the progress bar displays the progress of the adbreak.
@@ -476,10 +573,28 @@ export class StateStore
     // The seekbar tooltip is the current time ((HH)/MM/SS).
     let seekbarTooltipText;
     if (this.props.player.duration) {
-      seekbarTooltipText = secondsToHMS(
-        this.state.seekbarPercentage * this.props.player.duration,
-      );
+      seekbarTooltipText = secondsToHMS(pointerTime);
     }
+
+    // What the chapter UI draws: one segment per chapter with its own fills, the chapter under the pointer (named above the time
+    // in the tooltip, drawn thicker), the chapter playing now (named beside the time), and where the scrubber sits on the cut bar.
+    const isPointing = this.state.isSeekbarHover || this.state.isSeekbarSeeking;
+    const progressTime = progressPercentage * duration;
+    const bufferedTime = (this.props.player.bufferedPercentage || 0) * duration;
+    const showSeekAhead = this.state.isSeekbarHover && !this.state.isSeekbarSeeking;
+    const hoverChapterIndex = isPointing && !adBreakData ? chapterIndexAt(chapters, pointerTime) : -1;
+    const activeChapterIndex = chapterIndexAt(chapters, progressTime);
+    const chapterSegments = adBreakData ? [] : chapters.map(chapter => ({
+      index: chapter.index,
+      length: chapter.end - chapter.start,
+      progress: segmentFill(chapter, progressTime),
+      buffered: segmentFill(chapter, bufferedTime),
+      ahead: showSeekAhead ? segmentFill(chapter, pointerTime) : 0,
+      hovered: chapter.index === hoverChapterIndex,
+    }));
+    const scrubberPercentage = segments.length && seekbarWidth > 0 && !adBreakData
+      ? timeToPosition(segments, progressTime) / seekbarWidth
+      : progressPercentage;
 
     // Calculate the seekbar tooltip percentage for placement.
     let seekbarTooltipPercentage = this.state.seekbarPercentage;
@@ -577,6 +692,7 @@ export class StateStore
       settingsTab: this.state.settingsTab,
       visibleSettingsTabs,
       isMobile: this.props.instance.env.isMobile,
+      playerWidth: this.state.playerWidth,
       image: this.props.instance.config.ui.image,
       nodIcon,
 
@@ -604,6 +720,15 @@ export class StateStore
       seekbarTooltipText,
       seekbarTooltipPercentage,
       seekbarThumbnailPercentage,
+      scrubberPercentage,
+
+      // Chapters
+      chapters,
+      chapterSegments,
+      activeChapterIndex,
+      activeChapterTitle: activeChapterIndex >= 0 ? chapters[activeChapterIndex].title : null,
+      seekbarTooltipChapter: hoverChapterIndex >= 0 ? chapters[hoverChapterIndex].title : null,
+      chaptersPanelOpen: this.state.chaptersPanelOpen && chapters.length > 0,
 
       // Fullscreen
       fullscreenSupported: this.props.player.fullscreenSupported,
@@ -656,6 +781,9 @@ export class StateStore
       toggleActiveSubtitle: this.toggleActiveSubtitle,
       setPlaybackRate: this.setPlaybackRate,
       togglePip: this.togglePip,
+      toggleChaptersPanel: this.toggleChaptersPanel,
+      closeChaptersPanel: this.closeChaptersPanel,
+      seekToChapter: this.seekToChapter,
     } as IActions;
   }
 }

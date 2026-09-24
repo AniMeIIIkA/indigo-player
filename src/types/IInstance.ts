@@ -1,4 +1,4 @@
-import { Config, IEnv, IController, IPlayer, IMedia, Format, IModule, LogFunction, ITrack, EventCallback, IEventData, IPlayerError, WatermarkConfig } from "./index";
+import { Config, IEnv, IController, IPlayer, IMedia, Format, IModule, LogFunction, ITrack, EventCallback, IEventData, IPlayerError, WatermarkConfig, Chapter } from "./index";
 
 
 export interface IInstance {
@@ -27,6 +27,7 @@ export interface IInstance {
   selectAudioLanguage(language: string): any;
   setPlaybackRate(playbackRate: number): any;
   setWatermark(config: Partial<WatermarkConfig>): any;
+  setChapters(chapters: Chapter[] | null): any;
   destroy: any;
 
   on(name: string, callback: EventCallback): any;

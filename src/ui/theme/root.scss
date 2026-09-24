@@ -5,8 +5,14 @@
   height: 100%;
   color: #fff;
   -webkit-tap-highlight-color: transparent;
-  font-family: Verdana, Geneva, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 13px;
+
+  // The accent of the whole chrome — progress, scrubber, the marks of what is selected. The platform's primary blue ($primary in the
+  // admin), not YouTube's red; a host can override it on the container.
+  --igui-accent: #1890ff;
+  --igui-surface: rgba(28, 28, 28, 0.9);
+  --igui-surface-hover: rgba(255, 255, 255, 0.1);
 
   * {
     box-sizing: border-box;
@@ -19,6 +25,31 @@
     top: 0;
     bottom: 0;
     background-color: black;
+  }
+}
+
+// The UI root. Its children are positioned against .ig-container; the variables here are shared by everything placed over the
+// controls (tooltips, the settings menu, the chapters panel), so they clear the progress bar in both sizes by themselves.
+.igui {
+  --igui-row-height: 48px;
+  --igui-button-size: 40px;
+  --igui-icon-size: 24px;
+  --igui-seekbar-height: 24px;
+  --igui-edge: 12px;
+  --igui-controls-height: calc(var(--igui-row-height) + var(--igui-seekbar-height));
+
+  &.igui_state-fullscreen {
+    --igui-row-height: 56px;
+    --igui-button-size: 48px;
+    --igui-icon-size: 28px;
+    --igui-edge: 20px;
+  }
+
+  // A narrow player (Main.tsx measures it): tighter edges, so the row still fits the buttons it keeps.
+  &.igui_size-small:not(.igui_state-fullscreen) {
+    --igui-edge: 8px;
+    --igui-button-size: 36px;
+    --igui-icon-size: 22px;
   }
 }
 

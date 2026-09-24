@@ -2,7 +2,9 @@ import { createConfig } from './createConfig';
 import { createAllSupported, createFirstSupported } from './ModuleLoader';
 import { PlayerError } from './PlayerError';
 import { selectController, selectExtensions } from './selectModule';
+import type { ChaptersExtension } from './extensions/ChaptersExtension/ChaptersExtension';
 import {
+  Chapter,
   Config,
   ErrorCodes,
   EventCallback,
@@ -126,6 +128,17 @@ export class Instance implements IInstance {
 
   public setPlaybackRate(playbackRate: number) {
     this.controller?.setPlaybackRate(playbackRate);
+  }
+
+  /** Replaces the chapters of the playing video without re-creating the player (the admin preview while chapters are edited). */
+  public setChapters(chapters: Chapter[] | null) {
+    // Kept on the config as well: a call made while the player is still starting (no modules yet) must not be lost — the extension
+    // and the UI take their first list from the config.
+    this.config.chapters = chapters || [];
+    const extension = this.getModule('ChaptersExtension') as ChaptersExtension;
+    if (extension) {
+      extension.setChapters(chapters);
+    }
   }
 
   public setWatermark(config: Partial<WatermarkConfig>) {

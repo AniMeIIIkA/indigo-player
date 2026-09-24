@@ -2,6 +2,8 @@
 import { HlsConfig } from "hls.js";
 import { Locale } from "../ui/i18n";
 import { IInstance } from "./IInstance";
+import type { Chapter } from "../extensions/ChaptersExtension/chapters";
+export type { Chapter } from "../extensions/ChaptersExtension/chapters";
 
 
 export enum FormatTypes {
@@ -115,6 +117,8 @@ export enum Events {
   UI_VIEW_CHANGE = 'ui:view-change',
   UI_STATE_CHANGE = 'ui:state-change',
   UI_WATERMARK_CHANGE = 'ui:watermark-change',
+  /** The chapters were replaced (`setChapters`); the UI re-reads them. */
+  UI_CHAPTERS_CHANGE = 'ui:chapters-change',
 }
 
 export enum ErrorCodes {
@@ -233,6 +237,13 @@ export interface Config {
   };
 
   subtitles: Subtitle[];
+
+  /**
+   * YouTube-style chapters (2026-09-24): start + title, each lasting until the next. The seekbar is cut into segments, the current
+   * chapter's title is shown beside the time and opens the chapters panel, Ctrl/Alt + arrows jump between them. Fewer than two = none.
+   * Replaced live with `setChapters`.
+   */
+  chapters?: Chapter[];
 
   thumbnails?: {
     src: string;
@@ -376,6 +387,10 @@ export interface IAdEventData extends IEventData {
 
 export interface IWatermarkChangeEventData extends IEventData {
   config: Partial<WatermarkConfig>;
+}
+
+export interface IChaptersChangeEventData extends IEventData {
+  chapters: Chapter[];
 }
 
 

@@ -1,0 +1,211 @@
+@use './mixins.scss' as *;
+
+// Chapters: the title of the chapter playing now beside the time («• Intro ›»), and the panel it opens — the list of chapters
+// over the right side of the picture, YouTube's embedded-player shape.
+
+.igui_chapter_title {
+  @include reset-button();
+  display: inline-flex;
+  align-items: center;
+  flex: 0 1 auto;
+  min-width: 0;
+  height: 32px;
+  margin-left: 2px;
+  padding: 0 6px 0 8px;
+  border-radius: 16px;
+  cursor: pointer;
+  outline: none;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0.9;
+  transition: opacity 100ms linear, background-color 100ms linear;
+
+  .igui_state-fullscreen & {
+    height: 36px;
+    font-size: 15px;
+  }
+
+  &:hover,
+  &:focus-visible,
+  &.igui_chapter_title_state-open {
+    opacity: 1;
+    background-color: rgba(255, 255, 255, 0.12);
+  }
+}
+
+.igui_chapter_title_dot {
+  flex: 0 0 auto;
+  margin-right: 6px;
+  opacity: 0.8;
+}
+
+.igui_chapter_title_text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.igui_chapter_title_chevron {
+  flex: 0 0 auto;
+  margin-left: 6px;
+  font-size: 20px;
+  line-height: 1;
+  transform: translateY(-1px);
+}
+
+.igui_chapters {
+  position: absolute;
+  top: var(--igui-edge);
+  right: var(--igui-edge);
+  bottom: calc(var(--igui-controls-height) + 8px);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  width: min(360px, calc(100% - 2 * var(--igui-edge)));
+  overflow: hidden;
+  border-radius: 12px;
+  background-color: var(--igui-surface);
+  color: #ffffff;
+  text-shadow: none;
+  animation: igui-chapters-appear 150ms ease-out;
+
+  @keyframes igui-chapters-appear {
+    0% {
+      opacity: 0;
+      transform: translateX(12px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  // A phone: the whole picture above the controls.
+  .igui_state-mobile & {
+    top: 0;
+    right: 0;
+    width: 100%;
+    border-radius: 0;
+  }
+}
+
+.igui_chapters_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 0 0 auto;
+  padding: 8px 8px 8px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.igui_chapters_title {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.igui_chapters_close {
+  @include reset-button();
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  outline: none;
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--igui-surface-hover);
+  }
+
+  .igui_icon {
+    height: 20px;
+  }
+}
+
+.igui_chapters_list {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 4px 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.igui_chapters_item {
+  @include reset-button();
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  padding: 8px 16px;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 80ms linear;
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--igui-surface-hover);
+  }
+
+  // The chapter playing now: an accent bar at the left edge and a tinted row.
+  &.igui_chapters_item-active {
+    background-color: rgba(255, 255, 255, 0.1);
+    background-color: color-mix(in srgb, var(--igui-accent) 22%, transparent);
+
+    &:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 6px;
+      bottom: 6px;
+      width: 3px;
+      border-radius: 0 2px 2px 0;
+      background-color: var(--igui-accent);
+    }
+  }
+}
+
+.igui_chapters_item_index {
+  flex: 0 0 auto;
+  min-width: 18px;
+  font-size: 12px;
+  line-height: 20px;
+  text-align: right;
+  opacity: 0.6;
+  font-variant-numeric: tabular-nums;
+}
+
+.igui_chapters_item_body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-width: 0;
+}
+
+.igui_chapters_item_title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.igui_chapters_item_time {
+  padding: 1px 6px;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+  // The accent lightened towards white: the plain accent on the dark card is readable, a lighter one reads at a glance.
+  color: #69b7ff;
+  color: color-mix(in srgb, var(--igui-accent) 65%, #ffffff);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  font-variant-numeric: tabular-nums;
+}
