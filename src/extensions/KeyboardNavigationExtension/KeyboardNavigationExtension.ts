@@ -2,6 +2,7 @@ import { Module } from "../../Module";
 import { KeyboardNavigationPurpose, Events, IKeyboardNavigationKeyDownEventData } from "../../types";
 import { IInstance } from "../../types/IInstance";
 import { FullscreenExtension } from "../FullscreenExtension/FullscreenExtension";
+import type { ChaptersExtension } from "../ChaptersExtension/ChaptersExtension";
 import { StateExtension } from "../StateExtension/StateExtension";
 
 enum KeyCodes {
@@ -59,8 +60,13 @@ export class KeyboardNavigationExtension extends Module {
         event.preventDefault();
         break;
 
-      // Seeks back x seconds.
+      // Seeks back x seconds — or, with Ctrl / Alt held and chapters present, to the previous chapter (YouTube's shortcut).
       case KeyCodes.LEFT_ARROW:
+        if ((event.ctrlKey || event.altKey) && this.getChapters()?.seekToPrevious()) {
+          this.emitPurpose(KeyboardNavigationPurpose.PREV_SEEK);
+          event.preventDefault();
+          break;
+        }
         let prevTime = currentTime - SKIP_CURRENTTIME_OFFSET;
         if (prevTime < 0) {
           prevTime = 0;
@@ -70,8 +76,15 @@ export class KeyboardNavigationExtension extends Module {
         event.preventDefault();
         break;
 
-      // Seeks forward x seconds.
+      // Seeks forward x seconds — or, with Ctrl / Alt held and chapters present, to the next chapter.
       case KeyCodes.RIGHT_ARROW:
+        if ((event.ctrlKey || event.altKey) && this.getChapters()?.hasChapters()) {
+          if (this.getChapters().seekToNext()) {
+            this.emitPurpose(KeyboardNavigationPurpose.NEXT_SEEK);
+          }
+          event.preventDefault();
+          break;
+        }
         let nextTime = currentTime + SKIP_CURRENTTIME_OFFSET;
         if (nextTime > duration) {
           nextTime = duration;
@@ -147,6 +160,10 @@ export class KeyboardNavigationExtension extends Module {
     return (this.instance.getModule(
       'StateExtension',
     ) as StateExtension).getState();
+  }
+
+  private getChapters(): ChaptersExtension | null {
+    return this.instance.getModule('ChaptersExtension') as ChaptersExtension | null;
   }
 
   private emitPurpose(purpose: KeyboardNavigationPurpose) {

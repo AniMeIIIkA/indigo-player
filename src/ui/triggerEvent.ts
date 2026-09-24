@@ -62,9 +62,22 @@ export function triggerEvent(
   const subtitlesExtension = instance.getModule('SubtitlesExtension');
   if (subtitlesExtension) {
     if (data.visibleControls && !prevData.visibleControls) {
-      (subtitlesExtension as any).setOffset(42);
+      (subtitlesExtension as any).setOffset(subtitlesOffset(instance));
     } else if (!data.visibleControls && prevData.visibleControls) {
       (subtitlesExtension as any).setOffset(0);
     }
   }
+}
+
+/**
+ * How far subtitles lift while the controls are shown: the controls' real height (progress bar + button row, larger in full
+ * screen) less the subtitles' own 22px bottom padding, plus a little air. 42 is the old fixed lift, kept as the floor and for a
+ * UI that is not mounted yet.
+ */
+function subtitlesOffset(instance: IInstance): number {
+  const controls = instance.uiContainer
+    ? (instance.uiContainer.querySelector('.igui_container_controls') as HTMLElement | null)
+    : null;
+  const height = controls ? controls.getBoundingClientRect().height : 0;
+  return Math.max(42, Math.round(height - 22 + 8));
 }

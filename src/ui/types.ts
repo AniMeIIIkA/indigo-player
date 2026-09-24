@@ -1,5 +1,6 @@
 import { PlayerError } from "../PlayerError";
 import { ITrack, Subtitle, IThumbnail, WatermarkConfig } from "../types";
+import type { ResolvedChapter } from "../extensions/ChaptersExtension/chapters";
 
 
 export interface IData {
@@ -28,6 +29,15 @@ export interface IData {
   seekbarTooltipText: string;
   seekbarTooltipPercentage: number;
   seekbarThumbnailPercentage: number;
+  /** Where the scrubber sits, 0..1 of the bar's width — differs from progressPercentage when the bar is cut into chapters. */
+  scrubberPercentage: number;
+  chapters: ResolvedChapter[];
+  chapterSegments: IChapterSegmentData[];
+  activeChapterIndex: number;
+  activeChapterTitle: string | null;
+  /** The chapter under the pointer, named above the time in the seekbar tooltip. */
+  seekbarTooltipChapter: string | null;
+  chaptersPanelOpen: boolean;
   tracks: ITrack[];
   activeTrack: ITrack;
   selectedTrack: ITrack | string;
@@ -41,6 +51,8 @@ export interface IData {
   pipSupported: boolean;
   activeThumbnail: IThumbnail;
   isMobile: boolean;
+  /** The player's width, px (0 until measured). */
+  playerWidth: number;
   image: string;
   nodIcon: string;
   showTitle: boolean;
@@ -71,6 +83,19 @@ export interface IActions {
   setPlaybackRate(playbackRate: number);
   togglePip();
   toggleActiveSubtitle();
+  toggleChaptersPanel();
+  closeChaptersPanel();
+  seekToChapter(index: number);
+}
+
+/** One chapter's segment of the seekbar: its share of the bar and how much of it is played / buffered / under the pointer. */
+export interface IChapterSegmentData {
+  index: number;
+  length: number;
+  progress: number;
+  buffered: number;
+  ahead: number;
+  hovered: boolean;
 }
 
 export interface IInfo {

@@ -1,5 +1,5 @@
 import { PlayerError } from "./PlayerError";
-import { EventCallback, IEventData, ITrack, WatermarkConfig } from "./types";
+import { Chapter, EventCallback, IEventData, ITrack, WatermarkConfig } from "./types";
 import { IInstance } from "./types/IInstance";
 import { createFunctionFn } from "./utils/defineProperty";
 
@@ -17,6 +17,7 @@ export type IndigoPlayerApi = {
   selectAudioLanguage: (language: string) => void;
   setPlaybackRate: (playbackRate: number) => void;
   setWatermark: (config: Partial<WatermarkConfig>) => void;
+  setChapters: (chapters: Chapter[] | null) => void;
 }
 
 /**
@@ -96,6 +97,9 @@ export function createAPI(instance: IInstance): IndigoPlayerApi {
 
     // Set watermark
     ['setWatermark', (config: Partial<WatermarkConfig>) => instance.setWatermark(config)],
+
+    // Replace the chapters
+    ['setChapters', (chapters: Chapter[] | null) => instance.setChapters(chapters)],
   ].forEach(tuple => createFunction(tuple[0], tuple[1]));
 
   api._getInstanceForDev = () => instance;

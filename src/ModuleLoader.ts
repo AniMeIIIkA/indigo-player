@@ -9,6 +9,7 @@ import { PipExtensionLoader } from './extensions/PipExtension/PipExtensionLoader
 import { StateExtensionLoader } from './extensions/StateExtension/StateExtensionLoader';
 import { SubtitlesExtensionLoader } from './extensions/SubtitlesExtension/SubtitlesExtensionLoader';
 import { ThumbnailsExtensionLoader } from './extensions/ThumbnailsExtension/ThumbnailsExtensionLoader';
+import { ChaptersExtensionLoader } from './extensions/ChaptersExtension/ChaptersExtensionLoader';
 import { DimensionsExtensionLoader } from './extensions/DimensionsExtension/DimensionsExtensionLoader';
 import { BaseMediaLoader } from './media/BaseMedia/BaseMediaLoader';
 import { DashMediaLoader } from './media/DashMedia/DashMediaLoader';
@@ -41,6 +42,7 @@ const modules: Array<IModuleLoader<IModule>> = [
   SubtitlesExtensionLoader,
   GoogleIMAExtensionLoader,
   ThumbnailsExtensionLoader,
+  ChaptersExtensionLoader,
   KeyboardNavigationExtensionLoader,
   ContextMenuExtensionLoader,
   DimensionsExtensionLoader,

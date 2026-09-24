@@ -1,62 +1,92 @@
 @use "sass:math";
 @use './mixins.scss' as *;
 
-$seekbar-bars-height: 5px;
-$seekbar-scrubber-radius: 13px;
+// The progress bar. At rest it is a thin line (60% of $seekbar-bar-height); under the pointer it grows to full height, and with
+// chapters the segment under the pointer grows further — YouTube's way of saying «you are pointing at this chapter».
+$seekbar-bar-height: 5px;
+$seekbar-scrubber-size: 13px;
+// Must equal CHAPTER_GAP_PX in src/extensions/ChaptersExtension/chapters.ts: the pointer-to-time math lays the segments out with
+// the same gap the browser draws.
+$seekbar-chapter-gap: 2px;
 
+// The whole band (the wrapper's height) is the hit area, not the few pixels of the line.
 .igui_seekbar {
-  cursor: pointer;
-  width: 100%;
   position: relative;
   display: flex;
   align-items: center;
-  padding-bottom: 6px;
-  padding-top: 16px;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  touch-action: none;
 }
 
-.igui_seekbar_bars {
-  height: $seekbar-bars-height;
-  background-color: rgba(255, 255, 255, 0.3);
+.igui_seekbar_bars,
+.igui_seekbar_chapter {
   position: relative;
-  width: 100%;
+  height: $seekbar-bar-height;
+  background-color: rgba(255, 255, 255, 0.2);
   transform: scaleY(0.6);
-  transition: transform 75ms linear;
+  transition: transform 100ms ease-out;
 
   .igui_seekbar_state-active & {
     transform: scaleY(1);
   }
 }
 
+.igui_seekbar_bars {
+  width: 100%;
+}
+
+.igui_seekbar_chapters {
+  display: flex;
+  gap: $seekbar-chapter-gap;
+  width: 100%;
+}
+
+// Each segment's share of the width is its flex-grow (the chapter's length in seconds, set inline); the basis is zero so the
+// shares are exact, which is what the layout math in chapters.ts assumes.
+.igui_seekbar_chapter {
+  flex-basis: 0;
+  flex-shrink: 0;
+  min-width: 0;
+
+  &.igui_seekbar_chapter-hover {
+    transform: scaleY(1.6);
+  }
+}
+
+.igui_seekbar_buffered,
+.igui_seekbar_ahead,
 .igui_seekbar_progress {
   @include stretch();
   transform-origin: left;
-  background-color: #ffffff;
-}
-
-.igui_seekbar_ahead {
-  @include stretch();
-  transform-origin: left;
-  background-color: rgba(255, 255, 255, 0.3);
-  z-index: -1;
 }
 
 .igui_seekbar_buffered {
-  @include stretch();
-  transform-origin: left;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+// Where a click would land, lighter than what is played.
+.igui_seekbar_ahead {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.igui_seekbar_progress {
+  background-color: var(--igui-accent);
 }
 
 .igui_seekbar_scrubber {
-  width: $seekbar-scrubber-radius;
-  height: $seekbar-scrubber-radius;
-  background-color: #ffffff;
-  border-radius: 100%;
   position: absolute;
-  transition: transform 75ms linear;
-  transform-origin: center;
+  top: 50%;
+  width: $seekbar-scrubber-size;
+  height: $seekbar-scrubber-size;
+  margin: math.div($seekbar-scrubber-size, -2) 0 0 math.div($seekbar-scrubber-size, -2);
+  border-radius: 50%;
+  background-color: var(--igui-accent);
   transform: scale(0);
-  margin-left: math.div($seekbar-scrubber-radius, 2) * -1;
+  transition: transform 100ms ease-out;
   z-index: 1;
+  pointer-events: none;
 
   .igui_seekbar_state-active & {
     transform: scale(1);
@@ -79,33 +109,66 @@ $seekbar-scrubber-radius: 13px;
   background-color: #ffe600;
 }
 
+// The moment under the pointer, with the chapter's title above it when there are chapters.
 .igui_seekbar_tooltip {
   position: absolute;
-  bottom: 24px;
+  bottom: calc(100% + 2px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 280px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background-color: var(--igui-surface);
   transform: translateX(-50%);
-  padding: 4px 6px;
-  background-color: #222222;
-  border-radius: 2px;
   opacity: 0;
   pointer-events: none;
+  transition: opacity 100ms linear;
 
   .igui_seekbar_state-active & {
     opacity: 1;
   }
 }
 
+.igui_seekbar_tooltip_chapter {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 18px;
+}
+
+.igui_seekbar_tooltip_time {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+// The preview frame sits above the tooltip: one line of tooltip is 24px, two (chapter + time) 42px.
 .igui_seekbar_thumbnail {
   position: absolute;
-  bottom: 24px;
+  bottom: calc(100% + 30px);
   transform: translateX(-50%);
   opacity: 0;
   pointer-events: none;
-  border-radius: 2px;
-  overflow: hidden;
 
+  .igui_seekbar_state-tooltipchapter & {
+    bottom: calc(100% + 48px);
+  }
+
+  // The frame is on the sprite, not on the wrapper: the wrapper is always there, the sprite only when there is a frame to show.
   .igui_seekbar_thumbnail_sprite {
-    width: 100px;
-    height: 100px * math.div(9, 16);
+    display: block;
+    width: 160px;
+    height: 160px * math.div(9, 16);
+    border: 2px solid #ffffff;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: #000000;
   }
 
   .igui_seekbar_state-active & {

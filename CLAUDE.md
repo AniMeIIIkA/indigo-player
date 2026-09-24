@@ -30,7 +30,7 @@ Claude Code guide for the vendored video player. **Read the monorepo root [`../.
 From `client/packages/indigo-player/`:
 
 - `npm start` — `npm run build:vite` (the default `start` script builds; there is no dev-server entry here — use `start:vite` below for HMR in `dev/`).
-- `npm run start:vite` — `vite` (dev server for the `dev/` harness).
+- `npm run start:vite` — opens the Vite-powered `dev/` workbench with HMR. It imports `src/` directly, defaults to a short Mux HLS with four in-range chapters, and provides live source, preview-size, accent, volume, speed, and chapter controls plus a collapsible state inspector. No prior `dist/` build is required. Keep an explicit size or `aspect-ratio` on `.player-host`: the player's `.ig-container` fills its host with `height: 100%` and otherwise collapses to zero height.
 - `npm run build` / `npm run build:vite` — `vite build` → populates `dist/`.
 - `npm run turbo:start` / `turbo:build` / `turbo:clean` — turbo wrappers for the outer monorepo pipeline.
 - `npm run lint` — `prettier-tslint fix '**/*.ts{,x}'`.
@@ -107,3 +107,18 @@ answered EVERY fatal network error with `startLoad()`, so one tab hit the proxy 
 - Consumers ship the player from `dist/`, which is gitignored and rebuilt by turbo (`build:admin`, site
   `build:deps`); this is a submodule commit — push it to the indigo-player remote BEFORE the pointer commit
   (root CLAUDE.md → submodules).
+
+## Chapters and the YouTube-like chrome (2026-09-24)
+
+YouTube-style chapters and a rebuilt control bar. Done in the working tree; the submodule commit and push are the owner's.
+
+- **Data**: `config.chapters: Chapter[]` (`{ title, startSec }`, each lasting until the next) and `api.setChapters(list)` to replace them live — the admin editor previews every edit this way without re-creating the player. `Instance.setChapters` also writes `config.chapters`, so a call made while the player is still starting (no modules yet) is not lost: the extension and the UI take their first list from the config.
+- **The math is pure** — `src/extensions/ChaptersExtension/chapters.ts` (`resolveChapters`, `layoutSegments`, `positionToTime`, `timeToPosition`, `segmentFill`, previous / next), tested by `tests/Chapters.test.ts`. `CHAPTER_GAP_PX` there and `$seekbar-chapter-gap` in `element-seekbar.scss` are ONE number: the pointer-to-time mapping lays the segments out with the gap the browser draws (`display: flex; gap`, `flex-grow` = the chapter's length, `flex-basis: 0`). Change one without the other and a click lands beside where the viewer pointed. Fewer than 2 chapters that fit the duration = no chapters (the plain bar).
+- **What the viewer gets**: the bar cut into segments (the one under the pointer drawn thicker, its title above the time in the tooltip), the current chapter beside the time («• Title ›») which opens `ChaptersPanel` over the right side of the picture, and Ctrl/Alt+←/→ to jump between chapters (`KeyboardNavigationExtension`).
+- **Two rows of controls now**: the progress bar across the whole width and one row of buttons under it — play, ±10 s, volume, time, chapter on the left; CC, settings, miniplayer, full screen on the right. Sizes are CSS variables on `.igui` (`--igui-row-height`, `--igui-button-size`, `--igui-icon-size`, `--igui-seekbar-height`, `--igui-edge`, `--igui-controls-height`), swapped in full screen; the button tooltips, the settings menu and the chapters panel position themselves off them. Change a size there, not in a rule.
+- **The accent is our blue `#1890ff`** (`--igui-accent` on `.ig-container`; owner 2026-09-24: «не бери красный цвет YouTube, пусть будет наш синий»): progress, scrubber, the CC underline, the chapter playing now in the panel, the HD badge, the start button under the pointer. A host may override the variable; admin and site do not.
+- **The settings menu is YouTube's**: rows «icon · name · value ›», each opening a panel with a back header and a check at the selected option; a pick returns to the main panel. `speed`, `quality`, `check` and `close` icons were added to `svg/icons.scss` as `content: url()` on the element, like every other icon (see the `cc` gotcha above). The settings button's tooltip is hidden while the menu is open — it peeked out from under the menu.
+- **Narrow players**: `Main` sets `igui_size-small` (< 560 px) and `igui_size-tiny` (< 400 px) from `Events.DIMENSIONS_CHANGE`; small drops the ±10 s buttons and the miniplayer and tightens the sizes, tiny drops the chapter title too. Without it the row overflowed at 420 px and the chapter title slid under the CC button.
+- **Subtitles lift by the measured controls height** (`triggerEvent.ts` → `subtitlesOffset`, 42 px as the floor), not a constant — the controls grew.
+- **i18n**: `Chapters`, `Close`, `Playback speed`, `Off`, `Back`, `Options`, `No settings available` in all 7 locales, plus the subtitle-style keys the five locales beyond en/ru never got, so `tests/verify-i18n.test.ts` passes again. `Speed` and `No subtitles` are unused now but kept: the test wants the same key set everywhere. Run: `npx jest tests/Chapters.test.ts tests/verify-i18n.test.ts --env=node`.
+- **Checking the look without a host**: `dist/index.mjs` is self-contained, so a static page that imports it (plus `window.process = { env: { NODE_ENV: 'development' } }` before the import — the bundle leaves that to the host's bundler) and headless Chrome over CDP can photograph every state. That is how this pass was checked, at 960 / 420 / 360 px.

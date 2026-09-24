@@ -7,7 +7,8 @@
 
   &:after {
     content: '';
-    background-color: rgba(0, 0, 0, .5);
+    // A light veil, not half the picture: the play button carries its own dark plate.
+    background-color: rgba(0, 0, 0, 0.2);
     @include stretch();
   }
 }
