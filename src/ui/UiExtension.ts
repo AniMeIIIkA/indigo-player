@@ -3,7 +3,7 @@ import React, { RefObject } from 'react';
 import { Module } from '../Module';
 import { Events } from '../types';
 import { IInstance } from '../types/IInstance';
-import { render } from './render';
+import { render, unmount } from './render';
 import { IStateStore } from './types';
 
 declare var __webpack_public_path__: string;
@@ -28,6 +28,8 @@ export class UiExtension extends Module {
     this.instance.on(Events.STATE_CHANGE, state =>
       render(container, state, this.instance, this.ref),
     );
+    // Each player owns its UI root; the next player on the page (a new source, the next video) gets a fresh one.
+    this.instance.on(Events.DESTROY, () => unmount(container));
   }
 
   private setTheme() {
