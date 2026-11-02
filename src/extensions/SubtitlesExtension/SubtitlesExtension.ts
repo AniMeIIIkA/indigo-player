@@ -37,6 +37,9 @@ export class SubtitlesExtension extends Module {
     insertAfter(container, this.instance.playerContainer);
 
     this.text = document.createElement('span');
+    // Hidden until a line is on screen: an empty span still draws its padding and background, and with the «box» subtitle
+    // style that was a small dark box at the bottom of every video, even with subtitles off (Ridley recording, 2026-11-02).
+    this.text.style.display = 'none';
     container.appendChild(this.text);
 
     this.instance.on(Events.PLAYER_STATE_TIMEUPDATE, this.onTimeUpdate);
@@ -117,7 +120,8 @@ export class SubtitlesExtension extends Module {
     if (activeTiming !== this.activeTiming) {
       this.activeTiming = activeTiming;
 
-      const text = this.activeTiming ? this.activeTiming.text : null;
+      // a line of only spaces shows nothing, so it must not show the box either
+      const text = this.activeTiming && this.activeTiming.text.trim() ? this.activeTiming.text : null;
 
       this.text.innerHTML = text ? text : '';
       this.text.style.display = text ? 'inline-block' : 'none';
