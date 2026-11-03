@@ -140,9 +140,17 @@ export class HTML5Player extends Player {
     this.mediaElement.currentTime = time;
   }
 
+  /**
+   * 0 = `muted`, never a zero level: on iOS/iPadOS the player shows the browser's own controls, whose sound button only
+   * flips `muted` and has no level slider — a `volume = 0` written here (a `muted` embed, `?muted=true`) left the
+   * iPad silent after "unmute" (SUP-244). The level is written only for an audible volume; the state still reports
+   * a muted element as 0 (see `volumechange` above).
+   */
   public setVolume(volume: number) {
-    this.mediaElement.volume = volume;
-    this.mediaElement.muted = volume === 0;
+    if (volume > 0) {
+      this.mediaElement.volume = volume;
+    }
+    this.mediaElement.muted = volume <= 0;
   }
 
   public setPlaybackRate(playbackRate: number) {
